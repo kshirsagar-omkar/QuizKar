@@ -110,13 +110,13 @@ CREATE TABLE leaderboard (
 -- ============================
 -- Admin
 INSERT INTO users (username, email, password, role) VALUES 
-('admin_user', 'admin@example.com', 'admin123', 'admin');
+('admin', 'admin@gmail.com', 'admin123', 'admin');
 
 -- Students
 INSERT INTO users (username, email, password) VALUES 
-('user1', 'user1@example.com', 'user1pass'),
-('user2', 'user2@example.com', 'user2pass'),
-('user3', 'user3@example.com', 'user3pass');
+('aaa', 'aaa@gmail.com', '123'),
+('bbb', 'bbb@gmail.com', '123'),
+('ccc', 'ccc@gmail.com', '123');
 
 -- ============================
 -- 2. INSERT STUDY PLANS

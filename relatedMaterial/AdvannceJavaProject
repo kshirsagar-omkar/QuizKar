@@ -1,0 +1,309 @@
+Advannce Java Project
+
+
+
+
+
+
+
+
+DATABASE
+==============
+
+Prompt
+--------------------------
+
+
+
+
+
+Suppose you are an pro database designer who works Compinies like 
+Leetcode, Quiz, Hackerrank, google forms and many other companies which works on Quiz and study plans
+
+
+And i need help from you
+Im creating a webapplication for that i need and proper and accurate databse schema for my project
+Here is the structure of my project  
+```
+1.Login page
+login as user login as admin
+
+2. register page
+here only register for user is available 
+admin doesent need to regiseter he gets the username and password by our team
+
+3. User Side pages
+a. Dashboard
+b. profile. user can update profile
+c. study plan. here user can select and start studying
+d. Quiz here user can select one quiz at a time 
+e. selected quiz question and answer visible here
+f. logout
+h. setting. here user can delete ther account
+i. leaderboard. here leader board is displayd group by quiz
+
+4. Admin dashboard
+a. add student plan
+b. update or delete study plan
+c. add quiz
+d. update or delete quiz
+
+```
+
+
+
+Note : database schema for this project should be related refrence key On Update cascade on delete cascade
+
+
+
+Some thought of mine : 
+1. when admin do  any crud opration on  quiz/study plan that already given by some user so this must not interfair with student gived quiz which is shown on dashboard 
+2. Questions are limited 10 question only and all must be not null
+3. may answer table required for stroing the ansers of the questions with question id so it can help while checking answers in backend
+
+
+give me
+
+
+
+
+
+
+--------------------------------------------
+--------------------------------------------
+
+
+
+
+
+
+
+Schema
+-------------------------
+
+
+
+
+
+
+DROP TABLE IF EXISTS question CASCADE;
+DROP TABLE IF EXISTS quiz CASCADE;
+DROP TABLE IF EXISTS study_plan CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
+DROP TABLE IF EXISTS leaderboard CASCADE;
+DROP TABLE IF EXISTS user_studyplan_enrollment CASCADE;
+
+
+
+
+
+-- ===============================
+-- 1. USERS TABLE
+-- Stores all users including admins and students.
+-- ===============================
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(10) NOT NULL DEFAULT 'user' 
+        CHECK (role IN ('user', 'admin')) -- Only 'user' or 'admin'
+);
+
+-- ===============================
+-- 2. STUDY PLAN TABLE
+-- Stores all study plans created by admin.
+-- ===============================
+CREATE TABLE study_plan (
+    studyplan_id SERIAL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INT NOT NULL,
+    FOREIGN KEY (created_by) REFERENCES users(user_id) 
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+-- ===============================
+-- 2.a USER STUDY PLAN ENROLLMENT TABLE
+-- Links users to study plans they enrolled in (Many-to-Many relationship)
+-- ===============================
+CREATE TABLE user_studyplan_enrollment (
+    enrollment_id SERIAL PRIMARY KEY,
+    user_id INT NOT NULL,
+    studyplan_id INT NOT NULL,
+    enrolled_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) 
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (studyplan_id) REFERENCES study_plan(studyplan_id) 
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    UNIQUE(user_id, studyplan_id) -- Prevent duplicate enrollment
+);
+
+-- ===============================
+-- 3. QUIZ TABLE
+-- Stores all quizzes
+-- ===============================
+CREATE TABLE quiz (
+    quiz_id SERIAL PRIMARY KEY,
+    title VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by INT NOT NULL,
+    FOREIGN KEY (created_by) REFERENCES users(user_id) 
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+-- ===============================
+-- 4. QUESTION TABLE
+-- Stores questions related to a quiz
+-- ===============================
+CREATE TABLE question (
+    question_id SERIAL PRIMARY KEY,
+    quiz_id INT NOT NULL,
+    question_text TEXT NOT NULL,
+    option_a VARCHAR(255) NOT NULL,
+    option_b VARCHAR(255) NOT NULL,
+    option_c VARCHAR(255) NOT NULL,
+    option_d VARCHAR(255) NOT NULL,
+    correct_answer CHAR(1) NOT NULL 
+        CHECK (correct_answer IN ('A', 'B', 'C', 'D')),
+    FOREIGN KEY (quiz_id) REFERENCES quiz(quiz_id) 
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+-- ===============================
+-- 5. LEADERBOARD TABLE
+-- Tracks user scores and quiz participation.
+-- ===============================
+CREATE TABLE leaderboard (
+    leaderboard_id SERIAL PRIMARY KEY,
+    participation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    quiz_id INT NOT NULL,
+    user_id INT NOT NULL,
+    UNIQUE (quiz_id, user_id),
+    score INT NOT NULL CHECK (score >= 0),
+    FOREIGN KEY (quiz_id) REFERENCES quiz(quiz_id) 
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (user_id) REFERENCES users(user_id) 
+        ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+admin Operation Restriction:
+
+The schema currently allows full CRUD operations on the Quiz table.
+To enforce that admins can only add quizzes (and not update or delete them), 
+you must enforce this at the database privilege level rather than via table constraints. 
+
+For example, you could:
+Create a separate database role for admins.
+
+Grant only INSERT and SELECT privileges on the Quiz table to that role.
+Deny UPDATE and DELETE privileges.
+
+Here’s a sample snippet to illustrate:
+
+
+```
+REVOKE ALL ON TABLE Quiz FROM admin_role;
+GRANT SELECT, INSERT ON TABLE Quiz TO admin_role;
+```
+
+
+This way, even if an admin account exists, the database won’t allow UPDATE or DELETE 
+operations on the Quiz table. Such privilege management is done outside of the table definition.
+
+
+
+
+
+
+
+
+
+
+=============================================================================================
+
+
+Mermaid.js
+
+
+To visualize your database schema using Mermaid.js, you can create an Entity-Relationship Diagram (ERD) by writing Mermaid syntax that represents your tables and their relationships. Below is the Mermaid code corresponding to your provided schema:
+    
+
+=============
+
+
+erDiagram
+    %% Users Table
+    users {
+        int user_id PK
+        varchar username
+        varchar email
+        varchar password
+        varchar role
+    }
+
+    %% Study Plan Table
+    study_plan {
+        int studyplan_id PK
+        varchar name
+        timestamp created_at
+        int created_by FK
+    }
+
+    %% User Study Plan Enrollment Table
+    user_studyplan_enrollment {
+        int enrollment_id PK
+        int user_id FK
+        int studyplan_id FK
+        timestamp enrolled_at
+    }
+
+    %% Quiz Table
+    quiz {
+        int quiz_id PK
+        varchar title
+        timestamp created_at
+        int created_by FK
+    }
+
+    %% Question Table
+    question {
+        int question_id PK
+        int quiz_id FK
+        text question_text
+        varchar option_a
+        varchar option_b
+        varchar option_c
+        varchar option_d
+        char correct_answer
+    }
+
+    %% Leaderboard Table
+    leaderboard {
+        int leaderboard_id PK
+        timestamp participation_date
+        int quiz_id FK
+        int user_id FK
+        int score
+    }
+
+    %% Relationships
+    users ||--o{ study_plan : "creates"
+    users ||--o{ quiz : "creates"
+    users ||--o{ user_studyplan_enrollment : "enrolls"
+    study_plan ||--o{ user_studyplan_enrollment : "has enrollments"
+    quiz ||--o{ question : "contains"
+    users ||--o{ leaderboard : "participates"
+    quiz ||--o{ leaderboard : "has results"

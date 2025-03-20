@@ -1,6 +1,7 @@
 package com.quizkar.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -45,13 +46,53 @@ public class StudyPalanDaoImpl implements StudyPlanDao{
 	
 	
 	
+	// Get Study Plans Enrolled by Specific User
+	public List<StudyPlan> getSpecificUserStudyPlans(Integer userId) throws SQLException
+	{
+		
+		List<StudyPlan> studyPlans = new ArrayList<>();
+		
+		final String query = "SELECT sp.studyplan_id, sp.name, sp.created_at FROM study_plan sp JOIN user_studyplan_enrollment use ON sp.studyplan_id = use.studyplan_id WHERE use.user_id = ?";
+		
+		
+		try (Connection connection = DBUtil.getConnection();
+			 PreparedStatement preparedStatement  = connection.prepareStatement(query)) {
+			
+			preparedStatement.setInt(1, userId);
+			
+			try(ResultSet	resultSet  = preparedStatement.executeQuery() ) {
+				
+				while(resultSet.next()) {
+					
+					StudyPlan studyPlan = new StudyPlan();
+					
+					studyPlan.setStudyPlanId( resultSet.getInt("studyplan_id") );
+					studyPlan.setName( resultSet.getString("name") );
+					
+					//2025-03-20 17:26:45.918626 -> 2025-03-20 17:26:45
+					studyPlan.setCreatedAt( (resultSet.getString("created_at")).split("\\.")[0] );	
+					
+					studyPlans.add(studyPlan);	
+				}
+			}	
+		}	
+		return studyPlans.isEmpty() ? null : studyPlans;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 //	public static void main(String[] args) throws SQLException{
 //		
 //		StudyPlanDao spd = new StudyPalanDaoImpl();
 //		
 //		
-//		List<StudyPlan> studyPlans = spd.getStudyPlans();
+//		List<StudyPlan> studyPlans = spd.getSpecificUserStudyPlans(2);
 //		
 //		if(studyPlans != null) {
 //			for(var sp : studyPlans) {

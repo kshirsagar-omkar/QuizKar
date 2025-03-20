@@ -11,5 +11,5 @@ public interface QuizDAO {
 	public abstract List<Quiz> getQuizes() throws SQLException;
 	
 	// -- Get Quizzes Given by Specific User 
-	public abstract List<GivenQuizesDTO> getQuizGivenBySpecificUser(Integer userId) throws SQLException;
+	public abstract List<GivenQuizesDTO> getQuizesGivenBySpecificUser(Integer userId) throws SQLException;
 }

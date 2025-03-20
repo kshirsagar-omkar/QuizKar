@@ -44,7 +44,7 @@ public class QuizDAOImpl implements QuizDAO{
 	
 	
 	
-	public List<GivenQuizesDTO> getQuizGivenBySpecificUser(Integer userId) throws SQLException{
+	public List<GivenQuizesDTO> getQuizesGivenBySpecificUser(Integer userId) throws SQLException{
 		
 		
 		List<GivenQuizesDTO> quizLeaderBoardDTOs = new ArrayList<>();

@@ -7,7 +7,7 @@ public class Quiz {
 	//@Columns
 	private String title;
 	private String createdAt;
-	private Integer timeTaken;
+	private Integer timeLimit;
 	private Integer createdBy; // Reference com.quizkar.entities -> Users.userId
 	
 	
@@ -30,11 +30,11 @@ public class Quiz {
 	public void setCreatedAt(String createdAt) {
 		this.createdAt = createdAt;
 	}
-	public Integer getTimeTaken() {
-		return timeTaken;
+	public Integer getTimeLimit() {
+		return timeLimit;
 	}
-	public void setTimeTaken(Integer timeTaken) {
-		this.timeTaken = timeTaken;
+	public void setTimeLimit(Integer timeLimit) {
+		this.timeLimit = timeLimit;
 	}
 	public Integer getCreatedBy() {
 		return createdBy;

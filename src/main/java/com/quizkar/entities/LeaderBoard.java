@@ -10,9 +10,16 @@ public class LeaderBoard {
 	private Integer quizId;  			// Reference com.quizkar.entities -> Quiz.quizId
 	private Integer userId;  			// Reference com.quizkar.entities -> Users.userId
 	private Integer score;
+	private Integer timeTaken;
 	
 	
 	
+	public Integer getTimeTaken() {
+		return timeTaken;
+	}
+	public void setTimeTaken(Integer timeTaken) {
+		this.timeTaken = timeTaken;
+	}
 	public Integer getLeaderBoardId() {
 		return leaderBoardId;
 	}

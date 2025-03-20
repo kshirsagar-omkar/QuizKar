@@ -3,6 +3,7 @@ package com.quizkar.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.quizkar.dto.GivenQuizesDTO;
 import com.quizkar.entities.Quiz;
 
 public interface QuizDAO {
@@ -10,5 +11,5 @@ public interface QuizDAO {
 	public abstract List<Quiz> getQuizes() throws SQLException;
 	
 	// -- Get Quizzes Given by Specific User 
-//	public abstract List<Quiz> getSpecificUserQuizes(Integer userId) throws SQLException;
+	public abstract List<GivenQuizesDTO> getQuizGivenBySpecificUser(Integer userId) throws SQLException;
 }

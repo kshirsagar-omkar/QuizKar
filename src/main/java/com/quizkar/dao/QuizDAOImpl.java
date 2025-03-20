@@ -10,7 +10,7 @@ import java.util.List;
 import com.quizkar.entities.Quiz;
 import com.quizkar.util.DBUtil;
 
-public class QuizDaoImpl implements QuizDao{
+public class QuizDAOImpl implements QuizDAO{
 
 	public List<Quiz> getQuizes() throws SQLException{
 		
@@ -41,23 +41,23 @@ public class QuizDaoImpl implements QuizDao{
 	
 	
 	
+
 	
 	
 	
-	
-	public static void main(String[] args) throws SQLException{
-	
-	QuizDao qd = new QuizDaoImpl();
-	
-	
-	List<Quiz> qs = qd.getQuizes();
-	
-	if(qs != null) {
-		for(var q : qs) {
-			System.out.println( q.getQuizId() + " " + q.getTitle() + " " + q.getTimeLimit() + " " + q.getCreatedAt());
-		}
-	}
-	System.out.println("quiz");
-}	
+//	public static void main(String[] args) throws SQLException{
+//	
+//		QuizDAO qd = new QuizDAOImpl();
+//		
+//		
+//		List<Quiz> qs = qd.getQuizes();
+//		
+//		if(qs != null) {
+//			for(var q : qs) {
+//				System.out.println( q.getQuizId() + " " + q.getTitle() + " " + q.getTimeLimit() + " " + q.getCreatedAt());
+//			}
+//		}
+//		System.out.println("quiz");
+//	}	
 	
 }

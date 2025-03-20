@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.quizkar.entities.StudyPlan;
 
-public interface StudyPlanDao {
+public interface StudyPlanDAO {
 	
 	// Get All Study Plans
 	public abstract List<StudyPlan> getStudyPlans() throws SQLException;

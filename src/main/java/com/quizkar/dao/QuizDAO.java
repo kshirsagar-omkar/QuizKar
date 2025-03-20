@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.quizkar.entities.Quiz;
 
-public interface QuizDao {
+public interface QuizDAO {
 	// -- Get ALL Quizzes 
 	public abstract List<Quiz> getQuizes() throws SQLException;
 	

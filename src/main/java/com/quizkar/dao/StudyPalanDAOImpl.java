@@ -11,7 +11,7 @@ import java.util.List;
 import com.quizkar.entities.StudyPlan;
 import com.quizkar.util.DBUtil;
 
-public class StudyPalanDaoImpl implements StudyPlanDao{
+public class StudyPalanDAOImpl implements StudyPlanDAO{
 		
 	
 	// Get All Study Plans
@@ -89,7 +89,7 @@ public class StudyPalanDaoImpl implements StudyPlanDao{
 	
 //	public static void main(String[] args) throws SQLException{
 //		
-//		StudyPlanDao spd = new StudyPalanDaoImpl();
+//		StudyPlanDAO spd = new StudyPalanDAOImpl();
 //		
 //		
 //		List<StudyPlan> studyPlans = spd.getSpecificUserStudyPlans(2);

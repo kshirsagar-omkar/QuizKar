@@ -117,22 +117,22 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 	
 	
 	
-	public static void main(String[] args) {
-	    try {
-	    	StudyPlanDAO sd = new StudyPlanDAOImpl();
-	
-	    	StudyPlan sp = new StudyPlan();
-	    	sp.setName("aa");
-	    	sp.setCreatedBy(1);
-	    	
-	    	Integer Id = sd.addStudyPlan(sp);
-	
-	    	System.out.println(Id);
-	    }
-	    catch(SQLException e) {
-	    	e.printStackTrace();
-	    }
-	}
+//	public static void main(String[] args) {
+//	    try {
+//	    	StudyPlanDAO sd = new StudyPlanDAOImpl();
+//	
+//	    	StudyPlan sp = new StudyPlan();
+//	    	sp.setName("aa");
+//	    	sp.setCreatedBy(1);
+//	    	
+//	    	Integer Id = sd.addStudyPlan(sp);
+//	
+//	    	System.out.println(Id);
+//	    }
+//	    catch(SQLException e) {
+//	    	e.printStackTrace();
+//	    }
+//	}
 	
 }
 

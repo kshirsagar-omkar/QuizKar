@@ -126,22 +126,22 @@ public class QuizDAOImpl implements QuizDAO{
 	
 	
 
-	public static void main(String[] args) {
-	    try {
-	    	QuizDAO dao = new QuizDAOImpl();
-	
-	    	Quiz ob = new Quiz();
-	    	ob.setTitle("aaaaaaa");
-	    	ob.setCreatedBy(1);
-	    	ob.setTimeLimit(50);
-	    	
-	    	Integer Id = dao.addQuiz(ob);
-	
-	    	System.out.println(Id);
-	    }
-	    catch(SQLException e) {
-	    	e.printStackTrace();
-	    }
-	}
+//	public static void main(String[] args) {
+//	    try {
+//	    	QuizDAO dao = new QuizDAOImpl();
+//	
+//	    	Quiz ob = new Quiz();
+//	    	ob.setTitle("aaaaaaa");
+//	    	ob.setCreatedBy(1);
+//	    	ob.setTimeLimit(50);
+//	    	
+//	    	Integer Id = dao.addQuiz(ob);
+//	
+//	    	System.out.println(Id);
+//	    }
+//	    catch(SQLException e) {
+//	    	e.printStackTrace();
+//	    }
+//	}
 	
 }

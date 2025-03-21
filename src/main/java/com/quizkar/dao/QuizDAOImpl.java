@@ -11,6 +11,7 @@ import java.util.List;
 import com.quizkar.dto.GivenQuizesDTO;
 import com.quizkar.entities.LeaderBoard;
 import com.quizkar.entities.Quiz;
+import com.quizkar.entities.StudyPlan;
 import com.quizkar.util.DBUtil;
 
 public class QuizDAOImpl implements QuizDAO{
@@ -81,31 +82,66 @@ public class QuizDAOImpl implements QuizDAO{
 		
 	}
 	
-
 	
-//	public static void main(String[] args) throws SQLException {
-//		
-//		QuizDAO qd = new QuizDAOImpl();
-//		
-//		List<GivenQuizesDTO> l = qd.getQuizGivenBySpecificUser(2);
-//		
-//		if (l != null) {
-//			for (var q : l) {
-//				System.out.println(
-//					q.getQuizId() + " " +
-//					q.getQuizTitle() + " " +
-//					q.getQuizTimeLimit() + " " +
-//					q.getLeaderBoardScore() + " " +
-//					q.getLeaderBoardParticipationDate() + " " +
-//					q.getLeaderBoardTimeTaken()
-//				);
-//			}
-//		} else {
-//			System.out.println("No quizzes found for this user.");
-//		}
-//		
-//		System.out.println("quiz");
-//	}
+	
+	
+	
+	
+	
+	
+	
+	
+	public Integer addQuiz(Quiz quiz) throws SQLException
+	{
+		String query = "INSERT INTO quiz (title, created_by, time_limit) VALUES (?, ?, ?) RETURNING quiz_id";
+		Integer generatedId = null;
+		
+		try (Connection connection = DBUtil.getConnection();
+		     PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			
+//			connection.setAutoCommit(false);
+			
+		    preparedStatement.setString(1, quiz.getTitle());
+		    preparedStatement.setInt(2, quiz.getCreatedBy());
+		    preparedStatement.setInt(3, quiz.getTimeLimit());
 
+		    ResultSet resultSet = preparedStatement.executeQuery();
+
+		    
+		    if (resultSet.next()) {
+		        generatedId = resultSet.getInt("quiz_id");
+//		        System.out.println("Inserted User ID: " + generatedId);
+		    }
+		}
+		catch (SQLException e) {
+		    e.printStackTrace();
+		    throw e; 
+		}
+		return generatedId;
+	}
+	
+	
+	
+	
+	
+	
+
+	public static void main(String[] args) {
+	    try {
+	    	QuizDAO dao = new QuizDAOImpl();
+	
+	    	Quiz ob = new Quiz();
+	    	ob.setTitle("aaaaaaa");
+	    	ob.setCreatedBy(1);
+	    	ob.setTimeLimit(50);
+	    	
+	    	Integer Id = dao.addQuiz(ob);
+	
+	    	System.out.println(Id);
+	    }
+	    catch(SQLException e) {
+	    	e.printStackTrace();
+	    }
+	}
 	
 }

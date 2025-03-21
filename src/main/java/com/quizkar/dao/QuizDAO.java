@@ -12,4 +12,7 @@ public interface QuizDAO {
 	
 	// -- Get Quizzes Given by Specific User 
 	public abstract List<GivenQuizesDTO> getQuizesGivenBySpecificUser(Integer userId) throws SQLException;
+	
+	// -- Add Quiz returns the inserted quiz id
+	public abstract Integer addQuiz(Quiz quiz) throws SQLException;
 }

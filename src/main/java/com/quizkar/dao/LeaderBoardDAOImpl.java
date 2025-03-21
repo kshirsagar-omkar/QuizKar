@@ -1,6 +1,7 @@
 package com.quizkar.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.quizkar.dto.GlobalLeaderBoardDTO;
+import com.quizkar.entities.LeaderBoard;
 import com.quizkar.util.DBUtil;
 
 public class LeaderBoardDAOImpl implements LeaderBoardDAO{
@@ -42,10 +44,7 @@ public class LeaderBoardDAOImpl implements LeaderBoardDAO{
 		}	
 		return globalLeaderBoardDTOs.isEmpty() ? null : globalLeaderBoardDTOs;
 	}
-	
-	
-	
-	
+	//Helper Method
 	private String queryGenerator(String filter) {
 		
 		if(filter != null) {
@@ -69,27 +68,58 @@ public class LeaderBoardDAOImpl implements LeaderBoardDAO{
 	
 	
 	
+	
+	
+	public Integer addLeaderBoard(LeaderBoard leaderBoard) throws SQLException
+	{
+		String query = "INSERT INTO leaderboard (quiz_id, user_id, score, time_taken) VALUES(?, ?, ?, ?) RETURNING leaderboard_id";
+		Integer generatedId = null;
+		
+		try (Connection connection = DBUtil.getConnection();
+		     PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			
+//			connection.setAutoCommit(false);
+			
+		    preparedStatement.setInt(1, leaderBoard.getQuizId());
+		    preparedStatement.setInt(2, leaderBoard.getUserId());
+		    preparedStatement.setInt(3, leaderBoard.getScore());
+		    preparedStatement.setInt(4, leaderBoard.getTimeTaken());
+
+		    ResultSet resultSet = preparedStatement.executeQuery();
+
+		    
+		    if (resultSet.next()) {
+		        generatedId = resultSet.getInt("leaderboard_id");
+//		        System.out.println("Inserted  ID: " + generatedId);
+		    }
+		}
+		catch (SQLException e) {
+		    e.printStackTrace();
+		    throw e; 
+		}
+		return generatedId;
+	}
+	
+	
+	
+	
+	
 //	public static void main(String[] args) {
 //	    try {
-//	    	LeaderBoardDAO leaderboardService = new LeaderBoardDAOImpl(); // Replace with your actual class name
-//	        List<GlobalLeaderBoardDTO> leaderboard = leaderboardService.getLeaderBoard("Java OOPs Quiz");
-//
-//	        if (leaderboard != null) {
-//	            for (GlobalLeaderBoardDTO dto : leaderboard) {
-//	                System.out.println("Quiz Title: " + dto.getQuizTitle());
-//	                System.out.println("Username: " + dto.getUsername());
-//	                System.out.println("Score: " + dto.getScore());
-//	                System.out.println("Participation Date: " + dto.getParticipationDate());
-//	                System.out.println("Time Limit: " + dto.getTimeLimit());
-//	                System.out.println("Time Taken: " + dto.getTimeTaken());
-//	                System.out.println("Rank: " + dto.getRank());
-//	                System.out.println("----------------------------");
-//	            }
-//	        } else {
-//	            System.out.println("No leaderboard data found.");
-//	        }
-//	    } catch (SQLException e) {
-//	        e.printStackTrace();
+//	    	LeaderBoardDAO dao = new LeaderBoardDAOImpl();
+//	
+//	    	LeaderBoard ob = new LeaderBoard();
+//	    	ob.setQuizId(2);
+//	    	ob.setUserId(3);
+//	    	ob.setScore(50);
+//	    	ob.setTimeTaken(10);
+//	    	
+//	    	Integer Id = dao.addLeaderBoard(ob);
+//	
+//	    	System.out.println(Id);
+//	    }
+//	    catch(SQLException e) {
+//	    	e.printStackTrace();
 //	    }
 //	}
 

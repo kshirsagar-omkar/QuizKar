@@ -11,7 +11,7 @@ import java.util.List;
 import com.quizkar.entities.StudyPlan;
 import com.quizkar.util.DBUtil;
 
-public class StudyPalanDAOImpl implements StudyPlanDAO{
+public class StudyPlanDAOImpl implements StudyPlanDAO{
 		
 	
 	// Get All Study Plans
@@ -85,22 +85,54 @@ public class StudyPalanDAOImpl implements StudyPlanDAO{
 	
 	
 	
+	public Integer addStudyPlan(StudyPlan studyPlan) throws SQLException
+	{
+		String query = "INSERT INTO study_plan (name, created_by) VALUES (?, ?) RETURNING studyplan_id";
+		Integer generatedId = null;
+		
+		try (Connection connection = DBUtil.getConnection();
+		     PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			
+//			connection.setAutoCommit(false);
+			
+		    preparedStatement.setString(1, studyPlan.getName());
+		    preparedStatement.setInt(2, studyPlan.getCreatedBy());
+
+		    ResultSet resultSet = preparedStatement.executeQuery();
+
+		    
+		    if (resultSet.next()) {
+		        generatedId = resultSet.getInt("studyplan_id");
+//		        System.out.println("Inserted User ID: " + generatedId);
+		    }
+		}
+		catch (SQLException e) {
+		    e.printStackTrace();
+		    throw e; 
+		}
+		return generatedId;
+	}
 	
 	
-//	public static void main(String[] args) throws SQLException{
-//		
-//		StudyPlanDAO spd = new StudyPalanDAOImpl();
-//		
-//		
-//		List<StudyPlan> studyPlans = spd.getSpecificUserStudyPlans(2);
-//		
-//		if(studyPlans != null) {
-//			for(var sp : studyPlans) {
-//				System.out.println( sp.getStudyPlanId() + " " + sp.getName() + " " + sp.getCreatedAt());
-//			}
-//		}
-//		System.out.println("Hello");
-//	}
+	
+	
+	
+	public static void main(String[] args) {
+	    try {
+	    	StudyPlanDAO sd = new StudyPlanDAOImpl();
+	
+	    	StudyPlan sp = new StudyPlan();
+	    	sp.setName("aa");
+	    	sp.setCreatedBy(1);
+	    	
+	    	Integer Id = sd.addStudyPlan(sp);
+	
+	    	System.out.println(Id);
+	    }
+	    catch(SQLException e) {
+	    	e.printStackTrace();
+	    }
+	}
 	
 }
 

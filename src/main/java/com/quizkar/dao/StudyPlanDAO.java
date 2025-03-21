@@ -12,4 +12,9 @@ public interface StudyPlanDAO {
 	
 	// Get Study Plans Enrolled by Specific User
 	public abstract List<StudyPlan> getSpecificUserStudyPlans(Integer userId) throws SQLException;
+	
+	
+	
+	//Add Study Plan
+	public abstract Integer addStudyPlan(StudyPlan studyPlan) throws SQLException;
 }

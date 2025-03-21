@@ -14,22 +14,7 @@ public class LeaderBoardDAOImpl implements LeaderBoardDAO{
 
 	public List<GlobalLeaderBoardDTO> getLeaderBoard(String filter) throws SQLException{		
 
-		String query = "SELECT q.title, u.username, lb.score, lb.participation_date, q.time_limit, lb.time_taken, " +
-                "ROW_NUMBER() OVER (PARTITION BY q.quiz_id ORDER BY lb.score DESC, lb.time_taken ASC) AS rank " +
-                "FROM leaderboard lb " +
-                "JOIN users u ON lb.user_id = u.user_id " +
-                "JOIN quiz q ON lb.quiz_id = q.quiz_id " +
-                "ORDER BY q.title, rank";
-		
-		if(filter != null) {
-			query = "SELECT q.title, u.username, lb.score, lb.participation_date, q.time_limit, lb.time_taken, " +
-		               "ROW_NUMBER() OVER (PARTITION BY q.quiz_id ORDER BY lb.score DESC, lb.time_taken ASC) AS rank " +
-		               "FROM leaderboard lb " +
-		               "JOIN users u ON lb.user_id = u.user_id " +
-		               "JOIN quiz q ON lb.quiz_id = q.quiz_id " +
-		               "WHERE q.title = '" + filter + "' " + // <- WHERE comes before ORDER BY
-		               "ORDER BY q.title, rank";
-		}
+		String query = queryGenerator(filter);
 		
 		List<GlobalLeaderBoardDTO> globalLeaderBoardDTOs = new ArrayList<>();
 		
@@ -58,6 +43,29 @@ public class LeaderBoardDAOImpl implements LeaderBoardDAO{
 		return globalLeaderBoardDTOs.isEmpty() ? null : globalLeaderBoardDTOs;
 	}
 	
+	
+	
+	
+	private String queryGenerator(String filter) {
+		
+		if(filter != null) {
+			return "SELECT q.title, u.username, lb.score, lb.participation_date, q.time_limit, lb.time_taken, " +
+		               "ROW_NUMBER() OVER (PARTITION BY q.quiz_id ORDER BY lb.score DESC, lb.time_taken ASC) AS rank " +
+		               "FROM leaderboard lb " +
+		               "JOIN users u ON lb.user_id = u.user_id " +
+		               "JOIN quiz q ON lb.quiz_id = q.quiz_id " +
+		               "WHERE q.title = '" + filter + "' " + // <- WHERE comes before ORDER BY
+		               "ORDER BY q.title, rank";
+		}
+		
+		return  "SELECT q.title, u.username, lb.score, lb.participation_date, q.time_limit, lb.time_taken, " +
+                "ROW_NUMBER() OVER (PARTITION BY q.quiz_id ORDER BY lb.score DESC, lb.time_taken ASC) AS rank " +
+                "FROM leaderboard lb " +
+                "JOIN users u ON lb.user_id = u.user_id " +
+                "JOIN quiz q ON lb.quiz_id = q.quiz_id " +
+                "ORDER BY q.title, rank";
+
+	}
 	
 	
 	

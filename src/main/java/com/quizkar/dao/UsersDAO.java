@@ -15,4 +15,8 @@ public interface UsersDAO {
 
 	//Validate the user is present in database with correct credentials if yes returns user_id else null
 	public abstract Integer validateUser(Users user) throws SQLException;
+	
+	
+	//Get user is used for showing user details on profile
+	public abstract Users getUser(String userName) throws SQLException;
 }

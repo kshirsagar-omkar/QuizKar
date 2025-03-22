@@ -115,25 +115,79 @@ public class UsersDAOImpl implements UsersDAO{
 	
 	
 	
+	
+	
+	public Users getUser(String userName) throws SQLException
+	{
+		Users user = null;
+		
+		String query = "SELECT * FROM users WHERE username = ?";
+		
+		try(Connection connection = DBUtil.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(query))
+		{
+			preparedStatement.setString(1, userName);
+			
+			try(ResultSet resultSet = preparedStatement.executeQuery()){
+				if(resultSet.next()) {
+					
+					user = new Users();
+					
+					user.setUserId( resultSet.getInt("user_id") );
+					user.setUserName( resultSet.getString("username") );
+					user.setEmail( resultSet.getString("email") );
+					user.setPassword( resultSet.getString("password") ); 
+					user.setRole( resultSet.getString("role") );
+				}
+			}
+		}		
+		return user;
+	}
+	
+	
+	
+	
+	
 //	public static void main(String[] args) {
 //	    try {
 //	    	UsersDAO ud = new UsersDAOImpl();
 //	
 //	    	Users u = new Users();
-////	    	u.setUserId(5);
-////	    	u.setUserName("zzz");
+//	    	u.setUserId(5);
+//	    	u.setUserName("zzz");
 //	    	u.setEmail("zzz@gmail.com");
 //	    	u.setPassword("123");
-////	    	u.setRole("user");
+//	    	u.setRole("user");
 //	    	
 //	    	Integer userId = ud.validateUser(u);
 //	
 //	    	System.out.println(userId);
+//	    	
+//	    	
+//	    	
+////	    	Users u1 = ud.getUser("aaa");
+////	    	displayUser(u1);
+//	    	
 //	    }
 //	    catch(SQLException e) {
 //	    	e.printStackTrace();
 //	    }
 //	}
 	
+	
+//	private static void displayUser(Users user)
+//	{
+//	    if (user != null) {
+//	        System.out.println("User Details:");
+//	        System.out.println("User ID   : " + user.getUserId());
+//	        System.out.println("Username  : " + user.getUserName());
+//	        System.out.println("Email     : " + user.getEmail());
+//	        System.out.println("Role      : " + user.getRole());
+//	        // Not printing password for security reasons
+//	    } else {
+//	        System.out.println("No user data to display.");
+//	    }
+//	}
+
 
 }

@@ -46,8 +46,6 @@ public class UsersDAOImpl implements UsersDAO{
 	
 	
 	
-	
-	
 	public Integer updateUser(Users user) throws SQLException
 	{
 		
@@ -60,6 +58,7 @@ public class UsersDAOImpl implements UsersDAO{
 			connection.setAutoCommit(false);
 			
 			try( PreparedStatement preparedStatement = connection.prepareStatement(query)){
+				
 				preparedStatement.setString(1, user.getUserName());
 				preparedStatement.setString(2, user.getEmail());
 				preparedStatement.setString(3, user.getPassword());
@@ -88,6 +87,29 @@ public class UsersDAOImpl implements UsersDAO{
 	
 	
 	
+	public Integer validateUser(Users user) throws SQLException
+	{
+		Integer userId = null;
+		
+		String query = "SELECT user_id FROM users WHERE ( username = ? OR email = ? ) AND password = ?";
+		
+		try(Connection connection = DBUtil.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(query))
+		{
+			preparedStatement.setString(1, user.getUserName());
+			preparedStatement.setString(2, user.getEmail());
+			preparedStatement.setString(3, user.getPassword());
+			
+			try(ResultSet resultSet = preparedStatement.executeQuery()){
+				if(resultSet.next()) {
+					userId = resultSet.getInt("user_id");
+				}
+			}
+		}
+		
+		return userId;
+	}
+	
 	
 	
 	
@@ -98,13 +120,13 @@ public class UsersDAOImpl implements UsersDAO{
 //	    	UsersDAO ud = new UsersDAOImpl();
 //	
 //	    	Users u = new Users();
-//	    	u.setUserId(2);
-//	    	u.setUserName("zzz");
+////	    	u.setUserId(5);
+////	    	u.setUserName("zzz");
 //	    	u.setEmail("zzz@gmail.com");
-//	    	u.setPassword("###");
-//	    	u.setRole("admin");
+//	    	u.setPassword("123");
+////	    	u.setRole("user");
 //	    	
-//	    	Integer userId = ud.updateUser(u);
+//	    	Integer userId = ud.validateUser(u);
 //	
 //	    	System.out.println(userId);
 //	    }

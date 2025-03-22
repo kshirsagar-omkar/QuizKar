@@ -29,9 +29,21 @@
             <artifactId>postgresql</artifactId>
             <version>42.7.4</version>
         </dependency>
+        
+        <!--For Hashing Password-->
+        <!-- https://mvnrepository.com/artifact/org.mindrot/jbcrypt -->
+		<dependency>
+		    <groupId>org.mindrot</groupId>
+		    <artifactId>jbcrypt</artifactId>
+		    <version>0.4</version>
+		</dependency>
+		
+        
+        
     </dependencies>
   
   
+	
   
   <build>
         <finalName>ROOT</finalName>

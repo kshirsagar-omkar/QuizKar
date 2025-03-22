@@ -10,6 +10,9 @@ public interface UsersDAO {
 	public abstract Integer addUser(Users user) throws SQLException;
 	
 	
-	//Update user in db Returns RowAffected by update query
+	//Update user in db Return affected rows password needed to update user details
 	public abstract Integer updateUser(Users user) throws SQLException;
+
+	//Validate the user is present in database with correct credentials if yes returns user_id else null
+	public abstract Integer validateUser(Users user) throws SQLException;
 }

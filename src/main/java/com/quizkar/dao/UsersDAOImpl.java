@@ -45,18 +45,66 @@ public class UsersDAOImpl implements UsersDAO{
 
 	
 	
-//	
+	
+	
+	
+	public Integer updateUser(Users user) throws SQLException
+	{
+		
+//		Connection connection = null;
+		String query = "UPDATE users SET username = ?, email = ?, password = ? WHERE user_id = ?";
+		Integer affectedRows = 0;
+		
+		try(Connection connection  = DBUtil.getConnection()) {
+			
+			connection.setAutoCommit(false);
+			
+			try( PreparedStatement preparedStatement = connection.prepareStatement(query)){
+				preparedStatement.setString(1, user.getUserName());
+				preparedStatement.setString(2, user.getEmail());
+				preparedStatement.setString(3, user.getPassword());
+				preparedStatement.setInt(4, user.getUserId());
+				
+				affectedRows = preparedStatement.executeUpdate();
+				connection.commit();
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+				if(connection != null) {
+					try {
+						connection.rollback();
+					}
+					catch(SQLException rollBackEX) {
+						rollBackEX.printStackTrace();
+					}
+				}
+				throw e;
+			}
+		}
+		return affectedRows;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //	public static void main(String[] args) {
 //	    try {
 //	    	UsersDAO ud = new UsersDAOImpl();
 //	
 //	    	Users u = new Users();
-//	    	u.setUserName("aa");
-//	    	u.setEmail("aa@gmail.com");
+//	    	u.setUserId(2);
+//	    	u.setUserName("zzz");
+//	    	u.setEmail("zzz@gmail.com");
 //	    	u.setPassword("###");
 //	    	u.setRole("admin");
 //	    	
-//	    	Integer userId = ud.addUser(u);
+//	    	Integer userId = ud.updateUser(u);
 //	
 //	    	System.out.println(userId);
 //	    }

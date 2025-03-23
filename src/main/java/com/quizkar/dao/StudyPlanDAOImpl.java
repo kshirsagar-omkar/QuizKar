@@ -117,13 +117,82 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 	
 	
 	
+	public List<StudyPlan> getSpecificUserStudyPlansCompleted(Integer userId) throws SQLException
+	{
+		List<StudyPlan> studyPlans = new ArrayList<>();
+		
+		final String query = "SELECT sp.studyplan_id, sp.name, sp.status, sp.created_at, created_by FROM study_plan sp JOIN user_studyplan_enrollment use ON sp.studyplan_id = use.studyplan_id WHERE use.user_id = ? AND sp.status = 'complete'";
+		
+		
+		try (Connection connection = DBUtil.getConnection();
+			 PreparedStatement preparedStatement  = connection.prepareStatement(query)) {
+			
+			preparedStatement.setInt(1, userId);
+			
+			try(ResultSet	resultSet  = preparedStatement.executeQuery() ) {
+				
+				while(resultSet.next()) {
+					
+					StudyPlan studyPlan = new StudyPlan();
+					
+					studyPlan.setStudyPlanId( resultSet.getInt("studyplan_id") );
+					studyPlan.setName( resultSet.getString("name") );
+					studyPlan.setStatus( resultSet.getString("status") );					
+					//2025-03-20 17:26:45.918626 -> 2025-03-20 17:26:45
+					studyPlan.setCreatedAt( (resultSet.getString("created_at")).split("\\.")[0] );	
+					studyPlan.setCreatedBy( resultSet.getInt("created_by") );
+					
+					studyPlans.add(studyPlan);	
+				}
+			}	
+		}	
+		return studyPlans.isEmpty() ? null : studyPlans;
+	}
+	
+	public List<StudyPlan> getSpecificUserStudyPlansNotCompleted(Integer userId) throws SQLException
+	{
+		List<StudyPlan> studyPlans = new ArrayList<>();
+		
+		final String query = "SELECT sp.studyplan_id, sp.name, sp.status, sp.created_at, created_by FROM study_plan sp JOIN user_studyplan_enrollment use ON sp.studyplan_id = use.studyplan_id WHERE use.user_id = ? AND sp.status = 'not_complete'";
+		
+		
+		try (Connection connection = DBUtil.getConnection();
+			 PreparedStatement preparedStatement  = connection.prepareStatement(query)) {
+			
+			preparedStatement.setInt(1, userId);
+			
+			try(ResultSet	resultSet  = preparedStatement.executeQuery() ) {
+				
+				while(resultSet.next()) {
+					
+					StudyPlan studyPlan = new StudyPlan();
+					
+					studyPlan.setStudyPlanId( resultSet.getInt("studyplan_id") );
+					studyPlan.setName( resultSet.getString("name") );
+					studyPlan.setStatus( resultSet.getString("status") );					
+					//2025-03-20 17:26:45.918626 -> 2025-03-20 17:26:45
+					studyPlan.setCreatedAt( (resultSet.getString("created_at")).split("\\.")[0] );	
+					studyPlan.setCreatedBy( resultSet.getInt("created_by") );
+					
+					studyPlans.add(studyPlan);	
+				}
+			}	
+		}	
+		return studyPlans.isEmpty() ? null : studyPlans;
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 //	public static void main(String[] args) {
 //	    try {
 //	    	StudyPlanDAO sd = new StudyPlanDAOImpl();
 //	
-//	    	List<StudyPlan> l = sd.getSpecificUserStudyPlans(2);
+//	    	List<StudyPlan> l = sd.getSpecificUserStudyPlansNotCompleted(2);
 //	    	
 //	    	for(var sp : l) {
 //	    		display(sp);

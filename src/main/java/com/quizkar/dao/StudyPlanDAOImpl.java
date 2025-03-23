@@ -19,7 +19,7 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 	{	
 		List<StudyPlan> studyPlans = new ArrayList<>();
 		
-		final String query = "SELECT studyplan_id, name, created_at, created_by FROM study_plan";
+		final String query = "SELECT studyplan_id, name, link, created_at, created_by FROM study_plan";
 		
 		
 		try (Connection connection = DBUtil.getConnection();
@@ -32,6 +32,7 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 				
 				studyPlan.setStudyPlanId( resultSet.getInt("studyplan_id") );
 				studyPlan.setName( resultSet.getString("name") );
+				studyPlan.setLink( resultSet.getString("link") );
 				
 				//2025-03-20 17:26:45.918626 -> 2025-03-20 17:26:45
 				studyPlan.setCreatedAt( (resultSet.getString("created_at")).split("\\.")[0] );	
@@ -53,7 +54,7 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 		
 		List<StudyPlan> studyPlans = new ArrayList<>();
 		
-		final String query = "SELECT sp.studyplan_id, sp.name, sp.status, sp.created_at, created_by FROM study_plan sp JOIN user_studyplan_enrollment use ON sp.studyplan_id = use.studyplan_id WHERE use.user_id = ?";
+		final String query = "SELECT sp.studyplan_id, sp.name, sp.link, sp.status, sp.created_at, created_by FROM study_plan sp JOIN user_studyplan_enrollment use ON sp.studyplan_id = use.studyplan_id WHERE use.user_id = ?";
 		
 		
 		try (Connection connection = DBUtil.getConnection();
@@ -69,6 +70,7 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 					
 					studyPlan.setStudyPlanId( resultSet.getInt("studyplan_id") );
 					studyPlan.setName( resultSet.getString("name") );
+					studyPlan.setLink( resultSet.getString("link") );
 					studyPlan.setStatus( resultSet.getString("status") );					
 					//2025-03-20 17:26:45.918626 -> 2025-03-20 17:26:45
 					studyPlan.setCreatedAt( (resultSet.getString("created_at")).split("\\.")[0] );	
@@ -89,7 +91,7 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 	
 	public Integer addStudyPlan(StudyPlan studyPlan) throws SQLException
 	{
-		String query = "INSERT INTO study_plan (name, created_by) VALUES (?, ?) RETURNING studyplan_id";
+		String query = "INSERT INTO study_plan (name, link, created_by) VALUES (?, ?, ?) RETURNING studyplan_id";
 		Integer generatedId = null;
 		
 		try (Connection connection = DBUtil.getConnection();
@@ -98,7 +100,8 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 //			connection.setAutoCommit(false);
 			
 		    preparedStatement.setString(1, studyPlan.getName());
-		    preparedStatement.setInt(2, studyPlan.getCreatedBy());
+		    preparedStatement.setString(2, studyPlan.getLink());
+		    preparedStatement.setInt(3, studyPlan.getCreatedBy());
 
 		    ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -121,7 +124,7 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 	{
 		List<StudyPlan> studyPlans = new ArrayList<>();
 		
-		final String query = "SELECT sp.studyplan_id, sp.name, sp.status, sp.created_at, created_by FROM study_plan sp JOIN user_studyplan_enrollment use ON sp.studyplan_id = use.studyplan_id WHERE use.user_id = ? AND sp.status = 'complete'";
+		final String query = "SELECT sp.studyplan_id, sp.name, sp.link, sp.status, sp.created_at, created_by FROM study_plan sp JOIN user_studyplan_enrollment use ON sp.studyplan_id = use.studyplan_id WHERE use.user_id = ? AND sp.status = 'complete'";
 		
 		
 		try (Connection connection = DBUtil.getConnection();
@@ -137,7 +140,9 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 					
 					studyPlan.setStudyPlanId( resultSet.getInt("studyplan_id") );
 					studyPlan.setName( resultSet.getString("name") );
-					studyPlan.setStatus( resultSet.getString("status") );					
+					studyPlan.setLink( resultSet.getString("link") );
+					studyPlan.setStatus( resultSet.getString("status") );
+					
 					//2025-03-20 17:26:45.918626 -> 2025-03-20 17:26:45
 					studyPlan.setCreatedAt( (resultSet.getString("created_at")).split("\\.")[0] );	
 					studyPlan.setCreatedBy( resultSet.getInt("created_by") );
@@ -153,7 +158,7 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 	{
 		List<StudyPlan> studyPlans = new ArrayList<>();
 		
-		final String query = "SELECT sp.studyplan_id, sp.name, sp.status, sp.created_at, created_by FROM study_plan sp JOIN user_studyplan_enrollment use ON sp.studyplan_id = use.studyplan_id WHERE use.user_id = ? AND sp.status = 'not_complete'";
+		final String query = "SELECT sp.studyplan_id, sp.name, sp.link, sp.status, sp.created_at, created_by FROM study_plan sp JOIN user_studyplan_enrollment use ON sp.studyplan_id = use.studyplan_id WHERE use.user_id = ? AND sp.status = 'not_complete'";
 		
 		
 		try (Connection connection = DBUtil.getConnection();
@@ -169,6 +174,7 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 					
 					studyPlan.setStudyPlanId( resultSet.getInt("studyplan_id") );
 					studyPlan.setName( resultSet.getString("name") );
+					studyPlan.setLink( resultSet.getString("link") );
 					studyPlan.setStatus( resultSet.getString("status") );					
 					//2025-03-20 17:26:45.918626 -> 2025-03-20 17:26:45
 					studyPlan.setCreatedAt( (resultSet.getString("created_at")).split("\\.")[0] );	
@@ -189,7 +195,7 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 		
 		List<StudyPlan> studyPlans = new ArrayList<>();
 		
-		final String query = "SELECT studyplan_id, name, created_at, created_by FROM study_plan WHERE created_by = ?";
+		final String query = "SELECT studyplan_id, name, link, created_at, created_by FROM study_plan WHERE created_by = ?";
 		
 		try (Connection connection = DBUtil.getConnection();
 			 PreparedStatement preparedStatement  = connection.prepareStatement(query)) {
@@ -203,7 +209,8 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 						StudyPlan studyPlan = new StudyPlan();
 						
 						studyPlan.setStudyPlanId( resultSet.getInt("studyplan_id") );
-						studyPlan.setName( resultSet.getString("name") );				
+						studyPlan.setName( resultSet.getString("name") );	
+						studyPlan.setLink( resultSet.getString("link") );
 						//2025-03-20 17:26:45.918626 -> 2025-03-20 17:26:45
 						studyPlan.setCreatedAt( (resultSet.getString("created_at")).split("\\.")[0] );	
 						studyPlan.setCreatedBy( resultSet.getInt("created_by") );

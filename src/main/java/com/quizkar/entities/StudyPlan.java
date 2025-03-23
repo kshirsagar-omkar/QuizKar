@@ -10,11 +10,21 @@ public class StudyPlan {
 	private String status;
 	private String createdAt; //date
 	private Integer createdBy; // Reference com.quizkar.entities -> Users.userId
+	private String link;
 	
 	
 	
 	
 	
+	
+	
+	
+	public String getLink() {
+		return link;
+	}
+	public void setLink(String link) {
+		this.link = link;
+	}
 	public Integer getStudyPlanId() {
 		return studyPlanId;
 	}

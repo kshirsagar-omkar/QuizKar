@@ -148,31 +148,55 @@ public class UsersDAOImpl implements UsersDAO{
 	
 	
 	
-//	public static void main(String[] args) {
-//	    try {
-//	    	UsersDAO ud = new UsersDAOImpl();
-//	
-//	    	Users u = new Users();
-//	    	u.setUserId(5);
-//	    	u.setUserName("zzz");
-//	    	u.setEmail("zzz@gmail.com");
-//	    	u.setPassword("123");
-//	    	u.setRole("user");
-//	    	
-//	    	Integer userId = ud.validateUser(u);
-//	
-//	    	System.out.println(userId);
-//	    	
-//	    	
-//	    	
-////	    	Users u1 = ud.getUser("aaa");
-////	    	displayUser(u1);
-//	    	
-//	    }
-//	    catch(SQLException e) {
-//	    	e.printStackTrace();
-//	    }
-//	}
+	public Integer deleteUser(Integer userId) throws SQLException
+	{
+		Integer affectedRow = 0;
+		final String query = "DELETE FROM users WHERE user_id = ?";
+		
+		try (Connection connection = DBUtil.getConnection()){
+			
+			connection.setAutoCommit(false);
+			
+			try( PreparedStatement preparedStatement  = connection.prepareStatement(query)) {
+					
+				preparedStatement.setInt(1, userId);
+				
+				affectedRow = preparedStatement.executeUpdate();
+				
+				connection.commit();
+			}
+			catch(SQLException e) {
+				if(connection != null) {
+					connection.rollback();
+				}
+				throw e;
+			}
+			
+		}
+		return affectedRow;
+	}
+	
+	
+	
+	
+	
+	
+	public static void main(String[] args) {
+	    try {
+	    	UsersDAO ud = new UsersDAOImpl();
+	
+	    	
+	    	
+	    	Integer userId = ud.deleteUser(4);
+	
+	    	System.out.println(userId);
+	    	
+	    	
+	    }
+	    catch(SQLException e) {
+	    	e.printStackTrace();
+	    }
+	}
 	
 	
 //	private static void displayUser(Users user)

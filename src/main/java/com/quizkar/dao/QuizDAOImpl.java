@@ -9,9 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.quizkar.dto.GivenQuizesDTO;
-import com.quizkar.entities.LeaderBoard;
 import com.quizkar.entities.Quiz;
-import com.quizkar.entities.StudyPlan;
 import com.quizkar.util.DBUtil;
 
 public class QuizDAOImpl implements QuizDAO{
@@ -85,12 +83,6 @@ public class QuizDAOImpl implements QuizDAO{
 	
 	
 	
-	
-	
-	
-	
-	
-	
 	public Integer addQuiz(Quiz quiz) throws SQLException
 	{
 		String query = "INSERT INTO quiz (title, created_by, time_limit) VALUES (?, ?, ?) RETURNING quiz_id";
@@ -125,23 +117,82 @@ public class QuizDAOImpl implements QuizDAO{
 	
 	
 	
+	
+	public List<Quiz> getQuizCreatedByAdmin(Integer userId) throws SQLException
+	{
+		List<Quiz> quizs = new ArrayList<>();
+		
+		final String query = "SELECT quiz_id, title, time_limit, created_at FROM quiz WHERE created_by = ?";
+		
+		try (Connection connection = DBUtil.getConnection();
+			 PreparedStatement preparedStatement  = connection.prepareStatement(query)) {
+					
+				preparedStatement.setInt(1, userId);
+				
+				try(ResultSet	resultSet  = preparedStatement.executeQuery() ) {
+		
+					while(resultSet.next()) {
+						
+						Quiz quiz = new Quiz();
+						
+						quiz.setQuizId( resultSet.getInt("quiz_id") );
+						quiz.setTitle( resultSet.getString("title") );
+						quiz.setTimeLimit( resultSet.getInt("time_limit") );
+						//2025-03-20 17:26:45.918626 -> 2025-03-20 17:26:45
+						quiz.setCreatedAt( (resultSet.getString("created_at")).split("\\.")[0] );	
+						
+						quizs.add(quiz);	
+					}
+				}	
+				return quizs.isEmpty() ? null : quizs;
+			}
+	}
+	
+	
+	
+	
+	
+	
+	
 
 //	public static void main(String[] args) {
 //	    try {
 //	    	QuizDAO dao = new QuizDAOImpl();
 //	
-//	    	Quiz ob = new Quiz();
-//	    	ob.setTitle("aaaaaaa");
-//	    	ob.setCreatedBy(1);
-//	    	ob.setTimeLimit(50);
+////	    	Quiz ob = new Quiz();
+////	    	ob.setTitle("aaaaaaa");
+////	    	ob.setCreatedBy(1);
+////	    	ob.setTimeLimit(50);
+////	    	
+////	    	Integer Id = dao.addQuiz(ob);
+////	
+////	    	System.out.println(Id);
 //	    	
-//	    	Integer Id = dao.addQuiz(ob);
-//	
-//	    	System.out.println(Id);
+//	    	
+//	    	List<Quiz> L = dao.getQuizCreatedByAdmin(1);
+//	    	if(L != null) {
+//		    	for(var ob : L) {
+//		    		display(ob);
+//		    	}
+//	    	}
+//	    	else {
+//	    		System.out.println("No Quiz Found!");
+//	    	}
+//	    	
+//	    	
+//	    	
 //	    }
 //	    catch(SQLException e) {
 //	    	e.printStackTrace();
 //	    }
+//	}
+//	
+//	
+//	private static void display(Quiz ob) {
+//		System.out.println(ob.getQuizId());
+//		System.out.println(ob.getTitle());
+//		System.out.println(ob.getTimeLimit());
+//		System.out.println(ob.getCreatedAt() + "\n");
 //	}
 	
 }

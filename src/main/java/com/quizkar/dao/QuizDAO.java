@@ -15,4 +15,8 @@ public interface QuizDAO {
 	
 	// -- Add Quiz returns the inserted quiz id
 	public abstract Integer addQuiz(Quiz quiz) throws SQLException;
+	
+	
+	// -- Get Quiz Created by admin
+	public abstract List<Quiz> getQuizCreatedByAdmin(Integer userId) throws SQLException;
 }

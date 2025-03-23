@@ -119,32 +119,32 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 	
 	
 	
-	public static void main(String[] args) {
-	    try {
-	    	StudyPlanDAO sd = new StudyPlanDAOImpl();
-	
-	    	List<StudyPlan> l = sd.getSpecificUserStudyPlans(2);
-	    	
-	    	for(var sp : l) {
-	    		display(sp);
-	    	}
-	
-	    }
-	    catch(SQLException e) {
-	    	e.printStackTrace();
-	    }
-	}
-	
-	
-	
-	private static void display(StudyPlan sp)
-	{
-		System.out.println( sp.getStudyPlanId() );
-		System.out.println( sp.getName() );
-		System.out.println( sp.getStatus() );
-		System.out.println( sp.getCreatedAt() );
-		System.out.println( sp.getCreatedBy() + "\n");
-	}
+//	public static void main(String[] args) {
+//	    try {
+//	    	StudyPlanDAO sd = new StudyPlanDAOImpl();
+//	
+//	    	List<StudyPlan> l = sd.getSpecificUserStudyPlans(2);
+//	    	
+//	    	for(var sp : l) {
+//	    		display(sp);
+//	    	}
+//	
+//	    }
+//	    catch(SQLException e) {
+//	    	e.printStackTrace();
+//	    }
+//	}
+//	
+//	
+//	
+//	private static void display(StudyPlan sp)
+//	{
+//		System.out.println( sp.getStudyPlanId() );
+//		System.out.println( sp.getName() );
+//		System.out.println( sp.getStatus() );
+//		System.out.println( sp.getCreatedAt() );
+//		System.out.println( sp.getCreatedBy() + "\n");
+//	}
 	
 }
 

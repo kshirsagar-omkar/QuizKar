@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.quizkar.entities.StudyPlan;
 import com.quizkar.entities.UserStudyPlanEnrollment;
 import com.quizkar.util.DBUtil;
 
@@ -42,20 +41,57 @@ public class UserStudyPlanEnrollmentDAOImpl implements UserStudyPlanEnrollmentDA
 	
 	
 	
+	public Integer updateStatusOfStudyPlan(UserStudyPlanEnrollment userStudyPlanEnrollment, String status) throws SQLException
+	{
+		
+		String query = "UPDATE study_plan sp SET status = ? FROM user_studyplan_enrollment use WHERE sp.studyplan_id = use.studyplan_id AND use.user_id = ? AND sp.studyplan_id = ?";
+		Integer affectedRows = 0;
+		
+		try(Connection connection  = DBUtil.getConnection()) {
+			
+			connection.setAutoCommit(false);
+			
+			try( PreparedStatement preparedStatement = connection.prepareStatement(query)){
+				
+				preparedStatement.setString(1, status);
+				preparedStatement.setInt(2, userStudyPlanEnrollment.getUserId());
+			    preparedStatement.setInt(3, userStudyPlanEnrollment.getStudyPlanId());
+				
+				affectedRows = preparedStatement.executeUpdate();
+				connection.commit();
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+				if(connection != null) {
+					try {
+						connection.rollback();
+					}
+					catch(SQLException rollBackEX) {
+						rollBackEX.printStackTrace();
+					}
+				}
+				throw e;
+			}
+		}
+		return affectedRows;
+	}
 	
 	
-//	
+	
+	
+	
+	
 //	public static void main(String[] args) {
 //	    try {
-//	    	UserStudyPlanEnrollmentDAO usped = new UserStudyPlanEnrollmentDAOImpl();
+//	    	UserStudyPlanEnrollmentDAO dao = new UserStudyPlanEnrollmentDAOImpl();
 //	
-//	    	UserStudyPlanEnrollment spuspe = new UserStudyPlanEnrollment();
-//	    	spuspe.setUserId(2);
-//	    	spuspe.setStudyPlanId(1);
+//	    	UserStudyPlanEnrollment ob = new UserStudyPlanEnrollment();
+//	    	ob.setUserId(3);
+//	    	ob.setStudyPlanId(1);
 //	    	
-//	    	Integer Id = usped.enrollStudyPlan(spuspe);
+//	    	Integer retVal = dao.updateStatusOfStudyPlan(ob, "complete");
 //	
-//	    	System.out.println(Id);
+//	    	System.out.println(retVal);
 //	    }
 //	    catch(SQLException e) {
 //	    	e.printStackTrace();

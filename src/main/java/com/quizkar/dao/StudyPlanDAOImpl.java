@@ -19,7 +19,7 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 	{	
 		List<StudyPlan> studyPlans = new ArrayList<>();
 		
-		final String query = "SELECT studyplan_id, name, created_at FROM study_plan";
+		final String query = "SELECT studyplan_id, name, created_at, created_by FROM study_plan";
 		
 		
 		try (Connection connection = DBUtil.getConnection();
@@ -35,6 +35,7 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 				
 				//2025-03-20 17:26:45.918626 -> 2025-03-20 17:26:45
 				studyPlan.setCreatedAt( (resultSet.getString("created_at")).split("\\.")[0] );	
+				studyPlan.setCreatedBy( resultSet.getInt("created_by") );
 				
 				studyPlans.add(studyPlan);	
 			}
@@ -52,7 +53,7 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 		
 		List<StudyPlan> studyPlans = new ArrayList<>();
 		
-		final String query = "SELECT sp.studyplan_id, sp.name, sp.created_at FROM study_plan sp JOIN user_studyplan_enrollment use ON sp.studyplan_id = use.studyplan_id WHERE use.user_id = ?";
+		final String query = "SELECT sp.studyplan_id, sp.name, sp.status, sp.created_at, created_by FROM study_plan sp JOIN user_studyplan_enrollment use ON sp.studyplan_id = use.studyplan_id WHERE use.user_id = ?";
 		
 		
 		try (Connection connection = DBUtil.getConnection();
@@ -68,9 +69,10 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 					
 					studyPlan.setStudyPlanId( resultSet.getInt("studyplan_id") );
 					studyPlan.setName( resultSet.getString("name") );
-					
+					studyPlan.setStatus( resultSet.getString("status") );					
 					//2025-03-20 17:26:45.918626 -> 2025-03-20 17:26:45
 					studyPlan.setCreatedAt( (resultSet.getString("created_at")).split("\\.")[0] );	
+					studyPlan.setCreatedBy( resultSet.getInt("created_by") );
 					
 					studyPlans.add(studyPlan);	
 				}
@@ -117,22 +119,32 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 	
 	
 	
-//	public static void main(String[] args) {
-//	    try {
-//	    	StudyPlanDAO sd = new StudyPlanDAOImpl();
-//	
-//	    	StudyPlan sp = new StudyPlan();
-//	    	sp.setName("aa");
-//	    	sp.setCreatedBy(1);
-//	    	
-//	    	Integer Id = sd.addStudyPlan(sp);
-//	
-//	    	System.out.println(Id);
-//	    }
-//	    catch(SQLException e) {
-//	    	e.printStackTrace();
-//	    }
-//	}
+	public static void main(String[] args) {
+	    try {
+	    	StudyPlanDAO sd = new StudyPlanDAOImpl();
+	
+	    	List<StudyPlan> l = sd.getSpecificUserStudyPlans(2);
+	    	
+	    	for(var sp : l) {
+	    		display(sp);
+	    	}
+	
+	    }
+	    catch(SQLException e) {
+	    	e.printStackTrace();
+	    }
+	}
+	
+	
+	
+	private static void display(StudyPlan sp)
+	{
+		System.out.println( sp.getStudyPlanId() );
+		System.out.println( sp.getName() );
+		System.out.println( sp.getStatus() );
+		System.out.println( sp.getCreatedAt() );
+		System.out.println( sp.getCreatedBy() + "\n");
+	}
 	
 }
 

@@ -2,7 +2,9 @@ package com.quizkar.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.quizkar.entities.Question;
@@ -66,6 +68,103 @@ public class QuestionDAOImpl implements QuestionDAO{
 	
 	
 	
+	public List<Question> getQuestions(Integer quizId) throws SQLException
+	{
+		List<Question> questions = new ArrayList<>();
+		
+		final String query = "SELECT question_id, question_text, option_a, option_b, option_c, option_d FROM question WHERE quiz_id = ?";
+		
+		
+		try (Connection connection = DBUtil.getConnection();
+			 PreparedStatement preparedStatement  = connection.prepareStatement(query)) {
+			
+			preparedStatement.setInt(1, quizId);
+			
+			try(ResultSet	resultSet  = preparedStatement.executeQuery() ) {
+				
+				while(resultSet.next()) {
+					
+					Question question = new Question();
+					
+					question.setQuestionId( resultSet.getInt("question_id") );
+					question.setQuestionText( resultSet.getString("question_text") );
+					question.setOptionA( resultSet.getString("option_a") );
+					question.setOptionB( resultSet.getString("option_b") );
+					question.setOptionC( resultSet.getString("option_c") );
+					question.setOptionD( resultSet.getString("option_d") );
+					
+					questions.add(question);	
+				}
+			}	
+		}	
+		return questions.isEmpty() ? null : questions;
+	}
+	
+	
+	
+	public List<String> getAnswers(Integer quizId) throws SQLException
+	{
+		List<String> answers = new ArrayList<>();
+		
+		final String query = "SELECT correct_answer FROM question WHERE quiz_id = ?";
+		
+		
+		try (Connection connection = DBUtil.getConnection();
+			 PreparedStatement preparedStatement  = connection.prepareStatement(query)) {
+			
+			preparedStatement.setInt(1, quizId);
+			
+			try(ResultSet	resultSet  = preparedStatement.executeQuery() ) {
+				
+				while(resultSet.next()) {
+					
+					answers.add( resultSet.getString("correct_answer") );	
+					
+				}
+			}	
+		}	
+		return answers.isEmpty() ? null : answers;
+	}
+	
+	
+	
+	
+
+//	public static void main(String[] args) {
+//    try {
+//    	QuestionDAO dao = new QuestionDAOImpl();
+//
+//    	List<Question> l = dao.getQuestions(1);
+//    	
+//    	for(var q : l) {
+//    		display(q);
+//    	}
+//    	
+//    	List<String> answers = dao.getAnswers(1);
+//    	for(var ans : answers) {
+//    		System.out.print(ans + " ");
+//    	}
+//
+//    }
+//    catch(SQLException e) {
+//    	e.printStackTrace();
+//    }
+//}
+
+	
+	
+	
+	
+	
+//private static void display(Question q)
+//{
+//	System.out.println( q.getQuestionId() );
+//	System.out.println( q.getQuestionText() );
+//	System.out.println( q.getOptionA() );
+//	System.out.println( q.getOptionB() );
+//	System.out.println( q.getOptionC() );
+//	System.out.println( q.getOptionD() + "\n");
+//}
 	
 	
 	

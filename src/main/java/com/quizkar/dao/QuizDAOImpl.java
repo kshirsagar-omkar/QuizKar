@@ -192,9 +192,12 @@ public class QuizDAOImpl implements QuizDAO{
 //    try {
 //    	QuizDAO dao = new QuizDAOImpl();
 //
-//    
+//    	Quiz ob = new Quiz();
+//    	ob.setTitle("aaaaaaa");
+//    	ob.setCreatedBy(1);
+//    	ob.setTimeLimit(50);
 //    	
-//    	Integer retVal = dao.DeleteQuizCreatedByAdmin(2);
+//    	Integer retVal = dao.addQuiz(ob);
 //
 //    	System.out.println(retVal);
 //

@@ -184,6 +184,95 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 	
 	
 	
+	// -- Get StudyPlan Created by admin
+	public List<StudyPlan> getStudyPlanCreatedByAdmin(Integer userId) throws SQLException{
+		
+		List<StudyPlan> studyPlans = new ArrayList<>();
+		
+		final String query = "SELECT studyplan_id, name, created_at, created_by FROM study_plan WHERE created_by = ?";
+		
+		try (Connection connection = DBUtil.getConnection();
+			 PreparedStatement preparedStatement  = connection.prepareStatement(query)) {
+					
+				preparedStatement.setInt(1, userId);
+				
+				try(ResultSet	resultSet  = preparedStatement.executeQuery() ) {
+		
+					while(resultSet.next()) {
+						
+						StudyPlan studyPlan = new StudyPlan();
+						
+						studyPlan.setStudyPlanId( resultSet.getInt("studyplan_id") );
+						studyPlan.setName( resultSet.getString("name") );				
+						//2025-03-20 17:26:45.918626 -> 2025-03-20 17:26:45
+						studyPlan.setCreatedAt( (resultSet.getString("created_at")).split("\\.")[0] );	
+						studyPlan.setCreatedBy( resultSet.getInt("created_by") );
+						
+						studyPlans.add(studyPlan);	
+						
+					}
+				}	
+				return studyPlans.isEmpty() ? null : studyPlans;
+			}
+	}
+	
+	
+	
+	
+	
+	// -- Delete StudyPlan Created by admin RETURN RowAffected
+	public Integer DeleteStudyPlanCreatedByAdmin(Integer studyPlanId) throws SQLException{
+		
+		
+		Integer affectedRow = 0;
+		final String query = "DELETE FROM study_plan WHERE studyplan_id = ?";
+		
+		try (Connection connection = DBUtil.getConnection()){
+			
+			connection.setAutoCommit(false);
+			
+			try( PreparedStatement preparedStatement  = connection.prepareStatement(query)) {
+					
+				preparedStatement.setInt(1, studyPlanId);
+				
+				affectedRow = preparedStatement.executeUpdate();
+				
+				connection.commit();
+			}
+			catch(SQLException e) {
+				if(connection != null) {
+					connection.rollback();
+				}
+				throw e;
+			}
+			
+		}
+		return affectedRow;
+	}
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
+//	public static void main(String[] args) {
+//	  try {
+//		  StudyPlanDAO dao = new StudyPlanDAOImpl();	  
+//	  	
+//		  Integer retVal = dao.DeleteStudyPlanCreatedByAdmin(2);
+//		
+//		  System.out.println(retVal);
+//
+//	  }
+//	  catch(SQLException e) {
+//	  	e.printStackTrace();
+//	  }
+//	}
+	
 	
 	
 	
@@ -192,10 +281,14 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 //	    try {
 //	    	StudyPlanDAO sd = new StudyPlanDAOImpl();
 //	
-//	    	List<StudyPlan> l = sd.getSpecificUserStudyPlansNotCompleted(2);
-//	    	
-//	    	for(var sp : l) {
-//	    		display(sp);
+//	    	List<StudyPlan> L = sd.getStudyPlanCreatedByAdmin(1);
+//	    	if(L != null) {
+//		    	for(var ob : L) {
+//		    		display(ob);
+//		    	}
+//	    	}
+//	    	else {
+//	    		System.out.println("No StudyPlan Found!");
 //	    	}
 //	
 //	    }
@@ -214,6 +307,6 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 //		System.out.println( sp.getCreatedAt() );
 //		System.out.println( sp.getCreatedBy() + "\n");
 //	}
-	
+//	
 }
 

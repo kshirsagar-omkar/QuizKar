@@ -21,4 +21,11 @@ public interface StudyPlanDAO {
 	
 	//Add Study Plan
 	public abstract Integer addStudyPlan(StudyPlan studyPlan) throws SQLException;
+	
+	
+	// -- Get StudyPlan Created by admin
+	public abstract List<StudyPlan> getStudyPlanCreatedByAdmin(Integer userId) throws SQLException;
+	
+	// -- Delete StudyPlan Created by admin RETURN RowAffected
+	public abstract Integer DeleteStudyPlanCreatedByAdmin(Integer studyPlanId) throws SQLException;
 }

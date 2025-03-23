@@ -228,7 +228,7 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 	
 	
 	// -- Delete StudyPlan Created by admin RETURN RowAffected
-	public Integer DeleteStudyPlanCreatedByAdmin(Integer studyPlanId) throws SQLException{
+	public Integer deleteStudyPlanCreatedByAdmin(Integer studyPlanId) throws SQLException{
 		
 		
 		Integer affectedRow = 0;
@@ -260,25 +260,60 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 	
 
 	
+	public Integer updateStudyPlanCreatedByAdmin(StudyPlan studyPlan) throws SQLException
+	{
+		Integer affectedRow = 0;
+		final String query = "UPDATE study_plan SET name = ?, link = ? WHERE studyplan_id = ? ";
+		
+		try (Connection connection = DBUtil.getConnection()){
+			
+			connection.setAutoCommit(false);
+			
+			try( PreparedStatement preparedStatement  = connection.prepareStatement(query)) {
+				
+				preparedStatement.setString(1, studyPlan.getName());
+				preparedStatement.setString(2, studyPlan.getLink());
+				preparedStatement.setInt(3, studyPlan.getStudyPlanId());
+				
+				affectedRow = preparedStatement.executeUpdate();
+				
+				connection.commit();
+			}
+			catch(SQLException e) {
+				if(connection != null) {
+					connection.rollback();
+				}
+				throw e;
+			}
+			
+		}
+		return affectedRow;
+	}
 	
 	
 	
 	
 	
-	
-//	public static void main(String[] args) {
-//	  try {
-//		  StudyPlanDAO dao = new StudyPlanDAOImpl();	  
-//	  	
-//		  Integer retVal = dao.DeleteStudyPlanCreatedByAdmin(2);
-//		
-//		  System.out.println(retVal);
-//
-//	  }
-//	  catch(SQLException e) {
-//	  	e.printStackTrace();
-//	  }
-//	}
+	public static void main(String[] args) {
+	  try {
+		  StudyPlanDAO dao = new StudyPlanDAOImpl();	  
+	  	
+		  StudyPlan studyPlan = new StudyPlan();
+		  
+		  studyPlan.setStudyPlanId(5);
+		  studyPlan.setName("google");
+		  studyPlan.setLink("www.google.com");
+		  
+		  
+		  Integer retVal = dao.updateStudyPlanCreatedByAdmin(studyPlan);
+		
+		  System.out.println(retVal);
+
+	  }
+	  catch(SQLException e) {
+	  	e.printStackTrace();
+	  }
+	}
 	
 	
 	

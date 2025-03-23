@@ -27,5 +27,8 @@ public interface StudyPlanDAO {
 	public abstract List<StudyPlan> getStudyPlanCreatedByAdmin(Integer userId) throws SQLException;
 	
 	// -- Delete StudyPlan Created by admin RETURN RowAffected
-	public abstract Integer DeleteStudyPlanCreatedByAdmin(Integer studyPlanId) throws SQLException;
+	public abstract Integer deleteStudyPlanCreatedByAdmin(Integer studyPlanId) throws SQLException;
+	
+	// -- Update StudyPlan Created by admin RETURN RowAffected
+	public abstract Integer updateStudyPlanCreatedByAdmin(StudyPlan studyPlan) throws SQLException;
 }

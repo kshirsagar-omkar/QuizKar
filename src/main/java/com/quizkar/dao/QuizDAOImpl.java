@@ -151,6 +151,66 @@ public class QuizDAOImpl implements QuizDAO{
 	
 	
 	
+	public Integer DeleteQuizCreatedByAdmin(Integer quizId) throws SQLException
+	{
+		
+		Integer affectedRow = 0;
+		final String query = "DELETE FROM quiz WHERE quiz_id = ?";
+		
+		try (Connection connection = DBUtil.getConnection()){
+			
+			connection.setAutoCommit(false);
+			
+			try( PreparedStatement preparedStatement  = connection.prepareStatement(query)) {
+					
+				preparedStatement.setInt(1, quizId);
+				
+				affectedRow = preparedStatement.executeUpdate();
+				
+				connection.commit();
+			}
+			catch(SQLException e) {
+				if(connection != null) {
+					connection.rollback();
+				}
+				throw e;
+			}
+			
+		}
+		return affectedRow;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	public static void main(String[] args) {
+//    try {
+//    	QuizDAO dao = new QuizDAOImpl();
+//
+//    
+//    	
+//    	Integer retVal = dao.DeleteQuizCreatedByAdmin(2);
+//
+//    	System.out.println(retVal);
+//
+//    	
+//    	
+//    }
+//    catch(SQLException e) {
+//    	e.printStackTrace();
+//    }
+//}
+	
+	
+	
+	
+	
+	
 	
 	
 	

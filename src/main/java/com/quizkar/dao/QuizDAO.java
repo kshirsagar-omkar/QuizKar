@@ -19,4 +19,7 @@ public interface QuizDAO {
 	
 	// -- Get Quiz Created by admin
 	public abstract List<Quiz> getQuizCreatedByAdmin(Integer userId) throws SQLException;
+	
+	// -- Delete Quiz Created by admin RETURN RowAffected
+	public abstract Integer DeleteQuizCreatedByAdmin(Integer quizId) throws SQLException;
 }

@@ -91,7 +91,7 @@ public class UsersDAOImpl implements UsersDAO{
 	{
 		Integer userId = null;
 		
-		String query = "SELECT user_id FROM users WHERE ( username = ? OR email = ? ) AND password = ?";
+		String query = "SELECT user_id FROM users WHERE ( username = ? OR email = ? ) AND password = ? AND role = ?";
 		
 		try(Connection connection = DBUtil.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(query))
@@ -99,6 +99,7 @@ public class UsersDAOImpl implements UsersDAO{
 			preparedStatement.setString(1, user.getUserName());
 			preparedStatement.setString(2, user.getEmail());
 			preparedStatement.setString(3, user.getPassword());
+			preparedStatement.setString(4, user.getRole());
 			
 			try(ResultSet resultSet = preparedStatement.executeQuery()){
 				if(resultSet.next()) {

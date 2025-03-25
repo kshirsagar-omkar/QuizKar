@@ -18,7 +18,7 @@ public interface UsersDAO {
 	
 	
 	//Get user is used for showing user details on profile
-	public abstract Users getUser(String userName) throws SQLException;
+	public abstract Users getUser(Users user) throws SQLException;
 	
 	
 	//Delete user from db returns AffectedRow

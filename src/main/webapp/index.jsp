@@ -7,6 +7,6 @@
             response.sendRedirect("user/dashboard.jsp");
         }
     } else {
-        response.sendRedirect("pages/auth/login.jsp");
+        response.sendRedirect("login");
     }
 %>

@@ -118,31 +118,32 @@ public class UsersDAOImpl implements UsersDAO{
 	
 	
 	
-	public Users getUser(String userName) throws SQLException
+	public Users getUser(Users user) throws SQLException
 	{
-		Users user = null;
+		Users retUser = null;
 		
-		String query = "SELECT * FROM users WHERE username = ?";
+		String query = "SELECT * FROM users WHERE username = ? OR email = ?";
 		
 		try(Connection connection = DBUtil.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(query))
 		{
-			preparedStatement.setString(1, userName);
+			preparedStatement.setString(1, user.getUserName());
+			preparedStatement.setString(2, user.getEmail());
 			
 			try(ResultSet resultSet = preparedStatement.executeQuery()){
 				if(resultSet.next()) {
 					
-					user = new Users();
+					retUser = new Users();
 					
-					user.setUserId( resultSet.getInt("user_id") );
-					user.setUserName( resultSet.getString("username") );
-					user.setEmail( resultSet.getString("email") );
-					user.setPassword( resultSet.getString("password") ); 
-					user.setRole( resultSet.getString("role") );
+					retUser.setUserId( resultSet.getInt("user_id") );
+					retUser.setUserName( resultSet.getString("username") );
+					retUser.setEmail( resultSet.getString("email") );
+					retUser.setPassword( resultSet.getString("password") ); 
+					retUser.setRole( resultSet.getString("role") );
 				}
 			}
 		}		
-		return user;
+		return retUser;
 	}
 	
 	

@@ -4,14 +4,28 @@
     <title>Register - QuizKar</title>
 </head>
 <body>
-    <h1>User Registration</h1>
-    <form action="RegisterServlet" method="post">
-        Username: <input type="text" name="username" required><br>
-        Email: <input type="email" name="email" required><br>
-        Password: <input type="password" name="password" required><br>
-        <input type="hidden" name="role" value="user">
-        <input type="submit" value="Register">
-    </form>
-    <p>Already have an account? <a href="login.jsp">Login here</a></p>
+	<div>
+	
+	    <h1>User Registration</h1>
+	    <form action="register" method="post">
+	        Username: <input type="text" name="username" required><br>
+	        Email: <input type="email" name="email" required><br>
+	        Password: <input type="password" name="password" required><br>
+	        <input type="hidden" name="role" value="user">
+	        <input type="submit" value="Register">
+	    </form>
+	    
+	    <!-- Display error message if registration fails -->
+	    <% if (request.getAttribute("error") != null) { %>
+	    <div>
+	        <%= request.getAttribute("error") %>
+	    </div>
+	    <% } %>
+	    
+	    <div>
+	    	<p>Already have an account? <a href="login">Login here</a></p>
+		</div>
+		
+	</div>
 </body>
 </html>

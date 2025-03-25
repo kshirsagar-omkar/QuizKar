@@ -40,9 +40,9 @@
         </c:forEach>
     </table>
     
-<%-- 	<jsp:include page="../../components/sidebar.jsp"/>  --%>   
-
-
+    
+    
+	<%-- 	<jsp:include page="../../components/sidebar.jsp"/>  --%>   
     <jsp:include page="../../components/chatbot.jsp"/>
 </body>
 </html>

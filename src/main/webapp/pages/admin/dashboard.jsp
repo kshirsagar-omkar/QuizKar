@@ -37,5 +37,8 @@
             </form>
         </div>
     </c:forEach>
+    
+    
+    <%-- 	<jsp:include page="../../components/sidebar.jsp"/>  --%>   
 </body>
 </html>

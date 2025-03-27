@@ -16,8 +16,14 @@
 </head>
 <body>
 
-	<jsp:include page="../../components/cacheControl.jsp"/>
-    <!-- Navbar Include -->
+	<%
+	//Prevent Browsing from caching the page
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+	response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+	response.setDateHeader("Expires", 0); // Proxies
+	%>
+	
+	<!-- Navbar Include -->
     <jsp:include page="../../components/navbar.jsp"/>
     
     <h1>Welcome, Admin <%= user.getUserName() + " (ID: " + user.getUserId() + ")" %>!</h1>

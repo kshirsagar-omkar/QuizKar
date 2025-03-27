@@ -29,7 +29,13 @@
 </head>
 <body>
 
-	<jsp:include page="../../components/cacheControl.jsp"/>	
+	<%
+	//Prevent Browsing from caching the page
+	response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate"); // HTTP 1.1
+	response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+	response.setDateHeader("Expires", 0); // Proxies
+	%>
+	
 
     <h1>${quiz.title}</h1>
     <p>Time Remaining: <span id="timer">${quiz.timeLimit}</span> minutes</p>

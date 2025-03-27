@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.quizkar.dao.QuizDAO;
 import com.quizkar.dao.QuizDAOImpl;
+import com.quizkar.dto.GivenQuizesDTO;
 import com.quizkar.entities.Quiz;
 
 public class QuizServiceImpl implements QuizService{
@@ -14,7 +15,13 @@ public class QuizServiceImpl implements QuizService{
 	
 	
 	
-	
+	// -- Get Quizzes Given by Specific User 
+	public List<GivenQuizesDTO> getQuizesGivenBySpecificUser(Integer userId) throws SQLException
+	{
+		QuizDAO quizDAO = new QuizDAOImpl();
+		
+		return quizDAO.getQuizesGivenBySpecificUser(userId);
+	}
 	
 	
 	// -- Add Quiz returns the inserted quiz id

@@ -10,7 +10,7 @@
 <div>
     <%--     --%>
     
-    <a href="<%= (user != null && "admin".equals(user.getRole())) ? "admindashboard" : "pages/user/dashboard.jsp" %>">Home</a>
+    <a href="<%= (user != null && "admin".equals(user.getRole())) ? "admindashboard" : "UserDashboard" %>">Home</a>
     
     <%--	 <a href="dashboard.jsp">Home</a>	--%>
     
@@ -19,7 +19,7 @@
     <% if (user != null) { %>
         <% if ("user".equals(user.getRole())) { %>
             <!-- User Links -->
-            <a href="pages/user/studyPlans.jsp">Study Plans</a>
+            <a href="UserStudyPlanServlet">Study Plans</a>
             <a href="pages/user/quizzes.jsp">Quizzes</a>
             <a href="pages/user/profile.jsp">Profile</a>
         <% } else if ("admin".equals(user.getRole())) { %>

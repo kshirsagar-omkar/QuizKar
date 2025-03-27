@@ -38,7 +38,10 @@ public class AdminDashboard extends HttpServlet {
 			
 			
 			HttpSession session = request.getSession();
-			
+			if(session == null) {
+				response.sendRedirect("login");
+		        return;
+			}
 			
 			Users user = (Users) session.getAttribute("user");
 			if(user != null) {

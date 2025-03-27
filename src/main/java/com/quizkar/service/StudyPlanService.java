@@ -10,8 +10,12 @@ public interface StudyPlanService {
 	
 	
 	
+	//Get Completed Study Plans Enrolled by Specific User
+	public abstract List<StudyPlan> getSpecificUserStudyPlansCompleted(Integer userId) throws SQLException;
 	
 	
+	//Get NOT Completed Study Plans Enrolled by Specific User
+	public abstract List<StudyPlan> getSpecificUserStudyPlansNotCompleted(Integer userId) throws SQLException;
 	
 	
 	//Add Study Plan return null/ or inserted plan id

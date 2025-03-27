@@ -16,9 +16,23 @@ public class StudyPlanServiceImpl implements StudyPlanService{
 	
 	
 	
+	//Get Completed Study Plans Enrolled by Specific User
+	public List<StudyPlan> getSpecificUserStudyPlansCompleted(Integer userId) throws SQLException
+	{
+		StudyPlanDAO studyPlanDAO = new StudyPlanDAOImpl();
+		
+		return studyPlanDAO.getSpecificUserStudyPlansCompleted(userId);
+
+	}
 	
 	
-	
+	//Get NOT Completed Study Plans Enrolled by Specific User
+	public List<StudyPlan> getSpecificUserStudyPlansNotCompleted(Integer userId) throws SQLException
+	{
+		StudyPlanDAO studyPlanDAO = new StudyPlanDAOImpl();
+		
+		return studyPlanDAO.getSpecificUserStudyPlansNotCompleted(userId);
+	}
 	
 	
 	//Add Study Plan

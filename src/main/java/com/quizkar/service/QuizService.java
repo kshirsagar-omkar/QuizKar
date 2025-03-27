@@ -3,6 +3,7 @@ package com.quizkar.service;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.quizkar.dto.GivenQuizesDTO;
 import com.quizkar.entities.Quiz;
 
 public interface QuizService {
@@ -10,7 +11,8 @@ public interface QuizService {
 	
 	
 	
-	
+	// -- Get Quizzes Given by Specific User 
+	public abstract List<GivenQuizesDTO> getQuizesGivenBySpecificUser(Integer userId) throws SQLException;
 	
 	
 	

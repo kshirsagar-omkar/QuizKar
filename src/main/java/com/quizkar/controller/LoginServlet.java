@@ -1,7 +1,6 @@
 package com.quizkar.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import com.quizkar.entities.Users;
@@ -13,6 +12,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 
 @WebServlet(name = "login", value = "/login")
@@ -34,14 +34,7 @@ public class LoginServlet extends HttpServlet {
 		String role = request.getParameter("role");
 		//User can enter Username Or EmailId
 		String identifier = request.getParameter("identifier");
-		String password = request.getParameter("password");
-		
-		
-		
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-				
-		
+		String password = request.getParameter("password");		
 		
 		try{
 			
@@ -53,18 +46,25 @@ public class LoginServlet extends HttpServlet {
 			
 			UsersService usersService = new UsersServiceImpl();
 			
-			Integer userId = usersService.validateUser(user);
+			// if user is present then it gets all user data excluding password
+			user = usersService.validateUser(user);
 			
-			if( userId != null ) {
-				//create session object that stores User's Object all info excluding password
-				//redirect to user's/admin's dash board
-				out.println("success");
+			if( user != null ) {
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("user", user);
+				
+				if(user.getRole().equals("user")) {
+					response.sendRedirect("pages/user/dashboard.jsp");
+				}
+				else if(user.getRole().equals("admin")) {
+					response.sendRedirect("admindashboard");
+				}
 			}
 			else {
 				//set an error message in request object
 				//redirect to login page again
 				this.handleError("Invalid Login Credientials!", request, response);
-//				out.println("failed");
 			}
 		
 		}
@@ -72,7 +72,6 @@ public class LoginServlet extends HttpServlet {
 			// set an error message to request
 			// handle the exception and redirect to login page
 			this.handleError(sqlEx.getMessage(), request, response);
-//			out.println("failed");
 		}
 		
 	}
@@ -81,5 +80,6 @@ public class LoginServlet extends HttpServlet {
 		request.setAttribute("error", errorMessage);
 		request.getRequestDispatcher("pages/auth/login.jsp").forward(request, response);
 	}
+
 
 }

@@ -7,7 +7,7 @@ import com.quizkar.entities.Users;
 public interface UsersService {
 	
 	//Validate the user is present in database with correct credentials if yes returns user_id else null
-	public abstract Integer validateUser(Users user) throws SQLException;
+	public abstract Users validateUser(Users user) throws SQLException;
 	
 	
 

@@ -8,7 +8,7 @@ import com.quizkar.entities.Users;
 
 public class UsersServiceImpl implements UsersService {
 	
-	public Integer validateUser(Users user) throws SQLException
+	public Users validateUser(Users user) throws SQLException
 	{
 		UsersDAO usersDAO = new UsersDAOImpl();
 		

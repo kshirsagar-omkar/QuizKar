@@ -87,11 +87,11 @@ public class UsersDAOImpl implements UsersDAO{
 	
 	
 	
-	public Integer validateUser(Users user) throws SQLException
+	public Users validateUser(Users user) throws SQLException
 	{
-		Integer userId = null;
+		Users retUser = null;
 		
-		String query = "SELECT user_id FROM users WHERE ( username = ? OR email = ? ) AND password = ? AND role = ?";
+		String query = "SELECT * FROM users WHERE ( username = ? OR email = ? ) AND password = ? AND role = ?";
 		
 		try(Connection connection = DBUtil.getConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(query))
@@ -103,12 +103,17 @@ public class UsersDAOImpl implements UsersDAO{
 			
 			try(ResultSet resultSet = preparedStatement.executeQuery()){
 				if(resultSet.next()) {
-					userId = resultSet.getInt("user_id");
+					retUser = new Users();
+					retUser.setUserId( resultSet.getInt("user_id") );
+					retUser.setUserName( resultSet.getString("username") );
+					retUser.setEmail( resultSet.getString("email") );
+//					retUser.setPassword( resultSet.getString("password") ); 
+					retUser.setRole( resultSet.getString("role") );
 				}
 			}
 		}
 		
-		return userId;
+		return retUser;
 	}
 	
 	

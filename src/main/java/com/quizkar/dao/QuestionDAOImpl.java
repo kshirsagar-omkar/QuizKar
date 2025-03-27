@@ -12,6 +12,68 @@ import com.quizkar.util.DBUtil;
 
 public class QuestionDAOImpl implements QuestionDAO{
 
+	
+	
+	//Add Single Question in specific quiz id
+	public Integer addQuestion(Question question) throws SQLException
+	{
+		Connection connection = null;
+		String query = "INSERT INTO question (quiz_id, question_text, option_a, option_b, option_c, option_d, correct_answer) VALUES (?, ?, ?, ?, ?, ?, ?) RETURNING question_id";
+		Integer questionId = null;
+		
+		try {
+			connection = DBUtil.getConnection();
+			connection.setAutoCommit(false);
+
+			try(PreparedStatement ps = connection.prepareStatement(query))
+			{
+				
+				ps.setInt(1, question.getQuizId());
+				ps.setString(2, question.getQuestionText());
+				ps.setString(3, question.getOptionA());
+				ps.setString(4, question.getOptionB());
+				ps.setString(5, question.getOptionC());
+				ps.setString(6, question.getOptionD());
+				ps.setString(7, question.getCorrectAnswer().toString());
+				
+				
+				ResultSet resultSet = ps.executeQuery();
+				if(resultSet.next()) {
+					questionId = resultSet.getInt("question_id");
+				}
+				connection.commit();
+				
+			}
+			catch(SQLException e) {
+				
+				if(connection != null) {
+					connection.rollback();
+				}
+				throw e;
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			throw e;
+		}
+		finally {
+			try {
+				if(connection != null) {
+					connection.setAutoCommit(true);
+					connection.close();
+				}
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+				throw e;
+			}
+		}
+		
+		return questionId;
+	}
+	
+	
+	
 	public void addQuestions(List<Question> questions) throws SQLException
 	{
 		Connection connection = null;
@@ -168,7 +230,7 @@ public class QuestionDAOImpl implements QuestionDAO{
 	
 	
 	
-	
+//	
 //	public static void main(String[] args) {
 //
 //	    Integer quizId = null;
@@ -204,51 +266,52 @@ public class QuestionDAOImpl implements QuestionDAO{
 //	            q1.setOptionC("Both A and B");
 //	            q1.setOptionD("None");
 //	            q1.setCorrectAnswer('C');
-//	            questionList.add(q1);
+////	            questionList.add(q1);
+////
+////	            Question q2 = new Question();
+////	            q2.setQuizId(quizId);
+////	            q2.setQuestionText("Which keyword is used to inherit a class in Java?");
+////	            q2.setOptionA("extends");
+////	            q2.setOptionB("implements");
+////	            q2.setOptionC("inherits");
+////	            q2.setOptionD("None");
+////	            q2.setCorrectAnswer('A');
+////	            questionList.add(q2);
+////
+////	            Question q3 = new Question();
+////	            q3.setQuizId(quizId);
+////	            q3.setQuestionText("Which company developed Java?");
+////	            q3.setOptionA("Microsoft");
+////	            q3.setOptionB("Sun Microsystems");
+////	            q3.setOptionC("Apple");
+////	            q3.setOptionD("Google");
+////	            q3.setCorrectAnswer('B');
+////	            questionList.add(q3);
+////
+////	            Question q4 = new Question();
+////	            q4.setQuizId(quizId);
+////	            q4.setQuestionText("Which method is the entry point in Java?");
+////	            q4.setOptionA("start()");
+////	            q4.setOptionB("main()");
+////	            q4.setOptionC("run()");
+////	            q4.setOptionD("init()");
+////	            q4.setCorrectAnswer('B');
+////	            questionList.add(q4);
+////
+////	            Question q5 = new Question();
+////	            q5.setQuizId(quizId);
+////	            q5.setQuestionText("Which of the following is not a Java feature?");
+////	            q5.setOptionA("Object-oriented");
+////	            q5.setOptionB("Portable");
+////	            q5.setOptionC("Architecture Neutral");
+////	            q5.setOptionD("Pointer Usage");
+////	            q5.setCorrectAnswer('D');
+////	            questionList.add(q5);
 //
-//	            Question q2 = new Question();
-//	            q2.setQuizId(quizId);
-//	            q2.setQuestionText("Which keyword is used to inherit a class in Java?");
-//	            q2.setOptionA("extends");
-//	            q2.setOptionB("implements");
-//	            q2.setOptionC("inherits");
-//	            q2.setOptionD("None");
-//	            q2.setCorrectAnswer('A');
-//	            questionList.add(q2);
+////	            // Add questions
+////	            questionDAO.addQuestions(questionList);
 //
-//	            Question q3 = new Question();
-//	            q3.setQuizId(quizId);
-//	            q3.setQuestionText("Which company developed Java?");
-//	            q3.setOptionA("Microsoft");
-//	            q3.setOptionB("Sun Microsystems");
-//	            q3.setOptionC("Apple");
-//	            q3.setOptionD("Google");
-//	            q3.setCorrectAnswer('B');
-//	            questionList.add(q3);
-//
-//	            Question q4 = new Question();
-//	            q4.setQuizId(quizId);
-//	            q4.setQuestionText("Which method is the entry point in Java?");
-//	            q4.setOptionA("start()");
-//	            q4.setOptionB("main()");
-//	            q4.setOptionC("run()");
-//	            q4.setOptionD("init()");
-//	            q4.setCorrectAnswer('B');
-//	            questionList.add(q4);
-//
-//	            Question q5 = new Question();
-//	            q5.setQuizId(quizId);
-//	            q5.setQuestionText("Which of the following is not a Java feature?");
-//	            q5.setOptionA("Object-oriented");
-//	            q5.setOptionB("Portable");
-//	            q5.setOptionC("Architecture Neutral");
-//	            q5.setOptionD("Pointer Usage");
-//	            q5.setCorrectAnswer('D');
-//	            questionList.add(q5);
-//
-//	            // Add questions
-//	            questionDAO.addQuestions(questionList);
-//
+//	            questionDAO.addQuestion(q1);
 //	            System.out.println("5 Questions inserted successfully!");
 //
 //	        } catch (SQLException e) {

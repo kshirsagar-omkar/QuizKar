@@ -1,22 +1,43 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.quizkar.entities.Users" %>
 
-<% if(session.getAttribute("user") == null) {
-    response.sendRedirect("login.jsp");
-    return;
-} %>
+
+
+<%
+    // Prevent unauthorized access
+    Users user = (Users) session.getAttribute("user");
+    if (user == null || !"admin".equals(user.getRole())) {
+        response.sendRedirect("login");
+        return;
+    }
+%>
+
 
 <html>
 <head>
     <title>Add Study Plan</title>
 </head>
 <body>
+
+	<jsp:include page="../../components/cacheControl.jsp"/>
+
+ 
     <jsp:include page="../../components/navbar.jsp"/>
     
-    <h1>Create New Study Plan</h1>
-    <form action="AddStudyPlanServlet" method="post">
-        Name: <input type="text" name="name" required><br>
-        Link: <input type="text" name="link" required><br>
-        <input type="submit" value="Create Plan">
-    </form>
+    <div>
+    	<h1>Create New Study Plan</h1>
+    	
+    	<div>
+	        Name: <input type="text" name="studyPlanName" required id="studyPlanName"><br>
+	        Link: <input type="text" name="studyPlanLink" required id="studyPlanLink"><br>
+	        
+	        <input type="button" name="addStudyPlanBtn" value="Add StudyPlan" onclick="addStudyPlan(<%= user.getUserId() %>)" >
+        </div>
+        
+	</div>
+    
+    
+    <script src="./pages/admin/js/addStudyPlan.js"> </script>
+    
 </body>
 </html>

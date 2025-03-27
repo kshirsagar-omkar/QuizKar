@@ -181,6 +181,40 @@ public class QuizDAOImpl implements QuizDAO{
 	}
 	
 	
+	//return row Affected
+	public Integer updateQuizCreatedByAdmin(Quiz quiz) throws SQLException
+	{
+		String query = "UPDATE quiz SET title = ?, time_limit = ? where quiz_id = ?";
+		Integer rowAffected = 0;
+		
+		try (Connection connection = DBUtil.getConnection()){
+		
+			connection.setAutoCommit(false);
+			
+			try( PreparedStatement preparedStatement  = connection.prepareStatement(query)) {
+				
+				
+	//			connection.setAutoCommit(false);
+				
+			    preparedStatement.setString(1, quiz.getTitle());
+			    preparedStatement.setInt(2, quiz.getTimeLimit());
+			    preparedStatement.setInt(3, quiz.getQuizId());
+	
+			    rowAffected = preparedStatement.executeUpdate();
+			    
+			    connection.commit();
+			}
+			catch (SQLException e) {
+			    e.printStackTrace();
+			    if(connection != null) {
+					connection.rollback();
+				}
+			    throw e;
+			}
+			return rowAffected;
+		}
+	}
+	
 	
 	
 	

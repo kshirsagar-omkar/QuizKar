@@ -1,65 +1,57 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="com.quizkar.entities.Users" %>
 
-<% if(session.getAttribute("user") == null) {
-    response.sendRedirect("login.jsp");
-    return;
-} %>
+<%
+    // Prevent unauthorized access
+    Users user = (Users) session.getAttribute("user");
+    if (user == null || !"admin".equals(user.getRole())) {
+        response.sendRedirect("login");
+        return;
+    }
+%>
 
 <html>
 <head>
     <title>Create New Quiz</title>
-    <script>
-        function addQuestion() {
-            const container = document.getElementById("questions");
-            const newQuestion = document.createElement("div");
-            newQuestion.innerHTML = `
-                <h3>New Question</h3>
-                Question: <input type="text" name="questionText" required><br>
-                Option A: <input type="text" name="optionA" required><br>
-                Option B: <input type="text" name="optionB" required><br>
-                Option C: <input type="text" name="optionC" required><br>
-                Option D: <input type="text" name="optionD" required><br>
-                Correct Answer: 
-                <select name="correctAnswer" required>
-                    <option value="A">A</option>
-                    <option value="B">B</option>
-                    <option value="C">C</option>
-                    <option value="D">D</option>
-                </select><br>
-            `;
-            container.appendChild(newQuestion);
-        }
-    </script>
 </head>
 <body>
+
+	<jsp:include page="../../components/cacheControl.jsp"/>
+
     <jsp:include page="../../components/navbar.jsp"/>
     
     <h1>Create New Quiz</h1>
-    <form action="AddQuizServlet" method="post">
-        Title: <input type="text" name="title" required><br>
-        Time Limit: <input type="number" name="timeLimit" required> mins<br>
-        
+    <form onsubmit="submitQuiz(event)">
+        <label>Title:</label> <input type="text" id="quizTitle" required><br>
+        <label>Time Limit:</label> <input type="number" id="timeLimit" required> mins<br>
+		
+		<input type="hidden" value = "<%=user.getUserId()%>" id="adminId">
+
         <div id="questions">
             <h2>Questions</h2>
-            <div>
+            <div class="question-block">
                 <h3>Question 1</h3>
-                Question: <input type="text" name="questionText" required><br>
-                Option A: <input type="text" name="optionA" required><br>
-                Option B: <input type="text" name="optionB" required><br>
-                Option C: <input type="text" name="optionC" required><br>
-                Option D: <input type="text" name="optionD" required><br>
-                Correct Answer: 
-                <select name="correctAnswer" required>
+                <label>Question:</label> <input type="text" class="questionText" required><br>
+                <label>Option A:</label> <input type="text" class="optionA" required><br>
+                <label>Option B:</label> <input type="text" class="optionB" required><br>
+                <label>Option C:</label> <input type="text" class="optionC" required><br>
+                <label>Option D:</label> <input type="text" class="optionD" required><br>
+                <label>Correct Answer:</label>
+                <select class="correctAnswer" required>
                     <option value="A">A</option>
                     <option value="B">B</option>
                     <option value="C">C</option>
                     <option value="D">D</option>
                 </select><br>
+                <hr>
             </div>
         </div>
-        
+
         <button type="button" onclick="addQuestion()">Add Another Question</button>
         <input type="submit" value="Create Quiz">
     </form>
+    
+    
+    <script src="./pages/admin/js/addQuiz.js" ></script>
 </body>
 </html>

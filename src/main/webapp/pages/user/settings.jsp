@@ -1,15 +1,25 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
-<% if(session.getAttribute("user") == null) {
-    response.sendRedirect("login.jsp");
-    return;
-} %>
+<%@ page import="com.quizkar.entities.Users" %>
+
+
+<%
+	//Prevent unauthorized access
+    Users user = (Users) session.getAttribute("user");
+    if (user == null || !"user".equals(user.getRole())) {
+    	response.sendRedirect("../../login");
+    }
+%>
+
 
 <html>
 <head>
     <title>Account Settings</title>
 </head>
 <body>
+
+	<jsp:include page="../../components/cacheControl.jsp"/>
+
     <jsp:include page="../../components/navbar.jsp"/>
     
     <h1>Account Settings</h1>

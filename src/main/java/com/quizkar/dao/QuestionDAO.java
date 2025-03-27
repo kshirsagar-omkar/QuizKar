@@ -7,6 +7,11 @@ import com.quizkar.entities.Question;
 
 public interface QuestionDAO {
 	
+	
+	//Add Single Question in specific quiz id
+	public abstract Integer addQuestion(Question question) throws SQLException;
+	
+	
 	//Add Questions in specific quiz id
 	public abstract void addQuestions(List<Question> questions) throws SQLException;
 	

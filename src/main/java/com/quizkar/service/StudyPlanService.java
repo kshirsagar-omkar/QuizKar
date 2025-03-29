@@ -8,6 +8,8 @@ import com.quizkar.entities.StudyPlan;
 public interface StudyPlanService {
 	
 	
+	// Get All Study Plans
+	public abstract List<StudyPlan> getStudyPlans() throws SQLException;
 	
 	
 	//Get Completed Study Plans Enrolled by Specific User

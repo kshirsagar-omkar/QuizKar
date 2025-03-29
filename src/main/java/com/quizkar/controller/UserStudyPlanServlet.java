@@ -3,8 +3,12 @@ package com.quizkar.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 
+import com.quizkar.entities.StudyPlan;
 import com.quizkar.entities.UserStudyPlanEnrollment;
+import com.quizkar.service.StudyPlanService;
+import com.quizkar.service.StudyPlanServiceImpl;
 import com.quizkar.service.UserStudyPlanEnrollmentService;
 import com.quizkar.service.UserStudyPlanEnrollmentServiceImpl;
 
@@ -22,10 +26,25 @@ public class UserStudyPlanServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		List<StudyPlan> studyPlans = null;
+		
+		try {
+			StudyPlanService studyPlanService = new StudyPlanServiceImpl();
+			
+			studyPlans = studyPlanService.getStudyPlans();
+			
+			request.setAttribute("studyPlans", studyPlans);
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
 		request.getRequestDispatcher("pages/user/studyPlans.jsp").forward(request, response);
 	}
 
 
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		response.setContentType("text/html");
@@ -40,18 +59,24 @@ public class UserStudyPlanServlet extends HttpServlet {
 			if(action.equals("updateStudyPlanStatus")) {
 				actionStatus = updateStudyPlanStatus(request, response);
 			}		
+			else if( action.equals("enroll") ) {
+				actionStatus = enrollStudyPlan(request, response);
+			}
 			
 			out.println(actionStatus);
 		}
 		catch(Exception e) {
 			out.println(actionStatus);
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		finally {
 			out.close();
 		}
 		
 	}
+	
+	
+	
 
 	
 	private String updateStudyPlanStatus(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
@@ -80,5 +105,37 @@ public class UserStudyPlanServlet extends HttpServlet {
 		}
 		return "failed";
 	}
+	
+	
+	
+	private String enrollStudyPlan(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+		try {
+			UserStudyPlanEnrollmentService userStudyPlanEnrollmentService = new UserStudyPlanEnrollmentServiceImpl();
+			
+			UserStudyPlanEnrollment userStudyPlanEnrollment = new UserStudyPlanEnrollment();
+			userStudyPlanEnrollment.setStudyPlanId( Integer.parseInt( request.getParameter("planId")) );
+			userStudyPlanEnrollment.setUserId( Integer.parseInt( request.getParameter("userId")) );
+			
+			Integer rowAffected = userStudyPlanEnrollmentService.enrollStudyPlan(userStudyPlanEnrollment);
+			
+			if(rowAffected > 0) {
+				return "success";
+			}
+		}
+		catch(SQLException e)
+		{
+//			System.out.println(e.getMessage());
+			if( e.getMessage().endsWith("already exists.")) {
+				return "alreadyEnrolled";
+			}
+			
+		}
+		catch(NumberFormatException e) {
+			e.printStackTrace();
+		}
+		
+		return "failed";
+	}
+	
 	
 }

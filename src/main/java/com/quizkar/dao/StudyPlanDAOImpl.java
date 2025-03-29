@@ -33,6 +33,7 @@ public class StudyPlanDAOImpl implements StudyPlanDAO{
 				studyPlan.setStudyPlanId( resultSet.getInt("studyplan_id") );
 				studyPlan.setName( resultSet.getString("name") );
 				studyPlan.setLink( resultSet.getString("link") );
+//				studyPlan.setEnrollStatus( resultSet.getString("enrollStatus") );
 				
 				//2025-03-20 17:26:45.918626 -> 2025-03-20 17:26:45
 				studyPlan.setCreatedAt( (resultSet.getString("created_at")).split("\\.")[0] );	

@@ -11,7 +11,12 @@ public class StudyPlanServiceImpl implements StudyPlanService{
 
 	
 	
-	
+	// Get All Study Plans
+	public List<StudyPlan> getStudyPlans() throws SQLException
+	{
+		StudyPlanDAO studyPlanDAO = new StudyPlanDAOImpl();
+		return studyPlanDAO.getStudyPlans();
+	}
 	
 	
 	

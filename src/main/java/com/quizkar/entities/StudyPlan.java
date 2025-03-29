@@ -11,14 +11,20 @@ public class StudyPlan {
 	private String createdAt; //date
 	private Integer createdBy; // Reference com.quizkar.entities -> Users.userId
 	private String link;
+	/*
+	private String enrollStatus;
 	
 	
 	
 	
 	
 	
-	
-	
+	public String getEnrollStatus() {
+		return enrollStatus;
+	}
+	public void setEnrollStatus(String enrollStatus) {
+		this.enrollStatus = enrollStatus;
+	}*/
 	public String getLink() {
 		return link;
 	}

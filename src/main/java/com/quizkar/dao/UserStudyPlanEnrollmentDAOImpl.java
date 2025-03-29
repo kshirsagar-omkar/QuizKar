@@ -32,12 +32,47 @@ public class UserStudyPlanEnrollmentDAOImpl implements UserStudyPlanEnrollmentDA
 		    }
 		}
 		catch (SQLException e) {
-		    e.printStackTrace();
+//		    e.printStackTrace();
 		    throw e; 
 		}
 		return generatedId;
 	}
 	
+
+	
+	public Integer unEnrollStudyPlan(UserStudyPlanEnrollment userStudyPlanEnrollment) throws SQLException
+	{
+		
+		String query = "DELETE FROM user_studyplan_enrollment WHERE studyplan_id = ? AND user_id = ?";
+		Integer affectedRows = 0;
+		
+		try(Connection connection  = DBUtil.getConnection()) {
+			
+			connection.setAutoCommit(false);
+			
+			try( PreparedStatement preparedStatement = connection.prepareStatement(query)){
+				
+				preparedStatement.setInt(2, userStudyPlanEnrollment.getUserId());
+			    preparedStatement.setInt(1, userStudyPlanEnrollment.getStudyPlanId());
+				
+				affectedRows = preparedStatement.executeUpdate();
+				connection.commit();
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+				if(connection != null) {
+					try {
+						connection.rollback();
+					}
+					catch(SQLException rollBackEX) {
+						rollBackEX.printStackTrace();
+					}
+				}
+				throw e;
+			}
+		}
+		return affectedRows;
+	}
 	
 	
 	

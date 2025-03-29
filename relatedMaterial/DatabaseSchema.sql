@@ -137,7 +137,7 @@ CREATE TABLE leaderboard (
  
 -- ============================
 INSERT INTO users (username, email, password, role) VALUES 
-('admin', 'admin@gmail.com', 'admin123', 'admin');
+('admin', 'admin@gmail.com', '1', 'admin');
 
 INSERT INTO users (username, email, password) VALUES 
 ('aaa', 'aaa@gmail.com', '123'),
@@ -261,6 +261,7 @@ INSERT INTO user_studyplan_enrollment (user_id, studyplan_id) VALUES
 
 -- JDBC : UPDATE study_plan sp SET status = ? FROM user_studyplan_enrollment use WHERE sp.studyplan_id = use.studyplan_id AND use.user_id = ? AND sp.studyplan_id = ?
 
+UPDATE study_plan sp SET status = 'complete' FROM user_studyplan_enrollment use WHERE sp.studyplan_id = use.studyplan_id AND use.user_id = 2 AND sp.studyplan_id = 2;
 
 --===============================
 
@@ -277,7 +278,9 @@ INSERT INTO quiz (title, created_by, time_limit) VALUES
 
 -- Note When this is inserted in table make sure primary key is returned from this because it will use for the creating question for specific topic
 
+--UPDATE
 
+-- UPDATE quiz SET title = ?, time_limit = ? where quiz_id = ?
 
 
 -- ============================
@@ -486,4 +489,5 @@ SELECT correct_answer FROM question WHERE quiz_id = 2;
 --     }
     
 -- }
+
 

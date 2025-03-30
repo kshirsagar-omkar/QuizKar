@@ -8,7 +8,8 @@ import com.quizkar.entities.Quiz;
 
 public interface QuizService {
 
-	
+	// -- Get ALL Quizzes 
+	public abstract List<Quiz> getQuizes() throws SQLException;
 	
 	
 	// -- Get Quizzes Given by Specific User 

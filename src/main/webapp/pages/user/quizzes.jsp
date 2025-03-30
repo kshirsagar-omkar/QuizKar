@@ -8,7 +8,7 @@
 	//Prevent unauthorized access
     Users user = (Users) session.getAttribute("user");
     if (user == null || !"user".equals(user.getRole())) {
-    	response.sendRedirect("../../login");
+    	response.sendRedirect("login");
     }
 %>
 
@@ -30,15 +30,23 @@
     <jsp:include page="../../components/navbar.jsp"/>
     
     <h1>Quizzes</h1>
-    <c:forEach items="${availableQuizzes}" var="quiz">
-        <div>
-            <h3>${quiz.title}</h3>
-            <p>Time Limit: ${quiz.timeLimit} mins</p>
-            <form action="StartQuizServlet" method="post">
-                <input type="hidden" name="quizId" value="${quiz.quizId}">
-                <input type="submit" value="Start Quiz">
-            </form>
-        </div>
-    </c:forEach>
+    <% if(request.getAttribute("quizzes") == null) {%>
+    	<h3>No Quizes Available</h3>
+    <%} else{ %>
+    
+	    <c:forEach items="${quizzes}" var="quiz">
+	        <div style="border: 1px solid black; padding: 10px; margin: 10px;">
+	            <h3>${quiz.title}</h3>
+	            <p>Time Limit: ${quiz.timeLimit} mins</p>
+	            <form action="UserStartQuiz" method="post">
+	                <input type="hidden" name="quizId" value="${quiz.quizId}">
+	                <input type="hidden" name="quizTitle" value="${quiz.title}">
+	                <input type="hidden" name="quizTimeLimit" value="${quiz.timeLimit}">
+	                <input type="submit" value="Start Quiz">
+	            </form>
+	        </div>
+	    </c:forEach>
+    <%} %>
+    
 </body>
 </html>

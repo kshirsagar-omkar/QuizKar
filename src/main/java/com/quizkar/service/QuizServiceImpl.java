@@ -12,7 +12,12 @@ public class QuizServiceImpl implements QuizService{
 
 	
 	
-	
+	// -- Get ALL Quizzes 
+	public List<Quiz> getQuizes() throws SQLException
+	{
+		QuizDAO quizDAO = new QuizDAOImpl();
+		return quizDAO .getQuizes();
+	}
 	
 	
 	// -- Get Quizzes Given by Specific User 

@@ -20,7 +20,7 @@
         <% if ("user".equals(user.getRole())) { %>
             <!-- User Links -->
             <a href="UserStudyPlanServlet">Study Plans</a>
-            <a href="pages/user/quizzes.jsp">Quizzes</a>
+            <a href="UserQuizzes">Quizzes</a>
             <a href="pages/user/profile.jsp">Profile</a>
         <% } else if ("admin".equals(user.getRole())) { %>
             <!-- Admin Links -->

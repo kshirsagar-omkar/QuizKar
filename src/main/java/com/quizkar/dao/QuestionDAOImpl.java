@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.quizkar.entities.Question;
 import com.quizkar.util.DBUtil;
@@ -164,11 +166,11 @@ public class QuestionDAOImpl implements QuestionDAO{
 	
 	
 	
-	public List<String> getAnswers(Integer quizId) throws SQLException
+	public Map<Integer,String> getAnswers(Integer quizId) throws SQLException
 	{
-		List<String> answers = new ArrayList<>();
+		Map<Integer,String> answers = new HashMap<>();
 		
-		final String query = "SELECT correct_answer FROM question WHERE quiz_id = ?";
+		final String query = "SELECT question_id, correct_answer FROM question WHERE quiz_id = ?";
 		
 		
 		try (Connection connection = DBUtil.getConnection();
@@ -179,8 +181,11 @@ public class QuestionDAOImpl implements QuestionDAO{
 			try(ResultSet	resultSet  = preparedStatement.executeQuery() ) {
 				
 				while(resultSet.next()) {
+
+					Integer questionId = resultSet.getInt("question_id");
+					String correctAnswer = resultSet.getString("correct_answer");
 					
-					answers.add( resultSet.getString("correct_answer") );	
+					answers.put(questionId, correctAnswer);
 					
 				}
 			}	

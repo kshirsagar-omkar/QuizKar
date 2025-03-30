@@ -8,7 +8,7 @@
 	//Prevent unauthorized access
     Users user = (Users) session.getAttribute("user");
     if (user == null || !"user".equals(user.getRole())) {
-    	response.sendRedirect("../../login");
+    	response.sendRedirect("login");
     }
 %>
 
@@ -33,6 +33,6 @@
     <p>Username: ${user.userName}</p>
     <p>Email: ${user.email}</p>
     <p>Role: ${user.role}</p>
-    <a href="editProfile.jsp">Edit Profile</a>
+    <a href="UserEditProfile">Edit Profile</a>
 </body>
 </html>

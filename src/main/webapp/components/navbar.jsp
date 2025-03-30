@@ -21,7 +21,7 @@
             <!-- User Links -->
             <a href="UserStudyPlanServlet">Study Plans</a>
             <a href="UserQuizzes">Quizzes</a>
-            <a href="pages/user/profile.jsp">Profile</a>
+            <a href="UserProfile">Profile</a>
         <% } else if ("admin".equals(user.getRole())) { %>
             <!-- Admin Links -->
             <a href="AdminStudyPlanServlet">Add Plans</a>

@@ -48,7 +48,7 @@ public class QuizDAOImpl implements QuizDAO{
 		
 		List<GivenQuizesDTO> quizLeaderBoardDTOs = new ArrayList<>();
 		
-		final String query = "SELECT q.quiz_id, q.title, q.time_limit, lb.score, lb.participation_date, lb.time_taken FROM quiz q JOIN leaderboard lb ON q.quiz_id = lb.quiz_id WHERE lb.user_id = ?";
+		final String query = "SELECT q.quiz_id, q.title, q.time_limit, lb.score, lb.participation_date, lb.time_taken FROM quiz q JOIN leaderboard lb ON q.quiz_id = lb.quiz_id WHERE lb.user_id = ? ORDER BY lb.participation_date DESC";
 		
 		
 		try (Connection connection = DBUtil.getConnection();

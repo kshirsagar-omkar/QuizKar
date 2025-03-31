@@ -102,6 +102,61 @@ public class LeaderBoardDAOImpl implements LeaderBoardDAO{
 	
 	
 	
+	//If record already exist it returns true else false
+	public Boolean checkIfRecordExistsInLeaderBoard(LeaderBoard leaderBoard) throws SQLException{
+		
+		String query = "SELECT leaderboard_id FROM leaderboard WHERE quiz_id = ? AND  user_id = ?";
+	
+		try (Connection connection = DBUtil.getConnection();
+		     PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			
+		    preparedStatement.setInt(1, leaderBoard.getQuizId());
+		    preparedStatement.setInt(2, leaderBoard.getUserId());
+
+		    ResultSet resultSet = preparedStatement.executeQuery();
+
+		    
+		    if (resultSet.next()) {
+		        return true;
+		    }
+		}
+		catch (SQLException e) {
+		    e.printStackTrace();
+		    throw e; 
+		}
+		return false;
+		
+	}
+	
+	
+	
+	 
+	//Update a record in LeaderBoard returns row affected
+	public Integer updateLeaderBoard(LeaderBoard leaderBoard) throws SQLException{
+		String query = "UPDATE leaderboard SET score = ? , time_taken = ?, participation_date = CURRENT_TIMESTAMP WHERE quiz_id = ? AND user_id = ?";
+		
+		Integer rowsAffected = 0;
+		
+		try (Connection connection = DBUtil.getConnection();
+		     PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+			
+//			connection.setAutoCommit(false);
+			
+		    preparedStatement.setInt(3, leaderBoard.getQuizId());
+		    preparedStatement.setInt(4, leaderBoard.getUserId());
+		    preparedStatement.setInt(1, leaderBoard.getScore());
+		    preparedStatement.setInt(2, leaderBoard.getTimeTaken());
+
+		    rowsAffected = preparedStatement.executeUpdate();
+		}
+		catch (SQLException e) {
+		    e.printStackTrace();
+		    throw e; 
+		}
+		return rowsAffected;
+	}
+	
+	
 	
 	
 //	public static void main(String[] args) {

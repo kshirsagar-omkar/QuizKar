@@ -2,6 +2,7 @@ package com.quizkar.service;
 
 import java.sql.SQLException;
 import java.util.List;
+import java.util.Map;
 
 import com.quizkar.dao.QuestionDAO;
 import com.quizkar.dao.QuestionDAOImpl;
@@ -24,6 +25,14 @@ public class QuestionServiceImpl implements QuestionService {
 	{
 		QuestionDAO questionDAO = new QuestionDAOImpl();
 		return questionDAO.getQuestions(quizId);
+	}
+	
+	
+	
+	//Get Answers for specific quiz_id Returns[ questionId, correctAnswer ]
+	public Map<Integer,String> getAnswers(Integer quizId) throws SQLException{
+		QuestionDAO questionDAO = new QuestionDAOImpl();
+		return questionDAO.getAnswers(quizId);
 	}
 	
 }

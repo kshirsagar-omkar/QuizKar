@@ -17,6 +17,11 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	
+	//Update user in db Return affected rows password needed to update user details
+	public Integer updateUser(Users user) throws SQLException{
+		UsersDAO usersDAO = new UsersDAOImpl();
+		return usersDAO.updateUser(user);
+	}
 
 	//Get user is used for showing user details on profile
 	public Users getUser(Users user) throws SQLException

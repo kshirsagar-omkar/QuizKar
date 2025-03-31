@@ -41,6 +41,7 @@
                 if (data.trim() === "success") {
                     document.getElementById("editSection").style.display = "block";
                     document.getElementById("verifySection").style.display = "none";
+                    document.getElementById("newPassword").value = password;
                 } else {
                     document.getElementById("errorMessage").innerText = "Invalid credentials!";
                 }
@@ -72,13 +73,23 @@
             .then(data => {
                 if (data.trim() === "success") {
                     alert("Profile updated successfully!");
-                    location.reload();
+                    //location.reload();
+                    window.location.replace("UserProfile");
+                } else if(data.trim() === "alreadyTaken"){
+                	alert("Failed to update profile. Username or Email Already Taken.");
                 } else {
                     alert("Failed to update profile. Please try again.");
                 }
             })
             .catch(error => console.error("Error updating profile:", error));
         }
+        
+        function togglePassword() {
+            let passwordField = document.getElementById("newPassword");
+            passwordField.type = passwordField.type === "password" ? "text" : "password";
+        }
+        
+        
     </script>
 </head>
 <body>
@@ -108,7 +119,10 @@
         <h3>Edit Your Profile</h3>
         New Username: <input type="text" id="newUsername" value="${user.userName}" required><br>
         New Email: <input type="email" id="newEmail" value="${user.email}" required><br>
-        New Password: <input type="password" id="newPassword" placeholder="New password"><br>
+        New Password: 
+			<input type="password" id="newPassword" value="#" required>
+			<input type="checkbox" onclick="togglePassword()"> Show Password
+			<br>
         <button onclick="updateProfile(<%= user.getUserId() %>)">Update Profile</button>
     </div>
 

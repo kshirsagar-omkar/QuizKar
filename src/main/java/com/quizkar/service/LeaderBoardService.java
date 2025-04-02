@@ -9,7 +9,7 @@ import com.quizkar.entities.LeaderBoard;
 public interface LeaderBoardService {
 
 	
-	//Get LeaderBoard details
+	//Get LeaderBoard details using quiz title (Optional) filter
 	public abstract List<GlobalLeaderBoardDTO> getLeaderBoard(String filter) throws SQLException;
 	
 	

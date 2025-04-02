@@ -8,7 +8,7 @@ import com.quizkar.entities.LeaderBoard;
 
 public interface LeaderBoardDAO {
 	
-	//Get LeaderBoard details
+	//Get LeaderBoard details using quiz title (Optional) filter
 	public abstract List<GlobalLeaderBoardDTO> getLeaderBoard(String filter) throws SQLException;
 	
 	//Add a record in LeaderBoard

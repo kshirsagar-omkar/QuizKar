@@ -1,6 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%@ page import="com.quizkar.entities.Users" %>
+
+<%
+    // Prevent unauthorized access
+    Users user = (Users) session.getAttribute("user");
+    if (user == null || !"user".equals(user.getRole())) {
+        response.sendRedirect("login");
+        return;
+    }
+%>
+
 <html>
 <head>
     <title>Leaderboard</title>
@@ -18,47 +29,60 @@
 
     <h1>Global Leaderboard</h1>
 
-    <c:set var="lastQuizTitle" value="" />
+    <!-- Search form -->
+    <form action="UserLeaderboard" method="GET">
+        <input type="text" name="filter" placeholder="Enter quiz title..." value="${param.filter}">
+        <button type="submit" name="btn" value="search" >Search</button>
+        <button type="submit" name="btn" value="resfresh" >Refresh</button>
+    </form>
 
-    <c:forEach var="entry" items="${leaderboard}">
-        <!-- Check if we need to create a new table for a different quiz -->
-        <c:if test="${entry.quizTitle ne lastQuizTitle}">
-            <c:if test="${lastQuizTitle ne ''}">
-                </table> <!-- Close the previous table if not the first quiz -->
-            </c:if>
+    <c:choose>
+        <c:when test="${empty leaderboard}">
+            <p>No records found for "<c:out value='${param.filter}'/>". Try another search.</p>
+        </c:when>
+        <c:otherwise>
+            <c:set var="lastQuizTitle" value="" />
 
-            <h2>Quiz: <c:out value="${entry.quizTitle}" /></h2>
-            <table border="1">
+            <c:forEach var="entry" items="${leaderboard}">
+                <!-- Check if we need to create a new table for a different quiz -->
+                <c:if test="${entry.quizTitle ne lastQuizTitle}">
+                    <c:if test="${lastQuizTitle ne ''}">
+                        </table> <!-- Close the previous table if not the first quiz -->
+                    </c:if>
+
+                    <h2>Quiz: <c:out value="${entry.quizTitle}" /></h2>
+                    <table border="1">
+                        <tr>
+                            <th>Rank</th>
+                            <th>Username</th>
+                            <th>Score</th>
+                            <th>Participation Date</th>
+                            <th>Time Limit</th>
+                            <th>Time Taken</th>
+                        </tr>
+
+                    <!-- Update the lastQuizTitle variable -->
+                    <c:set var="lastQuizTitle" value="${entry.quizTitle}" />
+                </c:if>
+
+                <!-- Display leaderboard entry -->
                 <tr>
-                    <th>Rank</th>
-                    <th>Username</th>
-                    <th>Score</th>
-                    <th>Participation Date</th>
-                    <th>Time Limit</th>
-                    <th>Time Taken</th>
+                    <td><c:out value="${entry.rank}" /></td>
+                    <td><c:out value="${entry.username}" /></td>
+                    <td><c:out value="${entry.score}" /></td>
+                    <td><c:out value="${entry.participationDate}" /></td>
+                    <td><c:out value="${entry.timeLimit}" /></td>
+                    <td><c:out value="${entry.timeTaken} mins" /></td>
                 </tr>
 
-            <!-- Update the lastQuizTitle variable -->
-            <c:set var="lastQuizTitle" value="${entry.quizTitle}" />
-        </c:if>
+            </c:forEach>
 
-        <!-- Display leaderboard entry -->
-        <tr>
-            <td><c:out value="${entry.rank}" /></td>
-            <td><c:out value="${entry.username}" /></td>
-            <td><c:out value="${entry.score}" /></td>
-            <td><c:out value="${entry.participationDate}" /></td>
-            <td><c:out value="${entry.timeLimit}" /></td>
-            <td><c:out value="${entry.timeTaken}" /></td>
-        </tr>
-
-    </c:forEach>
-
-    <!-- Close the last table -->
-    <c:if test="${not empty leaderboard}">
-        </table>
-    </c:if>
-    
+            <!-- Close the last table -->
+            <c:if test="${not empty leaderboard}">
+                </table>
+            </c:if>
+        </c:otherwise>
+    </c:choose>
 
 </body>
 </html>

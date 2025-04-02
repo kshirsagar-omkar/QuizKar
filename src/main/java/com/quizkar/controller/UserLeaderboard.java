@@ -24,7 +24,17 @@ public class UserLeaderboard extends HttpServlet {
 		
 		try {
 			
-			String filter = request.getParameter("");
+			String filter = null;
+			String btnValue = request.getParameter("btn");
+			
+			if(btnValue != null && !btnValue.isEmpty()) {
+				if( btnValue.equals("search") ) {
+					filter = request.getParameter("filter");
+				}
+				else if( btnValue.equals("refresh") ) {
+					response.sendRedirect("UserLeaderboard");
+				}
+			}
 			
 			LeaderBoardService leaderBoardService = new LeaderBoardServiceImpl();
 			

@@ -18,4 +18,7 @@ public interface UsersService {
 	
 	//Insert user in db //Returns UserId of added users
 	public abstract Integer addUser(Users user) throws SQLException;
+	
+	//Delete user from db returns AffectedRow
+	public abstract Integer deleteUser(Integer userId) throws SQLException;
 }

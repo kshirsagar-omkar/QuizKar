@@ -36,4 +36,12 @@ public class UsersServiceImpl implements UsersService {
 		UsersDAO usersDAO = new UsersDAOImpl();
 		return usersDAO.addUser(user);
 	}
+	
+	
+	
+	//Delete user from db returns AffectedRow
+	public Integer deleteUser(Integer userId) throws SQLException{
+		UsersDAO usersDAO = new UsersDAOImpl();
+		return usersDAO.deleteUser(userId);
+	}
 }

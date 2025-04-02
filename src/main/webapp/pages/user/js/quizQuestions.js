@@ -1,58 +1,83 @@
-let totalTime = ${quiz.timeLimit} * 60; // Convert minutes to seconds
-let timeTakenSeconds = 0; // Track time taken in seconds
+let totalTime, timeTakenSeconds = 0;
+	    let timerInterval;
 
-function updateTimer() {
-    let minutes = Math.floor(totalTime / 60);
-    let seconds = totalTime % 60;
+	    function startQuiz(quizTimeLimit) {
+	        totalTime = quizTimeLimit * 60; // Convert minutes to seconds
 
-    document.getElementById('timer').innerText = 
-        (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+	    	
+	        function updateTimer() {
+	            let minutes = Math.floor(totalTime / 60);
+	            let seconds = totalTime % 60;
 
-    if (totalTime <= 0) {
-        clearInterval(timerInterval);
-        submitQuiz(); // Auto-submit on timeout
-    } else {
-        totalTime--;
-        timeTakenSeconds++; // Increment time taken in seconds
-    }
-}
+	            document.getElementById('timer').innerText = 
+	                (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;   		
+	    				
+	            if (totalTime <= 0) {
+	                clearInterval(timerInterval);			
+	                
+	                
+	                
+	                submitQuiz(); // Auto-submit on timeout
+	            } else {
+	                totalTime--;
+	                timeTakenSeconds++; // Increment time taken in seconds
+	            }
+	        }
 
-const timerInterval = setInterval(updateTimer, 1000);
+	        timerInterval = setInterval(updateTimer, 1000);
+	    }
 
-function submitQuiz() {
-    clearInterval(timerInterval); // Stop the timer
+	    function submitQuiz() {
+	        clearInterval(timerInterval); // Stop the timer
 
-    // Convert seconds to whole minutes (round up)
-    let timeTakenMinutes = Math.ceil(timeTakenSeconds / 60);
+	        
+	        let userId = document.getElementById("userId").value;    
+			let quizId = document.getElementById("quizId").value;
+	        
+	        // Convert seconds to whole minutes (round up)
+	        let timeTakenMinutes = Math.ceil(timeTakenSeconds / 60);
 
-    let quizData = {
-        userId: ${user.userId},
-        quizId: ${quiz.quizId},
-        timeTaken: timeTakenMinutes, // Send rounded minutes
-        answers: {}
-    };
+	        let quizData = {
+	            userId: userId,
+	            quizId: quizId,
+	            timeTaken: timeTakenMinutes, // Send rounded minutes
+	            answers: {}
+	        };
 
-    // Collect user-selected answers
-    document.querySelectorAll("input[type=radio]:checked").forEach((radio) => {
-        quizData.answers[radio.name] = radio.value; // Store { questionId: answer }
-    });
+	        // Collect user-selected answers
+	        document.querySelectorAll("input[type=radio]:checked").forEach((radio) => {
+	            quizData.answers[radio.name] = radio.value; // Store { questionId: answer }
+	        });
 
-    // Send JSON to the servlet
-    fetch("UserSubmitQuiz", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(quizData)
-    })
-    .then(response => response.text())
-    .then(data => {
-        if (data.trim() === "success") {
-            alert("Quiz submitted successfully!");
-            window.location.href = "UserDashboard"; // Redirect after submission
-        } else {
-            alert("Failed to submit quiz. Please try again.");
-        }
-    })
-    .catch(error => console.error("Error submitting quiz:", error));
-}
+	    	// Send JSON to the servlet
+	        fetch("UserSubmitQuiz", {
+	            method: "POST",
+	            headers: {
+	                "Content-Type": "application/json"
+	            },
+	            body: JSON.stringify(quizData)
+	        })
+	        .then(response => response.text())
+	        .then(data => {
+	            if (data.trim() === "success") {
+	                alert("Quiz submitted successfully!");
+	                window.location.href = "UserDashboard"; // Redirect after submission
+	            } else {
+	                alert("Failed to submit quiz. Please try again.");
+	            }
+	        })
+	        .catch(error => console.error("Error submitting quiz:", error));
+	    }
+	    
+	    
+	    startQuiz(document.getElementById("timeLimit").value);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		

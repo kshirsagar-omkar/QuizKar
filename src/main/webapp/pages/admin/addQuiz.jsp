@@ -37,7 +37,7 @@
             <h2>Questions</h2>
             <div class="question-block">
                 <h3>Question 1</h3>
-                <label>Question:</label> <input type="text" class="questionText" required><br>
+                <label>Question:</label> <textarea class="questionText" rows="10" cols="30" required> </textarea><br>
                 <label>Option A:</label> <input type="text" class="optionA" required><br>
                 <label>Option B:</label> <input type="text" class="optionB" required><br>
                 <label>Option C:</label> <input type="text" class="optionC" required><br>

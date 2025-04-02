@@ -26,7 +26,7 @@
 	<!-- Navbar Include -->
     <jsp:include page="../../components/navbar.jsp"/>
     
-    <h1>Welcome, Admin <%= user.getUserName() + " (ID: " + user.getUserId() + ")" %>!</h1>
+    <h1>Welcome, <%= user.getUserName() %></h1>
     <h1>Admin Dashboard</h1>
     
     <!-- Study Plans Section -->

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.quizkar.entities.Users" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <%
     // Prevent unauthorized access
@@ -38,6 +39,7 @@
 	            <div style="border: 1px solid black; padding: 10px; margin: 10px;">
 	                <h3>${plan.name}</h3>
 	                <p>Status: ${plan.status}</p>
+	                <p>Link: <a href="${plan.link}" target="_blank">Click Here</a></p>
 	                <button onclick="updateStudyPlanStatus(${plan.studyPlanId}, this, <%= user.getUserId() %>)" value="complete">Mark Complete</button>
 	            </div>
 	        </c:forEach>
@@ -54,6 +56,7 @@
 	            <div style="border: 1px solid black; padding: 10px; margin: 10px;">
 	                <h3>${plan.name}</h3>
 	                <p>Status: ${plan.status}</p>
+	                <p>Link: <a href="${plan.link}" target="_blank">Click Here</a></p>
 	                <button onclick="updateStudyPlanStatus(${plan.studyPlanId}, this, <%= user.getUserId() %>)" value="not_complete">Mark Incomplete</button>
 	            </div>
 	        </c:forEach>
@@ -71,7 +74,10 @@
 	                <h3>${quiz.quizTitle}</h3>
 	                <p>Time Limit: ${quiz.quizTimeLimit} mins</p>
 	                <p>Score: ${quiz.leaderBoardScore}</p>
-	                <p>Participation Date: ${quiz.leaderBoardParticipationDate}</p>
+	                <p>Participation Date:  
+	                	<fmt:parseDate value="${quiz.leaderBoardParticipationDate}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" type="both"/>
+                		<fmt:formatDate value="${parsedDate}" pattern="MMMM dd, yyyy - hh:mm a"/>
+                	</p>	                
 	                <p>Time Taken: ${quiz.leaderBoardTimeTaken} mins</p>
 	            </div>
 	        </c:forEach>

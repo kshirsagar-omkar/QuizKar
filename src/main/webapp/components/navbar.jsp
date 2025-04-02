@@ -10,6 +10,8 @@
 <div>
     <%--     --%>
     
+    
+    
     <a href="<%= (user != null && "admin".equals(user.getRole())) ? "admindashboard" : "UserDashboard" %>">Home</a>
     
     <%--	 <a href="dashboard.jsp">Home</a>	--%>
@@ -22,6 +24,7 @@
             <a href="UserStudyPlanServlet">Study Plans</a>
             <a href="UserQuizzes">Quizzes</a>
             <a href="UserProfile">Profile</a>
+            <a href="DeleteAccountServlet">Setting</a>
         <% } else if ("admin".equals(user.getRole())) { %>
             <!-- Admin Links -->
             <a href="AdminStudyPlanServlet">Add Plans</a>

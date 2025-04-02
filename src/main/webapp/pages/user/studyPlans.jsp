@@ -15,33 +15,7 @@
 <html>
 <head>
     <title>Study Plans</title>
-    <script>
-        function enrollInStudyPlan(planId, userId){
-
-            let params = new URLSearchParams({
-                planId: planId,
-                userId: userId,
-                action: "enroll"
-            });
-
-            fetch("UserStudyPlanServlet", {
-                method: "POST",
-                body: params
-            })
-            .then(response => response.text())
-            .then(data => {
-                if (data.trim() === "success") {
-                    alert("Enrolled Successfully!");
-                    location.reload(); // Refresh the page to reflect changes
-                } else if( data.trim() === "alreadyEnrolled" ){
-                	alert("Already Enrolled");
-                }else {
-                    alert("Failed to enroll. Please try again.");
-                }
-            })
-            .catch(error => console.error("Error enrolling in study plan:", error));
-        }
-    </script>
+   
 </head>
 <body>
 
@@ -62,10 +36,13 @@
                 <fmt:parseDate value="${plan.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" type="both"/>
                 <fmt:formatDate value="${parsedDate}" pattern="MMMM dd, yyyy - hh:mm a"/>
             </p>
-            <p>Link: <a href="${plan.link}" target="_blank">${plan.link}</a></p>
+            <p>Link: <a href="${plan.link}" target="_blank">Click Here</a></p>
             <button onclick="enrollInStudyPlan(${plan.studyPlanId}, '<%= user.getUserId() %>')">Enroll</button>
         </div>
     </c:forEach>
 
+
+
+	<script src="./pages/user/js/studyPlans.js"> </script>
 </body>
 </html>

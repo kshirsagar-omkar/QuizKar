@@ -4,6 +4,9 @@
     <title>Register - QuizKar</title>
 </head>
 <body>
+
+	<jsp:include page="../../components/navbar.jsp"/>
+	
 	<div>
 	
 	    <h1>User Registration</h1>

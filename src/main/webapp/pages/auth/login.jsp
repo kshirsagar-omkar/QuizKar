@@ -5,6 +5,8 @@
 </head>
 <body>
 
+	<jsp:include page="../../components/navbar.jsp"/>
+
 	<div>
 	    <h1>Login</h1>
 	    <form action="login" method="post">

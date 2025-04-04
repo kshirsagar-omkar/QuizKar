@@ -1,0 +1,74 @@
+/* Study Plans Page Styling */
+.card-header.bg-primary {
+    background-color: #2c3e50 !important;
+}
+
+/* Study plan card styling */
+.study-plan-card {
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.study-plan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.study-plan-card .card-header {
+    background-color: #f8f9fa !important;
+    border-bottom: 1px solid #eee;
+}
+
+/* Button styling */
+.btn-success {
+    background-color: #27ae60;
+    border-color: #27ae60;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #219653;
+    border-color: #219653;
+}
+
+.btn-success:disabled {
+    background-color: #95a5a6;
+    border-color: #95a5a6;
+    opacity: 0.7;
+}
+
+.btn-outline-primary {
+    color: #3498db;
+    border-color: #3498db;
+}
+
+.btn-outline-primary:hover {
+    background-color: #3498db;
+    color: white;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .study-plan-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .card-header h3 {
+        font-size: 1.1rem;
+    }
+}
+
+/* Empty state styling */
+.alert-info {
+    background-color: rgba(52, 152, 219, 0.1);
+    border-left: 4px solid #3498db;
+}
+
+/* Toast notification */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+}

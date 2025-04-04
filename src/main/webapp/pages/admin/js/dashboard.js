@@ -61,8 +61,10 @@ function cancelStudyPlanEdit(planId) {
 
     // Restore name and link
     nameTd.textContent = originalData[planId].name;
-    linkTd.innerHTML = `<a href="${originalData[planId].linkHref}" target="_blank">${originalData[planId].linkText}</a>`;
+    //linkTd.innerHTML = `<a href="${originalData[planId].linkHref}" target="_blank">${originalData[planId].linkText}</a>`;
 
+	linkTd.innerHTML = '<a href="${originalData[planId].linkHref}" target="_blank" class="resource-link"> <i class="bi bi-box-arrow-up-right"></i> View </a>'
+	
     // Clear stored original data
     delete originalData[planId];
 
@@ -104,8 +106,9 @@ function saveStudyPlan(planId) {
         if (data.trim() === "success") {
             // Update UI
             nameTd.textContent = newName;
-            linkTd.innerHTML = `<a href="${newLink}" target="_blank">${originalData[planId].linkText}</a>`;
-
+            //linkTd.innerHTML = `<a href="${newLink}" target="_blank">${originalData[planId].linkText}</a>`;
+			linkTd.innerHTML = '<a href="${newLink}" target="_blank" class="resource-link"> <i class="bi bi-box-arrow-up-right"></i> View </a>'
+			
             // Clear stored original data
             delete originalData[planId];
 

@@ -72,13 +72,15 @@
                                     <!-- Check if we need to create a new table for a different quiz -->
                                     <c:if test="${entry.quizTitle ne lastQuizTitle}">
                                         <c:if test="${lastQuizTitle ne ''}">
+                                        	
                                             </table> <!-- Close the previous table if not the first quiz -->
                                             </div> <!-- Close card -->
+                                            <hr><hr> <!-- Here create a differientiate insted of hr -->
                                         </c:if>
 
                                         <div class="card mb-4">
                                             <div class="card-header bg-light">
-                                                <h2 class="h4 mb-0"><i class="bi bi-patch-question-fill me-2"></i><c:out value="${entry.quizTitle}" /></h2>
+                                                <h2 class="h4 mb-0"><i class="bi bi-mortarboard me-2"></i><c:out value="${entry.quizTitle}" /></h2>
                                             </div>
                                             <div class="card-body p-0">
                                                 <div class="table-responsive">

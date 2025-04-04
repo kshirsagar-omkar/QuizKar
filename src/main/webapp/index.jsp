@@ -9,27 +9,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Portal</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
+    
+     <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
+
+	<%
+        // Prevent Browsing from caching the page
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+    %>
+
     <!-- Navbar -->
-    <header>
-        <div class="container">
-            <h2>Student Portal</h2>
-            <nav>
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <% if(user != null) { %>
-                        <li><a href="<%= "admin".equals(user.getRole()) ? "admindashboard" : "UserDashboard" %>">DashBoard</a></li>
-                        <li><a href="LogoutServlet">Logout</a></li>
-                    <% } else { %>
-                        <li><a href="register">Register</a></li>
-                        <li><a href="login">Login</a></li>
-                    <% } %>
-                    <li><a href="#">About</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+    
+    <jsp:include page="./components/navbar.jsp"/>
+    
 
     <!-- Hero Section -->
     <main>
@@ -38,12 +36,15 @@
                 <h1>Welcome to the Student Portal</h1>
                 <p>Your one-stop solution for managing academic records, courses, and more.</p>
                 <% if(user == null) { %>
-                    <a href="login" class="btn">Login to Continue</a>
+                    <a href="login" class="btn btn-custom ms-2">Login to Continue</a>
                 <% } else { %>
                     <a href="<%= "admin".equals(user.getRole()) ? "admindashboard" : "UserDashboard" %>" class="btn">Go to Dashboard</a>
                 <% } %>
             </div>
         </section>
     </main>
+    
+    <!-- Bootstrap Bundle with Popper -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

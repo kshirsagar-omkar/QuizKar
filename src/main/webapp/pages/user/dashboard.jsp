@@ -15,6 +15,10 @@
 <html>
 <head>
     <title>User Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="css/theme.css">
 </head>
 <body>
 
@@ -89,5 +93,6 @@
     
 	<script src="./pages/user/js/dashboard.js"> </script>
     <jsp:include page="../../components/chatbot.jsp"/>
+    	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

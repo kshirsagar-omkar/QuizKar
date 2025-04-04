@@ -1,0 +1,76 @@
+/* Auth Pages Styling */
+.auth-card {
+    border: none;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: white;
+}
+
+.auth-card h1 {
+    color: #2c3e50;
+    font-weight: 700;
+    font-size: 2rem;
+}
+
+.form-control {
+    padding: 0.75rem 1rem;
+    border: 1px solid #dfe7f1;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 0.25rem rgba(52, 152, 219, 0.25);
+}
+
+.form-label {
+    font-weight: 500;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .auth-card {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .auth-card h1 {
+        font-size: 1.75rem;
+    }
+}
+
+/* Error message styling */
+.alert-danger {
+    background-color: rgba(231, 76, 60, 0.1);
+    border-color: rgba(231, 76, 60, 0.2);
+    color: #e74c3c;
+    border-radius: 8px;
+}
+
+/* Link styling */
+.text-muted a {
+    color: #3498db;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.text-muted a:hover {
+    color: #2980b9;
+    text-decoration: none;
+}
+
+/* Invalid form fields */
+.invalid-feedback {
+    font-size: 0.85rem;
+}
+
+.was-validated .form-control:invalid {
+    border-color: #e74c3c;
+}
+
+.was-validated .form-control:invalid:focus {
+    box-shadow: 0 0 0 0.25rem rgba(231, 76, 60, 0.25);
+}

@@ -29,7 +29,7 @@ public class DeleteAccountServlet extends HttpServlet {
 			Integer rowAffected = usersService.deleteUser(userId);
 			
 			if(rowAffected > 0) {
-				response.sendRedirect(".");
+				response.sendRedirect("LogoutServlet");
 				return;
 			}
 			

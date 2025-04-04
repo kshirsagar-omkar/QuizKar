@@ -1,0 +1,82 @@
+/* Leaderboard Page Styling */
+.card-header.bg-primary {
+    background-color: #2c3e50 !important;
+}
+
+/* Table styling */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    font-weight: 600;
+    background-color: #f8f9fa;
+    border-bottom-width: 2px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(52, 152, 219, 0.1);
+}
+
+/* Highlight current user */
+.table-primary {
+    background-color: rgba(52, 152, 219, 0.15) !important;
+}
+
+/* Badge styling for top ranks */
+.badge {
+    font-weight: 500;
+    padding: 0.35em 0.65em;
+    font-size: 0.85em;
+}
+
+.bg-warning {
+    background-color: #f1c40f !important;
+}
+
+/* Card styling for each quiz */
+.card {
+    border: none;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.card-header.bg-light {
+    background-color: #f8f9fa !important;
+    border-bottom: 1px solid #eee;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .table-responsive {
+        border: 0;
+    }
+    
+    .table thead {
+        display: none;
+    }
+    
+    .table tr {
+        display: block;
+        margin-bottom: 1rem;
+        border: 1px solid #dee2e6;
+        border-radius: 0.25rem;
+    }
+    
+    .table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #dee2e6;
+    }
+    
+    .table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        padding-right: 1rem;
+        color: #6c757d;
+    }
+    
+    .table td:last-child {
+        border-bottom: 0;
+    }
+}

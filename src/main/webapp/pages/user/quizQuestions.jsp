@@ -14,6 +14,10 @@
 <html>
 <head>
     <title>Quiz Session</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="css/theme.css">
 
 </head>
 <body>
@@ -137,6 +141,8 @@
 	    startQuiz(document.getElementById("timeLimit").value);
 	</script>
 	
+	
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>

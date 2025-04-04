@@ -2,33 +2,90 @@
 <html>
 <head>
     <title>Register - QuizKar</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="css/theme.css">
+    <!-- Registration-specific CSS -->
+    <link rel="stylesheet" href="css/auth.css">
 </head>
-<body>
+<body class="bg-light">
+    <jsp:include page="../../components/navbar.jsp"/>
+    
+    <div class="container my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+                <div class="card auth-card shadow">
+                    <div class="card-body p-4 p-md-5">
+                        <h1 class="text-center mb-4">Create Your Account</h1>
+                        
+                        <% if (request.getAttribute("error") != null) { %>
+                        <div class="alert alert-danger mb-4">
+                            <%= request.getAttribute("error") %>
+                        </div>
+                        <% } %>
+                        
+                        <form action="register" method="post" class="needs-validation" novalidate>
+                            <div class="mb-3">
+                                <label for="username" class="form-label">Username</label>
+                                <input type="text" class="form-control" id="username" name="username" required>
+                                <div class="invalid-feedback">
+                                    Please choose a username.
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="email" name="email" required>
+                                <div class="invalid-feedback">
+                                    Please provide a valid email.
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="password" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" required>
+                                <div class="invalid-feedback">
+                                    Please provide a password.
+                                </div>
+                            </div>
+                            
+                            <input type="hidden" name="role" value="user">
+                            
+                            <button type="submit" class="btn btn-custom w-100 py-2 mb-3">Register</button>
+                            
+                            <div class="text-center mt-3">
+                                <p class="text-muted">Already have an account? <a href="login" class="text-decoration-none">Login here</a></p>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<jsp:include page="../../components/navbar.jsp"/>
-	
-	<div>
-	
-	    <h1>User Registration</h1>
-	    <form action="register" method="post">
-	        Username: <input type="text" name="username" required><br>
-	        Email: <input type="email" name="email" required><br>
-	        Password: <input type="password" name="password" required><br>
-	        <input type="hidden" name="role" value="user">
-	        <input type="submit" value="Register">
-	    </form>
-	    
-	    <!-- Display error message if registration fails -->
-	    <% if (request.getAttribute("error") != null) { %>
-	    <div>
-	        <%= request.getAttribute("error") %>
-	    </div>
-	    <% } %>
-	    
-	    <div>
-	    	<p>Already have an account? <a href="login">Login here</a></p>
-		</div>
-		
-	</div>
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Form validation script -->
+    <script>
+    (function () {
+      'use strict'
+      
+      var forms = document.querySelectorAll('.needs-validation')
+      
+      Array.prototype.slice.call(forms)
+        .forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault()
+              event.stopPropagation()
+            }
+            
+            form.classList.add('was-validated')
+          }, false)
+        })
+    })()
+    </script>
 </body>
 </html>

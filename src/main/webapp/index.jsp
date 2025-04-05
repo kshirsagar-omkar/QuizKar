@@ -195,7 +195,7 @@
             </div>
             <hr>
             <div class="text-center">
-                <p>&copy; 2023 QuizKar. All rights reserved.</p>
+                <p>&copy; 2025 QuizKar. All rights reserved.</p>
             </div>
         </div>
     </footer>

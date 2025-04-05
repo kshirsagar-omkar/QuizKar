@@ -32,10 +32,11 @@
           <% } else if ("admin".equals(user.getRole())) { %>
             <li class="nav-item"><a class="nav-link" href="AdminStudyPlanServlet">Add Plans</a></li>
             <li class="nav-item"><a class="nav-link" href="AdminAddQuizServlet">Add Quizzes</a></li>
-          <% } %>
-        <% } else { %>
+          <% } %>      
+        <% }  %>
+        
            <li class="nav-item"><a class="nav-link" href="AboutUs">About Us</a></li>
-         <% } %>
+           
       </ul>
       
       <ul class="navbar-nav">

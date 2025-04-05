@@ -52,9 +52,8 @@
                             <h3>Omkar Kshirsagar</h3>
                             <p class="text-muted">Engineering Student & Softwere Developer</p>
                             <p class="developer-bio">
-                                I created QuizKar as a showcase of my technical skills and passion for education technology. 
-                                This project demonstrates my ability to design and implement complex web applications 
-                                using modern software architecture principles.
+                               I created <strong>QuizKar</strong> to showcase my technical skills and passion for education technology. It uses a <strong>Java backend</strong> with <strong>JDBC, Servlets, JSP</strong>, and <strong>PostgreSQL</strong> for data handling. The frontend is built using <strong>HTML, CSS, JS</strong>, and dynamic <strong>JSP pages</strong>. This project reflects my full-stack development skills and understanding of modern web application design.
+
                             </p>
                             <div class="social-links">
                                 <a href="https://github.com/kshirsagar-omkar" target="_blank" class="btn btn-outline-dark">

@@ -51,6 +51,15 @@ public class RegisterServlet extends HttpServlet {
 			if( userId != null ) {
 				//create session object that stores User's Object all info excluding password
 				//redirect to login page
+				
+				//Update the user count in database
+				try {
+					usersService.updateTotalUser();
+				}
+				catch(Exception e) {
+					e.printStackTrace();
+				}
+				
 				response.sendRedirect("login?registered=true");
 
 			}

@@ -64,7 +64,7 @@
                         <i class="bi bi-people"></i>
                     </div>
                     <div class="stat-content">
-                        <h3>${users != null ? users.size() : 0}</h3>
+                        <h3>${userCount}</h3>
                         <p>Users</p>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
                                                 <td colspan="4" class="text-center py-4 empty-message">
                                                     <i class="bi bi-journal-x fs-1"></i>
                                                     <h4>No Study Plans Found</h4>
-                                                    <a href="AdminAddStudyPlan" class="btn btn-admin-primary mt-2">
+                                                    <a href="AdminStudyPlanServlet" class="btn btn-admin-primary mt-2">
                                                         <i class="bi bi-plus-lg"></i> Create First Plan
                                                     </a>
                                                 </td>
@@ -187,7 +187,7 @@
                                                 <td colspan="4" class="text-center py-4 empty-message">
                                                     <i class="bi bi-question-circle fs-1"></i>
                                                     <h4>No Quizzes Found</h4>
-                                                    <a href="AdminAddQuiz" class="btn btn-admin-primary mt-2">
+                                                    <a href="AdminAddQuizServlet" class="btn btn-admin-primary mt-2">
                                                         <i class="bi bi-plus-lg"></i> Create First Quiz
                                                     </a>
                                                 </td>

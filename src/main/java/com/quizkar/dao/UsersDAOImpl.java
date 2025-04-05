@@ -184,26 +184,86 @@ public class UsersDAOImpl implements UsersDAO{
 	}
 	
 	
+
 	
-	
-	
-	
-	public static void main(String[] args) {
-	    try {
-	    	UsersDAO ud = new UsersDAOImpl();
-	
-	    	
-	    	
-	    	Integer userId = ud.deleteUser(4);
-	
-	    	System.out.println(userId);
-	    	
-	    	
-	    }
-	    catch(SQLException e) {
-	    	e.printStackTrace();
-	    }
+	//Return the total number of users registred in application
+	public Integer getTotalUsers() throws SQLException{
+		
+		String query = "SELECT user_count FROM registration_count";
+		
+		try(Connection connection = DBUtil.getConnection();
+			PreparedStatement preparedStatement = connection.prepareStatement(query))
+		{
+			
+			try(ResultSet resultSet = preparedStatement.executeQuery()){
+				if(resultSet.next()) {
+					return resultSet.getInt("user_count");
+				}
+			}
+		}		
+		return 0;
 	}
+	
+	
+	//Update userRegistration count for every registration returns row affected
+	public Integer updateTotalUser() throws SQLException{
+		
+		String query = "UPDATE registration_count SET user_count = (SELECT user_count FROM registration_count) + 1";
+		Integer affectedRows = 0;
+		
+		try(Connection connection  = DBUtil.getConnection()) {
+			
+			connection.setAutoCommit(false);
+			
+			try( PreparedStatement preparedStatement = connection.prepareStatement(query)){
+				
+				affectedRows = preparedStatement.executeUpdate();
+				connection.commit();
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+				if(connection != null) {
+					try {
+						connection.rollback();
+					}
+					catch(SQLException rollBackEX) {
+						rollBackEX.printStackTrace();
+					}
+				}
+				throw e;
+			}
+		}
+		return affectedRows;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	
+//	public static void main(String[] args) {
+//	    try {
+//	    	UsersDAO ud = new UsersDAOImpl();
+//	
+//	    	
+//	    	
+//	    	Integer userId = ud.deleteUser(4);
+//	
+//	    	System.out.println(userId);
+//	    	
+//	    	
+//	    }
+//	    catch(SQLException e) {
+//	    	e.printStackTrace();
+//	    }
+//	}
+	
 	
 	
 //	private static void displayUser(Users user)

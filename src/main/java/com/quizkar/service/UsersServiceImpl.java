@@ -44,4 +44,20 @@ public class UsersServiceImpl implements UsersService {
 		UsersDAO usersDAO = new UsersDAOImpl();
 		return usersDAO.deleteUser(userId);
 	}
+	
+	
+	
+	//Return the total number of users registred in application
+	public Integer getTotalUsers() throws SQLException{
+		UsersDAO usersDAO = new UsersDAOImpl();
+		return usersDAO.getTotalUsers();
+	}
+	
+	
+	
+	//Update userRegistration count for every registration returns row affected
+	public Integer updateTotalUser() throws SQLException{
+		UsersDAO usersDAO = new UsersDAOImpl();
+		return usersDAO.updateTotalUser();
+	}
 }

@@ -11,6 +11,8 @@ import com.quizkar.service.QuizService;
 import com.quizkar.service.QuizServiceImpl;
 import com.quizkar.service.StudyPlanService;
 import com.quizkar.service.StudyPlanServiceImpl;
+import com.quizkar.service.UsersService;
+import com.quizkar.service.UsersServiceImpl;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,11 +33,12 @@ public class AdminDashboard extends HttpServlet {
 		
 		List<StudyPlan> studyPlans = null;
 		List<Quiz> quizzes = null;
+		Integer userCount = 0;
 		
 		try {			
 			StudyPlanService studyPlanService = new StudyPlanServiceImpl();
 			QuizService quizService = new QuizServiceImpl();
-			
+			UsersService usersService = new UsersServiceImpl();
 			
 			HttpSession session = request.getSession();
 			if(session == null) {
@@ -56,6 +59,9 @@ public class AdminDashboard extends HttpServlet {
 				//get quizes created by admin
 				quizzes = quizService.getQuizCreatedByAdmin(userId);
 				request.setAttribute("quizzes", quizzes);
+				
+				userCount = usersService.getTotalUsers();
+				request.setAttribute("userCount", userCount);
 				
 			}
 			

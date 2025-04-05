@@ -21,4 +21,12 @@ public interface UsersService {
 	
 	//Delete user from db returns AffectedRow
 	public abstract Integer deleteUser(Integer userId) throws SQLException;
+	
+	
+	//Return the total number of users registred in application
+	public abstract Integer getTotalUsers() throws SQLException;
+	
+	
+	//Update userRegistration count for every registration returns row affected
+	public abstract Integer updateTotalUser() throws SQLException;
 }

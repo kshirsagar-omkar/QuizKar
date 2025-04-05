@@ -35,6 +35,8 @@ CREATE TABLE study_plan (
     link TEXT NOT NULL DEFAULT '#',
     status VARCHAR(15) NOT NULL DEFAULT 'not_complete'
         CHECK(status IN ('not_complete', 'complete')), --Added Status column
+    --enrollStatus VARCHAR(20) NOT NULL DEFAULT 'not_enrolled'  
+        --CHECK(enrollStatus IN ('not_enrolled', 'enrolled')),  
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by INT NOT NULL,
     FOREIGN KEY (created_by) REFERENCES users(user_id) 
@@ -126,6 +128,17 @@ CREATE TABLE leaderboard (
 
 
 
+CREATE TABLE registration_count(
+    user_count int
+);
+
+INSERT INTO registration_count VALUES(23);
+
+SELECT user_count FROM registration_count;
+
+UPDATE registration_count SET user_count = (SELECT user_count FROM registration_count) + 1;
+
+SELECT user_count FROM registration_count;
 
 
 -- ============================
@@ -225,27 +238,31 @@ INSERT INTO users (username, email, password) VALUES
 
 
 
--- ============================
--- 2. INSERT STUDY PLANS
--- ============================
-INSERT INTO study_plan (name, created_by) VALUES 
-('C Programming Basics', 1),
-('C++ Advanced Concepts', 1),
-('Java Fundamentals', 1),
-('Python for Beginners', 1),
-('Data Structures in C', 1);
+    -- ============================
+    -- 2. INSERT STUDY PLANS
+    -- ============================
+    INSERT INTO study_plan (name, created_by) VALUES 
+    ('C Programming Basics', 1),
+    ('C++ Advanced Concepts', 1),
+    ('Java Fundamentals', 1),
+    ('Python for Beginners', 1),
+    ('Data Structures in C', 1);
 
 
 
 
 
 
--- ============================
--- 3. USER ENROLLMENTS
--- ============================
-INSERT INTO user_studyplan_enrollment (user_id, studyplan_id) VALUES 
-(2, 1), (2, 2), (2, 3),
-(3, 1), (3, 4);
+    -- ============================
+    -- 3. USER ENROLLMENTS
+    -- ============================
+    INSERT INTO user_studyplan_enrollment (user_id, studyplan_id) VALUES 
+    (2, 1), (2, 2), (2, 3),
+    (3, 1), (3, 4);
+
+    --Update : 
+--     NOT IN USE -- UPDATE : UPDATE study_plan sp SET enrollStatus = 'enrolled' FROM user_studyplan_enrollment use WHERE sp.studyplan_id = use.studyplan_id AND use.user_id = 2 AND use.studyplan_id = 2;
+
 
 --===============================
 

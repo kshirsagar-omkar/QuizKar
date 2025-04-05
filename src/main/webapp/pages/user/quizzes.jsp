@@ -17,10 +17,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Theme CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
     <!-- Quizzes-specific CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/quizzes.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/quizzes.css?v1">
 </head>
 <body class="bg-light">
     <%
@@ -32,59 +34,92 @@
 
     <jsp:include page="../../components/navbar.jsp"/>
     
-    <div class="container py-5">
+    <main class="container py-5">
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex align-items-center mb-3">
+                    <h1 class="display-5 fw-bold text-dark mb-0"><i class="bi bi-mortarboard me-3"></i>Available Quizzes</h1>
+                    <c:if test="${not empty quizzes}">
+                        <span class="badge bg-primary rounded-pill ms-3 fs-6">${quizzes.size()} Available</span>
+                    </c:if>
+                </div>
+                <p class="lead text-muted">Test your knowledge with these interactive quizzes</p>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12">
-                <div class="card shadow mb-4">
-                    <div class="card-header bg-primary text-white">
-                        <h1 class="h3 mb-0"><i class="bi bi-patch-question-fill me-2"></i>Available Quizzes</h1>
-                    </div>
-                    <div class="card-body">
-                        <% if(request.getAttribute("quizzes") == null) { %>
-                            <div class="alert alert-info">
-                                <i class="bi bi-info-circle-fill me-2"></i>
-                                No quizzes available at the moment. Please check back later.
+                <c:choose>
+                    <c:when test="${empty quizzes}">
+                        <div class="card border-0 shadow-sm rounded-3">
+                            <div class="card-body text-center py-5">
+                                <i class="bi bi-patch-question display-4 text-muted mb-4"></i>
+                                <h3 class="h4 text-dark mb-3">No Quizzes Available</h3>
+                                <p class="text-muted mb-4">New quizzes are being prepared. Check back soon!</p>
+                                <button class="btn btn-primary" onclick="location.reload()">
+                                    <i class="bi bi-arrow-repeat me-2"></i>Refresh
+                                </button>
                             </div>
-                        <% } else { %>
-                            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-                                <c:forEach items="${quizzes}" var="quiz">
-                                    <div class="col">
-                                        <div class="card h-100 quiz-card">
-                                            <div class="card-header bg-light">
-                                                <h3 class="h5 mb-0">${quiz.title}</h3>
+                        </div>
+                    </c:when>
+                    <c:otherwise>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                            <c:forEach items="${quizzes}" var="quiz">
+                                <div class="col">
+                                    <div class="card h-100 quiz-card border-0 shadow-sm overflow-hidden">
+                                        <div class="card-header bg-gradient-primary text-white py-3">
+                                            <h3 class="h5 mb-0 d-flex align-items-center">
+                                                <i class="bi bi-pencil-square me-2"></i>
+                                                <span class="text-truncate">${quiz.title}</span>
+                                            </h3>
+                                        </div>
+                                        <div class="card-body d-flex flex-column">
+                                            <div class="mb-3">
+                                                <div class="d-flex align-items-center mb-3">
+                                                    <div class="me-3">
+                                                        <div class="icon-circle bg-light-primary">
+                                                            <i class="bi bi-clock-history text-primary"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="mb-0">Time Limit</h6>
+                                                        <p class="text-muted mb-0">${quiz.timeLimit} minutes</p>
+                                                    </div>
+                                                </div>
+                                                <%--
+                                                <div class="d-flex align-items-center">
+                                                    <div class="me-3">
+                                                        <div class="icon-circle bg-light-info">
+                                                            <i class="bi bi-question-circle text-info"></i>
+                                                        </div>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="mb-0">Questions</h6>
+                                                        <p class="text-muted mb-0">${quiz.questionCount}</p>
+                                                    </div>
+                                                </div>
+                                                --%>
                                             </div>
-                                            <div class="card-body">
-                                                <ul class="list-group list-group-flush mb-3">
-                                                    <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                        <span><i class="bi bi-clock-history me-2"></i>Time Limit</span>
-                                                        <span class="badge bg-primary rounded-pill">${quiz.timeLimit} mins</span>
-                                                    </li>
-                                                     <%--
-                                                     <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                       <span><i class="bi bi-question-circle me-2"></i>Questions</span>
-                                                        <span class="badge bg-primary rounded-pill">${quiz.questionCount}</span> 
-                                                    </li> 
-                                                    --%>
-                                                </ul>
-                                                <form action="UserStartQuiz" method="post">
+                                            <div class="mt-auto">
+                                                <form action="UserStartQuiz" method="post" class="d-grid gap-2">
                                                     <input type="hidden" name="quizId" value="${quiz.quizId}">
                                                     <input type="hidden" name="quizTitle" value="${quiz.title}">
                                                     <input type="hidden" name="quizTimeLimit" value="${quiz.timeLimit}">
-                                                    <button type="submit" class="btn btn-success w-100">
+                                                    <button type="submit" class="btn btn-success btn-lg rounded-pill">
                                                         <i class="bi bi-play-fill me-2"></i>Start Quiz
                                                     </button>
                                                 </form>
                                             </div>
                                         </div>
                                     </div>
-                                </c:forEach>
-                            </div>
-                        <% } %>
-                    </div>
-                </div>
+                                </div>
+                            </c:forEach>
+                        </div>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

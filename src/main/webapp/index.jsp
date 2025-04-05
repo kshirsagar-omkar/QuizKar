@@ -54,7 +54,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 hero-image animate__animated animate__fadeInRight">
-                    <img src="${pageContext.request.contextPath}/images/hero-illustration.svg" alt="Learning Illustration" class="img-fluid">
+                    <img src="${pageContext.request.contextPath}/images/hero-illustration.png" alt="Learning Illustration" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -172,9 +172,9 @@
                 <div class="col-md-2">
                     <h5>Links</h5>
                     <ul>
-                        <li><a href="#">Home</a></li>
+                        <li><a href=".">Home</a></li>
                         <li><a href="#">Features</a></li>
-                        <li><a href="#">About Us</a></li>
+                        <li><a href="AboutUs">About Us</a></li>
                         <li><a href="#">Contact</a></li>
                     </ul>
                 </div>
@@ -186,10 +186,10 @@
                 <div class="col-md-3">
                     <h5>Follow Us</h5>
                     <div class="social-links">
-                        <a href="#"><i class="bi bi-facebook"></i></a>
+                        <a href="https://github.com/kshirsagar-omkar" target="_blank"><i class="bi bi-github"></i></a>
                         <a href="#"><i class="bi bi-twitter"></i></a>
-                        <a href="#"><i class="bi bi-instagram"></i></a>
-                        <a href="#"><i class="bi bi-linkedin"></i></a>
+                        <a href="https://www.instagram.com/ok.0005" target="_blank"><i class="bi bi-instagram"></i></a>
+                        <a href="https://www.linkedin.com/in/omkar-kshirsagar-64737a28a" target="_blank"><i class="bi bi-linkedin"></i></a>
                     </div>
                 </div>
             </div>

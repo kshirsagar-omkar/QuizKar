@@ -1,16 +1,6 @@
 <% if(!request.getRequestURI().contains("quizQuestions.jsp")) { %>
-<div style="position: fixed; bottom: 20px; right: 20px;">
-    <button onclick="toggleChat()">Chat</button>
-    <div id="chatWindow" style="display: none;">
-        <div id="chatMessages"></div>
-        <input type="text" id="chatInput">
-        <button onclick="sendMessage()">Send</button>
-    </div>
-</div>
-<script>
-    function toggleChat() {
-        const chatWindow = document.getElementById("chatWindow");
-        chatWindow.style.display = chatWindow.style.display === 'none' ? 'block' : 'none';
-    }
+<script type="text/javascript">window.DocsBotAI=window.DocsBotAI||{},DocsBotAI.init=function(e){return new Promise((t,r)=>{var n=document.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://widget.docsbot.ai/chat.js";let o=document.getElementsByTagName("script")[0];o.parentNode.insertBefore(n,o),n.addEventListener("load",()=>{let n;Promise.all([new Promise((t,r)=>{window.DocsBotAI.mount(Object.assign({}, e)).then(t).catch(r)}),(n=function e(t){return new Promise(e=>{if(document.querySelector(t))return e(document.querySelector(t));let r=new MutationObserver(n=>{if(document.querySelector(t))return e(document.querySelector(t)),r.disconnect()});r.observe(document.body,{childList:!0,subtree:!0})})})("#docsbotai-root"),]).then(()=>t()).catch(r)}),n.addEventListener("error",e=>{r(e.message)})})};</script>
+<script type="text/javascript">
+  DocsBotAI.init({id: "aoyCk44UiR2AVXh3pH3C/zLlU9UaFiexImxQeHkUq"});
 </script>
 <% } %>

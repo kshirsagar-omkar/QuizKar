@@ -162,5 +162,6 @@
             document.getElementById('searchForm').submit();
         });
     </script>
+    <jsp:include page="../../components/chatbot.jsp"/>
 </body>
 </html>

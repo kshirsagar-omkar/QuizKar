@@ -114,5 +114,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Page Specific JS -->
     <script src="${pageContext.request.contextPath}/pages/admin/js/addStudyPlan.js"></script>
+    <jsp:include page="../../components/chatbot.jsp"/>
 </body>
 </html>

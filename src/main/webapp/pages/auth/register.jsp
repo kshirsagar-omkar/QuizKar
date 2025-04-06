@@ -87,5 +87,6 @@
         })
     })()
     </script>
+    <jsp:include page="../../components/chatbot.jsp"/>
 </body>
 </html>

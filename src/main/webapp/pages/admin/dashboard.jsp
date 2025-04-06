@@ -234,5 +234,6 @@
 
     <script src="${pageContext.request.contextPath}/pages/admin/js/dashboard.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <jsp:include page="../../components/chatbot.jsp"/>
 </body>
 </html>

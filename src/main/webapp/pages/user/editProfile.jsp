@@ -24,7 +24,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
     <!-- Profile-specific CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/profile-edit.css?v1">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/profile-edit.css?v2">
 </head>
 <body class="bg-light">
     <%
@@ -50,7 +50,7 @@
                             <i class="bi bi-info-circle-fill me-2"></i>Please verify your identity before making changes
                         </div>
                         
-                        <div id="errorMessage" class="alert alert-danger d-none"></div>
+                        <div id="errorMessage" ></div>
                         
                         <input type="hidden" id="username" value="${user.userName}">
                         
@@ -128,7 +128,7 @@
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
-    <script src="${pageContext.request.contextPath}/pages/user/js/editProfile.js"></script>
+    <script src="${pageContext.request.contextPath}/pages/user/js/editProfile.js?v2"></script>
     
     <script>
         // Password visibility toggle

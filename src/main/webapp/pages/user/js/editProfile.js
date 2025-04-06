@@ -24,13 +24,14 @@ function validateCredentials(userId) {
             document.getElementById("editSection").style.display = "block";
             document.getElementById("verifySection").style.display = "none";
             document.getElementById("newPassword").value = password;
-        } else {
-            document.getElementById("errorMessage").innerText = "Invalid credentials!";
+        } else {			
+			 document.getElementById("errorMessage").innerHTML = '<p class="alert alert-danger">Invalid credentials</p>';
+
         }
     })
     .catch(error => {
         console.error("Error verifying credentials:", error);
-        document.getElementById("errorMessage").innerText = "Something went wrong. Please try again!";
+		document.getElementById("errorMessage").innerHTML = '<p class="alert alert-danger">Something went wrong. Please try again!</p>';
     });
 }
 

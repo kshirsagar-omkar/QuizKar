@@ -26,7 +26,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
     <!-- Leaderboard CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/leaderboard.css?v1">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/leaderboard.css?v2">
 </head>
 <body class="leaderboard-page">
 

@@ -50,60 +50,7 @@
     border-color: #dfe7f1;
 }
 
-/* Error message styling */
-#errorMessage {
-    margin-bottom: 1.5rem;
-}
-
 /* Responsive adjustments */
-/* Mobile-first viewport handling */
-@media (max-width: 480px) {
-    html {
-        font-size: 14px;
-        -webkit-text-size-adjust: 100%;
-    }
-    
-    body {
-        min-width: 320px;
-        overflow-x: hidden;
-    }
-    
-    .card {
-        border-radius: 8px;
-        margin: 0.5rem;
-    }
-    
-    .card-header {
-        padding: 1rem;
-    }
-    
-    .card-body {
-        padding: 1.25rem;
-    }
-    
-    .form-control {
-        padding: 0.65rem 0.9rem;
-        font-size: 0.9rem;
-    }
-    
-    .btn {
-        padding: 0.5rem 1rem;
-        font-size: 0.9rem;
-        width: 100%; /* Full width buttons on mobile */
-        margin-bottom: 0.5rem;
-    }
-    
-    .alert {
-        padding: 0.75rem;
-        font-size: 0.9rem;
-    }
-    
-    .form-label {
-        font-size: 0.95rem;
-    }
-}
-
-/* Tablet adjustments */
 @media (max-width: 768px) {
     .card-body {
         padding: 1.5rem;
@@ -112,28 +59,9 @@
     .alert {
         padding: 1rem;
     }
-    
-    /* Stack form groups vertically */
-    .form-group {
-        margin-bottom: 1.25rem;
-    }
-    
-    /* Make input groups stack properly */
-    .input-group {
-        flex-direction: column;
-    }
-    
-    .input-group .form-control {
-        border-radius: 8px !important;
-        margin-bottom: 0.5rem;
-    }
-    
-    .input-group-append {
-        width: 100%;
-    }
-    
-    .input-group-append .btn {
-        border-radius: 8px !important;
-        width: 100%;
-    }
+}
+
+/* Error message styling */
+#errorMessage {
+    margin-bottom: 1.5rem;
 }

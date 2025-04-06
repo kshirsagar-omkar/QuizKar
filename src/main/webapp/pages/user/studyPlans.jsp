@@ -24,7 +24,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
     <!-- Study Plans CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/study-plans.css?v1">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/study-plans.css?v2">
 </head>
 <body class="bg-light">
 

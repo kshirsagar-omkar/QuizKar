@@ -15,6 +15,7 @@ body {
     border-radius: 12px !important;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     overflow: hidden;
+    margin-bottom: 1.5rem; /* Added for consistent spacing */
 }
 
 .study-plan-card:hover {
@@ -24,6 +25,7 @@ body {
 
 .study-plan-card .card-header {
     border-radius: 12px 12px 0 0 !important;
+    padding: 1rem; /* Added for better mobile padding */
 }
 
 /* Button styling */
@@ -72,6 +74,52 @@ body {
 }
 
 /* Responsive adjustments */
+/* Mobile-first viewport handling */
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+        -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
+        min-width: 320px;
+        overflow-x: hidden;
+    }
+    
+    .study-plan-card {
+        margin-bottom: 1.25rem;
+        border-radius: 10px !important;
+    }
+    
+    .study-plan-card .card-header {
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+    
+    .study-plan-card .card-body {
+        padding: 1rem;
+    }
+    
+    .btn-success,
+    .btn-outline-primary {
+        width: 100%; /* Full width buttons on mobile */
+        padding: 0.5rem;
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .badge {
+        font-size: 0.8rem;
+    }
+    
+    #enrollToast {
+        max-width: 90%;
+        margin: 0.5rem auto;
+        font-size: 0.9rem;
+    }
+}
+
+/* Tablet adjustments */
 @media (max-width: 768px) {
     .display-5 {
         font-size: 2rem;
@@ -83,6 +131,31 @@ body {
     
     .study-plan-card {
         margin-bottom: 1.5rem;
+    }
+    
+    .study-plan-card:hover {
+        transform: translateY(-5px); /* Reduced hover effect on mobile */
+    }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 400px) {
+    .study-plan-card .card-header {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.5rem;
+    }
+    
+    .display-5 {
+        font-size: 1.75rem;
+    }
+    
+    .lead {
+        font-size: 0.95rem;
+    }
+    
+    .badge {
+        padding: 4px 8px;
     }
 }
 

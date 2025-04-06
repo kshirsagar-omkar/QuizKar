@@ -21,7 +21,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
     <!-- Quiz-specific CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/quiz.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/quiz.css?v1">
 </head>
 <body class="bg-light">
     <%

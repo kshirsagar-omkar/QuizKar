@@ -22,7 +22,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
     <!-- Quizzes-specific CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/quizzes.css?v1">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/quizzes.css?v2">
 </head>
 <body class="bg-light">
     <%

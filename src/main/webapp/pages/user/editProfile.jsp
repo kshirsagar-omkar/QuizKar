@@ -21,7 +21,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
     <!-- Profile-specific CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/profile-edit.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/profile-edit.css?v1">
 </head>
 <body class="bg-light">
     <%

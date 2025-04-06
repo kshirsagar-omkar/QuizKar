@@ -8,6 +8,7 @@ body {
     z-index: 1000;
     top: 0;
     border-bottom: 1px solid #eee;
+    padding: 1rem; /* Added for consistent padding */
 }
 
 /* Timer styling */
@@ -24,6 +25,7 @@ body {
 /* Progress bar */
 .progress {
     background-color: #f0f0f0;
+    height: 8px; /* Added fixed height */
 }
 
 /* Question card styling */
@@ -31,6 +33,7 @@ body {
     border-radius: 10px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
     background-color: #fff;
+    margin-bottom: 1.5rem; /* Added spacing */
 }
 
 .question-card:hover {
@@ -47,6 +50,7 @@ body {
 .question-text-container {
     border-left: 4px solid #3498db;
     background-color: #f8fafc !important;
+    padding: 1rem; /* Added padding */
 }
 
 .question-text {
@@ -65,6 +69,7 @@ body {
     padding: 0.75rem 1rem;
     border-radius: 8px;
     transition: background-color 0.2s ease;
+    margin-bottom: 0.5rem; /* Added spacing */
 }
 
 .option-item:hover {
@@ -101,6 +106,7 @@ body {
     z-index: 1000;
     bottom: 0;
     border-top: 1px solid #eee;
+    padding: 1rem; /* Added padding */
 }
 
 .btn-danger {
@@ -117,14 +123,67 @@ body {
 }
 
 /* Responsive adjustments */
+/* Mobile-first viewport handling */
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+        -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
+        min-width: 320px;
+        overflow-x: hidden;
+        padding-bottom: 80px; /* Reduced for mobile */
+    }
+    
+    .quiz-header {
+        padding: 0.75rem;
+        position: sticky;
+    }
+    
+    .timer-container .badge {
+        font-size: 0.9rem;
+        padding: 0.4rem 1rem;
+    }
+    
+    .question-card {
+        border-radius: 8px;
+        margin-bottom: 1rem;
+    }
+    
+    .question-text-container {
+        padding: 0.75rem;
+    }
+    
+    .question-text {
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    .option-item {
+        padding: 0.6rem 0.8rem;
+    }
+    
+    .quiz-footer {
+        padding: 0.75rem;
+        position: sticky;
+    }
+    
+    .btn-danger {
+        width: 100%; /* Full width button */
+        padding: 0.5rem;
+    }
+}
+
+/* Tablet adjustments */
 @media (max-width: 768px) {
     .quiz-header {
-        position: relative;
+        position: sticky;
         padding: 1rem;
     }
     
     .quiz-footer {
-        position: relative;
+        position: sticky;
     }
     
     .question-text {
@@ -133,6 +192,25 @@ body {
     
     .option-item {
         padding: 0.5rem;
+    }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 400px) {
+    .question-number {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+    }
+    
+    .option-letter {
+        width: 20px;
+        height: 20px;
+        font-size: 0.7rem;
+    }
+    
+    .form-check-input {
+        width: 1em;
+        height: 1em;
     }
 }
 
@@ -146,5 +224,3 @@ body {
 .time-warning {
     animation: pulse 1s infinite;
 }
-
-

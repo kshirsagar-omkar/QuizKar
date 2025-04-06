@@ -17,7 +17,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
     <!-- Settings-specific CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/settings.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/settings.css?v1">
     
     <script>
         // Function to check if entered username matches

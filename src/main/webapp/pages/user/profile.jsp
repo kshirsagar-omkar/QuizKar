@@ -23,7 +23,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
     <!-- Profile-specific CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/profile.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/profile.css?v1">
 </head>
 <body class="bg-light">
     <jsp:include page="../../components/navbar.jsp"/>

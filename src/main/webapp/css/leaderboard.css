@@ -255,20 +255,72 @@
 }
 
 /* Responsive Design */
-@media (max-width: 992px) {
+/* Mobile-first viewport handling */
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+        -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
+        min-width: 320px;
+        overflow-x: hidden;
+    }
+    
+    .leaderboard-header {
+        padding: 1.5rem 0.5rem;
+    }
+    
     .leaderboard-header h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+        line-height: 1.2;
     }
     
-    .rank-col {
-        width: 12%;
+    .leaderboard-header p {
+        font-size: 1rem;
+        padding: 0 0.5rem;
     }
     
-    .user-col {
-        width: 28%;
+    .search-form .input-group {
+        border-radius: 8px;
+        flex-direction: column;
+        box-shadow: none;
+    }
+    
+    .search-form .form-control {
+        border-radius: 8px !important;
+        margin-bottom: 0.5rem;
+        padding: 0.75rem 1rem;
+        border: 1px solid #dfe7f1 !important;
+    }
+    
+    .search-form .btn {
+        width: 100%;
+        border-radius: 8px !important;
+    }
+    
+    .quiz-header {
+        padding: 1rem;
+    }
+    
+    .quiz-header h2 {
+        font-size: 1.1rem;
+    }
+    
+    .no-results {
+        padding: 2rem 0.5rem;
+    }
+    
+    .no-results i {
+        font-size: 2.5rem;
+    }
+    
+    .no-results h3 {
+        font-size: 1.3rem;
     }
 }
 
+/* Tablet adjustments */
 @media (max-width: 768px) {
     .table-header {
         display: none;
@@ -319,25 +371,41 @@
     }
 }
 
-@media (max-width: 576px) {
-    .leaderboard-header {
-        padding: 1.5rem 0;
-    }
-    
+/* Small desktop adjustments */
+@media (max-width: 992px) {
     .leaderboard-header h1 {
-        font-size: 1.75rem;
+        font-size: 2rem;
     }
     
-    .search-form .form-control {
-        padding: 0.75rem 1rem;
+    .rank-col {
+        width: 12%;
+    }
+    
+    .user-col {
+        width: 28%;
+    }
+}
+
+/* Small mobile adjustments */
+@media (max-width: 400px) {
+    .leaderboard-header h1 {
+        font-size: 1.6rem;
     }
     
     .quiz-header {
         flex-direction: column;
         align-items: flex-start;
+        gap: 0.5rem;
     }
     
     .quiz-header .badge {
         margin-top: 0.5rem;
     }
-}	
+    
+    .rank {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 0.9rem;
+    }
+}

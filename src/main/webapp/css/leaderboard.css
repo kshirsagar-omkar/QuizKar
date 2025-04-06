@@ -1,411 +1,110 @@
-/* Leaderboard Page - Modern Design */
-.leaderboard-page {
-    background-color: #f8fafc;
-    color: #2c3e50;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+/* Study Plans Page Styling */
+body {
+    font-family: 'Poppins', sans-serif;
 }
 
-/* Header Section */
-.leaderboard-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding: 2rem 0;
+/* Card header gradient */
+.card-header.bg-gradient-primary {
+    background: linear-gradient(135deg, #3498db 0%, #2c3e50 100%) !important;
+    border-bottom: none !important;
 }
 
-.leaderboard-header h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-}
-
-.leaderboard-header h1 i {
-    color: #f1c40f;
-    margin-right: 0.5rem;
-}
-
-.leaderboard-header p {
-    color: #7f8c8d;
-    font-size: 1.1rem;
-}
-
-/* Search Section */
-.leaderboard-search {
-    margin-bottom: 2rem;
-}
-
-.search-form .input-group {
-    max-width: 600px;
-    margin: 0 auto;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    border-radius: 50px;
+/* Study plan card styling */
+.study-plan-card {
+    border: none !important;
+    border-radius: 12px !important;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     overflow: hidden;
 }
 
-.search-form .form-control {
-    border: none;
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
+.study-plan-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12) !important;
 }
 
-.search-form .btn {
-    border: none;
-    padding: 0.75rem 1.25rem;
+.study-plan-card .card-header {
+    border-radius: 12px 12px 0 0 !important;
+}
+
+/* Button styling */
+.btn-success {
+    background-color: #2ecc71;
+    border-color: #2ecc71;
     transition: all 0.3s ease;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
-.search-form .btn-search {
-    background-color: #3498db;
-    color: white;
-}
-
-.search-form .btn-reset {
-    background-color: #95a5a6;
-    color: white;
-}
-
-.search-form .btn:hover {
-    opacity: 0.9;
+.btn-success:hover {
+    background-color: #27ae60;
+    border-color: #27ae60;
     transform: translateY(-2px);
 }
 
-/* Quiz Sections */
-.leaderboard-container {
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.quiz-section {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    margin-bottom: 1rem;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-}
-
-.quiz-section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-}
-
-.quiz-header {
-    background: linear-gradient(135deg, #2c3e50, #3498db);
-    color: white;
-    padding: 1.25rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.quiz-header h2 {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0;
-}
-
-.quiz-header h2 i {
-    margin-right: 0.5rem;
-}
-
-.quiz-header .badge {
-    background-color: rgba(255,255,255,0.2);
-    color: white;
+.btn-outline-primary {
+    color: #3498db;
+    border-color: #3498db;
     font-weight: 500;
-    padding: 0.35rem 0.75rem;
-    border-radius: 50px;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
 }
 
-/* Quiz Separator */
-.quiz-separator {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 2rem 0;
-    position: relative;
-}
-
-.separator-line {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, #ddd, transparent);
-    flex: 1;
-}
-
-.separator-icon {
-    margin: 0 1rem;
-    color: #f1c40f;
-    font-size: 1.5rem;
-    background: white;
-    padding: 0 1rem;
-    position: relative;
-    z-index: 1;
-}
-
-/* Leaderboard Table */
-.leaderboard-table {
-    padding: 0 1.5rem;
-}
-
-.table-header {
-    display: flex;
-    padding: 1rem 0;
-    font-weight: 600;
-    color: #7f8c8d;
-    border-bottom: 2px solid #eee;
-}
-
-.table-row {
-    display: flex;
-    padding: 1rem 0;
-    border-bottom: 1px solid #eee;
-    align-items: center;
-    transition: all 0.2s ease;
-}
-
-.table-row:hover {
-    background-color: #f8fafc;
-}
-
-.table-row.current-user {
-    background-color: rgba(52, 152, 219, 0.1);
-    position: relative;
-}
-
-.table-row.current-user::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
+.btn-outline-primary:hover {
     background-color: #3498db;
-}
-
-/* Column Sizes */
-.rank-col {
-    width: 10%;
-    text-align: center;
-}
-
-.user-col {
-    width: 25%;
-    padding-left: 1rem;
-}
-
-.score-col {
-    width: 15%;
-    text-align: center;
-    font-weight: 600;
-}
-
-.date-col {
-    width: 25%;
-    text-align: center;
-    color: #7f8c8d;
-}
-
-.time-col {
-    width: 15%;
-    text-align: center;
-    font-weight: 600;
-}
-
-/* Rank Styling */
-.rank {
-    display: inline-block;
-    width: 36px;
-    height: 36px;
-    line-height: 36px;
-    text-align: center;
-    border-radius: 50%;
-    font-weight: 600;
-}
-
-.rank.first {
-    background-color: #f1c40f;
-    color: #2c3e50;
-}
-
-.rank.second {
-    background-color: #95a5a6;
     color: white;
+    transform: translateY(-2px);
 }
 
-.rank.third {
-    background-color: #e74c3c;
-    color: white;
+/* Badge styling */
+.badge {
+    font-weight: 500;
+    padding: 5px 10px;
 }
 
-/* No Results */
-.no-results {
-    text-align: center;
-    padding: 4rem 0;
-    color: #7f8c8d;
+.bg-light {
+    background-color: #f8f9fa !important;
 }
 
-.no-results i {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    opacity: 0.5;
+/* Empty state styling */
+.card-body.text-center {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
 }
 
-.no-results h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-/* Responsive Design */
-/* Mobile-first viewport handling */
-@media (max-width: 480px) {
-    html {
-        font-size: 14px;
-        -webkit-text-size-adjust: 100%;
-    }
-    
-    body {
-        min-width: 320px;
-        overflow-x: hidden;
-    }
-    
-    .leaderboard-header {
-        padding: 1.5rem 0.5rem;
-    }
-    
-    .leaderboard-header h1 {
-        font-size: 1.8rem;
-        line-height: 1.2;
-    }
-    
-    .leaderboard-header p {
-        font-size: 1rem;
-        padding: 0 0.5rem;
-    }
-    
-    .search-form .input-group {
-        border-radius: 8px;
-        flex-direction: column;
-        box-shadow: none;
-    }
-    
-    .search-form .form-control {
-        border-radius: 8px !important;
-        margin-bottom: 0.5rem;
-        padding: 0.75rem 1rem;
-        border: 1px solid #dfe7f1 !important;
-    }
-    
-    .search-form .btn {
-        width: 100%;
-        border-radius: 8px !important;
-    }
-    
-    .quiz-header {
-        padding: 1rem;
-    }
-    
-    .quiz-header h2 {
-        font-size: 1.1rem;
-    }
-    
-    .no-results {
-        padding: 2rem 0.5rem;
-    }
-    
-    .no-results i {
-        font-size: 2.5rem;
-    }
-    
-    .no-results h3 {
-        font-size: 1.3rem;
-    }
-}
-
-/* Tablet adjustments */
+/* Responsive adjustments */
 @media (max-width: 768px) {
-    .table-header {
-        display: none;
-    }
-    
-    .table-row {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1.5rem;
-        position: relative;
-    }
-    
-    .table-row::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 1.5rem;
-        right: 1.5rem;
-        height: 1px;
-        background-color: #eee;
-    }
-    
-    .rank-col, .user-col, .score-col, .date-col, .time-col {
-        width: 100%;
-        text-align: left;
-        padding: 0.25rem 0;
-    }
-    
-    .rank-col {
-        position: absolute;
-        top: 1.5rem;
-        right: 1.5rem;
-        width: auto;
-    }
-    
-    .user-col {
-        font-weight: 600;
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-    }
-    
-    .date-col, .time-col {
-        font-size: 0.9rem;
-    }
-    
-    .quiz-separator {
-        margin: 1.5rem 0;
-    }
-}
-
-/* Small desktop adjustments */
-@media (max-width: 992px) {
-    .leaderboard-header h1 {
+    .display-5 {
         font-size: 2rem;
     }
     
-    .rank-col {
-        width: 12%;
+    .lead {
+        font-size: 1rem;
     }
     
-    .user-col {
-        width: 28%;
+    .study-plan-card {
+        margin-bottom: 1.5rem;
     }
 }
 
-/* Small mobile adjustments */
-@media (max-width: 400px) {
-    .leaderboard-header h1 {
-        font-size: 1.6rem;
-    }
-    
-    .quiz-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-    
-    .quiz-header .badge {
-        margin-top: 0.5rem;
-    }
-    
-    .rank {
-        width: 30px;
-        height: 30px;
-        line-height: 30px;
-        font-size: 0.9rem;
-    }
+/* Toast notification */
+#enrollToast {
+    background-color: #27ae60;
+    border-radius: 8px;
 }
+
+/* Animation for cards */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.study-plan-card {
+    animation: fadeIn 0.6s ease forwards;
+}
+
+/* Delay animations for each card */
+.study-plan-card:nth-child(1) { animation-delay: 0.1s; }
+.study-plan-card:nth-child(2) { animation-delay: 0.2s; }
+.study-plan-card:nth-child(3) { animation-delay: 0.3s; }
+.study-plan-card:nth-child(4) { animation-delay: 0.4s; }
+.study-plan-card:nth-child(5) { animation-delay: 0.5s; }

@@ -20,7 +20,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
     <!-- Admin Dashboard CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-dashboard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-dashboard.css?v2">
 </head>
 <body class="admin-dashboard">
 

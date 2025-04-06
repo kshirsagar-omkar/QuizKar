@@ -30,18 +30,6 @@
     margin-bottom: 0.5rem;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    .auth-card {
-        margin-top: 1rem;
-        margin-bottom: 1rem;
-    }
-    
-    .auth-card h1 {
-        font-size: 1.75rem;
-    }
-}
-
 /* Error message styling */
 .alert-danger {
     background-color: rgba(231, 76, 60, 0.1);
@@ -73,4 +61,39 @@
 
 .was-validated .form-control:invalid:focus {
     box-shadow: 0 0 0 0.25rem rgba(231, 76, 60, 0.25);
+}
+
+/* Responsive adjustments */
+/* Add viewport handling first */
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+        -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
+        min-width: 320px;
+        overflow-x: hidden;
+    }
+    
+    .auth-card h1 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Then existing tablet-sized adjustments */
+@media (max-width: 768px) {
+    .auth-card {
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+        width: 90%; /* Added for better mobile containment */
+    }
+    
+    .auth-card h1 {
+        font-size: 1.75rem;
+    }
+    
+    .form-control {
+        padding: 0.65rem 0.9rem;
+    }
 }

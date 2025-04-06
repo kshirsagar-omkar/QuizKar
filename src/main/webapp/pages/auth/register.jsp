@@ -7,7 +7,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="css/theme.css">
     <!-- Registration-specific CSS -->
-    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/auth.css?v2">
 </head>
 <body class="bg-light">
     <jsp:include page="../../components/navbar.jsp"/>

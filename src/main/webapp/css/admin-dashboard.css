@@ -14,6 +14,7 @@
     height: 100%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 1rem; /* Added for mobile spacing */
 }
 
 .admin-stat-card:hover {
@@ -58,6 +59,7 @@
     border-radius: 12px;
     padding: 2rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem; /* Added for mobile spacing */
 }
 
 .admin-welcome-card h1 {
@@ -88,6 +90,7 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem; /* Added for mobile spacing */
 }
 
 .section-header {
@@ -294,15 +297,64 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .section-body {
+        padding: 1rem;
     }
     
     .admin-table {
         display: block;
         width: 100%;
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .admin-table th,
+    .admin-table td {
+        padding: 0.75rem;
     }
     
     .action-buttons {
         flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .btn-admin-primary,
+    .btn-admin-add {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.5rem;
+    }
+    
+    .admin-welcome-card h1 {
+        font-size: 1.5rem;
+    }
+    
+    .stat-content h3 {
+        font-size: 1.5rem;
+    }
+    
+    .empty-message {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .admin-stat-card {
+        padding: 1rem;
+    }
+    
+    .stat-icon {
+        font-size: 2rem;
+    }
+    
+    .admin-welcome-card {
+        padding: 1.5rem 1rem;
+    }
+    
+    .section-header h2 {
+        font-size: 1.2rem;
     }
 }

@@ -301,21 +301,49 @@
 }
 
 /* Responsive Adjustments */
-@media (max-width: 992px) {
+/* Mobile-first viewport handling */
+@media (max-width: 480px) {
+    html {
+        font-size: 14px;
+        -webkit-text-size-adjust: 100%;
+    }
+    
+    body {
+        min-width: 320px;
+        overflow-x: hidden;
+    }
+    
+    .welcome-card {
+        padding: 1.25rem;
+    }
+    
     .welcome-title {
-        font-size: 1.8rem;
+        font-size: 1.4rem;
     }
     
-    .stats-container {
-        flex-direction: column;
-        gap: 0.75rem;
+    .welcome-subtitle {
+        font-size: 0.95rem;
     }
     
-    .stat-card {
-        padding: 0.75rem;
+    .stat-info h3 {
+        font-size: 1.2rem;
+    }
+    
+    .study-plan-item {
+        padding: 1rem;
+    }
+    
+    .study-plan-title {
+        font-size: 1rem;
+    }
+    
+    .study-plan-actions .btn {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.75rem;
     }
 }
 
+/* Tablet adjustments */
 @media (max-width: 768px) {
     .welcome-card {
         padding: 1.5rem;
@@ -340,10 +368,35 @@
         display: block;
         width: 100%;
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .empty-state {
+        padding: 1.5rem 0.5rem;
+    }
+    
+    .empty-icon {
+        font-size: 2.5rem;
+    }
+}
+
+/* Small desktop adjustments */
+@media (max-width: 992px) {
+    .welcome-title {
+        font-size: 1.8rem;
+    }
+    
+    .stats-container {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .stat-card {
+        padding: 0.75rem;
     }
 }
 
 /* Animations */
 .animate__animated {
     animation-duration: 0.8s;
-}	
+}

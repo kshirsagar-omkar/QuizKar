@@ -20,7 +20,7 @@
     <!-- Admin Theme CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
     <!-- Quiz Form CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-quiz-form.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-quiz-form.css?v2">
 </head>
 <body class="admin-quiz-page">
 

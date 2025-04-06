@@ -24,7 +24,7 @@
     <!-- Theme CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
     <!-- Dashboard CSS -->
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css?v1">
 </head>
 <body class="dashboard-body">
 

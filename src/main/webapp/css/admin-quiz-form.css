@@ -24,16 +24,20 @@
     border: none;
     border-radius: 10px;
     overflow: hidden;
+    margin-bottom: 1.5rem; /* Added for mobile spacing */
 }
 
 .card-header {
     font-weight: 600;
+    padding: 1rem 1.25rem; /* Adjusted for mobile */
 }
 
 /* Question Block */
 .question-block {
     border: 1px solid #e9ecef;
     transition: all 0.3s ease;
+    margin-bottom: 1.5rem; /* Added for mobile spacing */
+    padding: 1.25rem; /* Added padding for mobile */
 }
 
 .question-block:hover {
@@ -46,22 +50,12 @@
     border-radius: 8px;
     padding: 0.75rem 1rem;
     border: 1px solid #dee2e6;
+    width: 100%; /* Ensure full width on mobile */
 }
 
 .form-control:focus, .form-select:focus {
     border-color: #2c3e50;
     box-shadow: 0 0 0 0.25rem rgba(44, 62, 80, 0.25);
-}
-
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-    .card-body {
-        padding: 1.25rem;
-    }
-    
-    .question-block .row > div {
-        margin-bottom: 1rem;
-    }
 }
 
 /* Button Styles */
@@ -89,4 +83,62 @@
 .spinner-border {
     vertical-align: middle;
     margin-right: 0.5rem;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .card-header {
+        font-size: 1.1rem; /* Slightly smaller header */
+    }
+    
+    .question-block {
+        padding: 1rem; /* Adjusted padding */
+    }
+}
+
+@media (max-width: 768px) {
+    .card-body {
+        padding: 1.25rem;
+    }
+    
+    .question-block .row > div {
+        margin-bottom: 1rem;
+    }
+    
+    .btn-admin-primary,
+    .btn-success,
+    .btn-danger {
+        width: 100%; /* Full width buttons */
+        margin-bottom: 0.5rem; /* Space between stacked buttons */
+    }
+    
+    .form-control, .form-select {
+        padding: 0.65rem 0.9rem; /* Slightly smaller padding */
+    }
+}
+
+@media (max-width: 576px) {
+    .card {
+        border-radius: 8px; /* Slightly smaller radius */
+    }
+    
+    .card-header {
+        padding: 0.75rem 1rem;
+        font-size: 1rem;
+    }
+    
+    .question-block {
+        padding: 0.75rem;
+    }
+    
+    .form-control, .form-select {
+        font-size: 0.9rem; /* Slightly smaller font */
+    }
+    
+    .btn-admin-primary,
+    .btn-success,
+    .btn-danger {
+        padding: 0.5rem; /* Smaller buttons */
+        font-size: 0.9rem;
+    }
 }

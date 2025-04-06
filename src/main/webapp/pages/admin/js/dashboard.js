@@ -18,21 +18,24 @@ function deleteStudyPlan(studyPlanId) {
     })
     .catch(error => console.error("Error deleting study plan:", error));
 }
-// Stores original values before editing
-let originalData = {};
+
+
+
+// Store original values globally
+const originalData = {};
 
 // ✅ ENABLE EDIT MODE FOR STUDY PLAN (Name & Link)
 function editStudyPlan(planId) {
-    let row = document.getElementById("studyPlanRow_" + planId);
-    let tds = row.getElementsByTagName("td");
-    let nameTd = tds[0];  // Name column
-    let linkTd = tds[1];  // Link column
-    
+    const row = document.getElementById("studyPlanRow_" + planId);
+    const tds = row.getElementsByTagName("td");
+    const nameTd = tds[0];
+    const linkTd = tds[1];
+
     // Prevent multiple edits
     if (originalData[planId]) return;
 
-    let linkElement = linkTd.querySelector("a");
-    
+    const linkElement = linkTd.querySelector("a");
+
     // Store original values
     originalData[planId] = {
         name: nameTd.textContent.trim(),
@@ -40,9 +43,9 @@ function editStudyPlan(planId) {
         linkText: linkElement ? linkElement.textContent.trim() : linkTd.textContent.trim()
     };
 
-    // Replace name & link with input fields
-    nameTd.innerHTML = `<input type="text" id="nameInput_${planId}" value="${originalData[planId].name}">`;
-    linkTd.innerHTML = `<input type="text" id="linkInput_${planId}" value="${originalData[planId].linkHref}">`;
+    // Replace with input fields
+    nameTd.innerHTML = `<input type="text" id="nameInput_${planId}" value="${originalData[planId].name}" class="form-control">`;
+    linkTd.innerHTML = `<input type="text" id="linkInput_${planId}" value="${originalData[planId].linkHref}" class="form-control">`;
 
     // Toggle buttons
     document.getElementById("editSPButton_" + planId).style.display = "none";
@@ -52,19 +55,19 @@ function editStudyPlan(planId) {
 
 // ✅ CANCEL EDITING & RESTORE ORIGINAL VALUES
 function cancelStudyPlanEdit(planId) {
-    let row = document.getElementById("studyPlanRow_" + planId);
-    let tds = row.getElementsByTagName("td");
-    let nameTd = tds[0];
-    let linkTd = tds[1];
+    const row = document.getElementById("studyPlanRow_" + planId);
+    const tds = row.getElementsByTagName("td");
+    const nameTd = tds[0];
+    const linkTd = tds[1];
 
     if (!originalData[planId]) return;
 
     // Restore name and link
     nameTd.textContent = originalData[planId].name;
-    //linkTd.innerHTML = `<a href="${originalData[planId].linkHref}" target="_blank">${originalData[planId].linkText}</a>`;
+    linkTd.innerHTML = `<a href="${originalData[planId].linkHref}" target="_blank" class="resource-link">
+                            <i class="bi bi-box-arrow-up-right"></i> View
+                        </a>`;
 
-	linkTd.innerHTML = '<a href="${originalData[planId].linkHref}" target="_blank" class="resource-link"> <i class="bi bi-box-arrow-up-right"></i> View </a>'
-	
     // Clear stored original data
     delete originalData[planId];
 
@@ -74,15 +77,18 @@ function cancelStudyPlanEdit(planId) {
     document.getElementById("cancelSPButton_" + planId).style.display = "none";
 }
 
+
+
+
 // ✅ SAVE STUDY PLAN (AJAX)
 function saveStudyPlan(planId) {
-    let row = document.getElementById("studyPlanRow_" + planId);
-    let tds = row.getElementsByTagName("td");
-    let nameTd = tds[0];
-    let linkTd = tds[1];
+    const row = document.getElementById("studyPlanRow_" + planId);
+    const tds = row.getElementsByTagName("td");
+    const nameTd = tds[0];
+    const linkTd = tds[1];
 
-    let newName = document.getElementById(`nameInput_${planId}`).value.trim();
-    let newLink = document.getElementById(`linkInput_${planId}`).value.trim();
+    const newName = document.getElementById(`nameInput_${planId}`).value.trim();
+    const newLink = document.getElementById(`linkInput_${planId}`).value.trim();
 
     // Prevent unnecessary updates
     if (newName === originalData[planId].name && newLink === originalData[planId].linkHref) {
@@ -90,7 +96,7 @@ function saveStudyPlan(planId) {
         return;
     }
 
-    let params = new URLSearchParams({
+    const params = new URLSearchParams({
         planId: planId,
         newName: newName,
         newLink: newLink,
@@ -104,15 +110,16 @@ function saveStudyPlan(planId) {
     .then(response => response.text())
     .then(data => {
         if (data.trim() === "success") {
-            // Update UI
+            // ✅ Update the UI
             nameTd.textContent = newName;
-            //linkTd.innerHTML = `<a href="${newLink}" target="_blank">${originalData[planId].linkText}</a>`;
-			linkTd.innerHTML = '<a href="${newLink}" target="_blank" class="resource-link"> <i class="bi bi-box-arrow-up-right"></i> View </a>'
-			
-            // Clear stored original data
+            linkTd.innerHTML = `<a href="${newLink}" target="_blank" class="resource-link">
+                                    <i class="bi bi-box-arrow-up-right"></i> View
+                                </a>`;
+
+            // ✅ Clear stored original data
             delete originalData[planId];
 
-            // Toggle buttons
+            // ✅ Toggle buttons
             document.getElementById("editSPButton_" + planId).style.display = "inline";
             document.getElementById("saveSPButton_" + planId).style.display = "none";
             document.getElementById("cancelSPButton_" + planId).style.display = "none";

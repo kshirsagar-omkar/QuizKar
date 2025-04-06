@@ -133,7 +133,7 @@ public class LeaderBoardDAOImpl implements LeaderBoardDAO{
 	 
 	//Update a record in LeaderBoard returns row affected
 	public Integer updateLeaderBoard(LeaderBoard leaderBoard) throws SQLException{
-		String query = "UPDATE leaderboard SET score = ? , time_taken = ?, participation_date = CURRENT_TIMESTAMP WHERE quiz_id = ? AND user_id = ?";
+		String query = "UPDATE leaderboard SET score = ? , time_taken = ?, participation_date = CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Kolkata' WHERE quiz_id = ? AND user_id = ?";
 		
 		Integer rowsAffected = 0;
 		

@@ -474,9 +474,15 @@ SELECT correct_answer FROM question WHERE quiz_id = 2;
 
 
     
---     private static final String DB_URL = "jdbc:postgresql://ep-small-glade-a1aqhfjk-pooler.ap-southeast-1.aws.neon.tech:5432/quizkar?sslmode=require";
---     private static final String DB_USER = "root";
---     private static final String DB_PASS = "npg_YKH3dG4SInNx";
+    -- private static final String DB_URL = "jdbc:postgresql://ep-small-glade-a1aqhfjk-pooler.ap-southeast-1.aws.neon.tech:5432/quizkar?sslmode=require";
+    -- private static final String DB_USER = "root";
+    -- private static final String DB_PASS = "npg_YKH3dG4SInNx";
+
+
+    -- DATABASE_URL = "jdbc:postgresql://ep-small-glade-a1aqhfjk-pooler.ap-southeast-1.aws.neon.tech/quizkar?sslmode=require,root,npg_YKH3dG4SInNx"
+
+
+
     
 --     private static final String DB_DRIVER = "org.postgresql.Driver";
     
@@ -508,3 +514,76 @@ SELECT correct_answer FROM question WHERE quiz_id = 2;
 -- }
 
 
+
+
+
+
+
+
+
+
+-- To ensure that your PostgreSQL tables record timestamps in Indian Standard Time (IST) by default, you can follow these steps:​
+
+-- Set the Database Time Zone to IST: Adjust the time zone setting of your PostgreSQL database to 'Asia/Kolkata' (which represents IST). This change will affect all timestamp operations within the database.
+
+-- sql
+-- Copy
+-- Edit
+-- ALTER DATABASE your_database_name
+-- SET TIMEZONE TO 'Asia/Kolkata';
+-- Replace your_database_name with the actual name of your database. This command sets the default time zone for the specified database.
+
+-- Modify Existing Timestamp Columns: If your existing timestamp columns are of type TIMESTAMP WITHOUT TIME ZONE, it's advisable to convert them to TIMESTAMP WITH TIME ZONE to properly handle time zone information. Here's how you can alter each table:
+
+
+-- Set the database timezone (if not already done)
+ALTER DATABASE quizkar SET timezone TO 'Asia/Kolkata';
+
+-- Set the session timezone (for current connection)
+SET TIME ZONE 'Asia/Kolkata';
+
+-- Verify
+SHOW TIMEZONE; -- Should return 'Asia/Kolkata'
+
+
+ALTER TABLE study_plan 
+ALTER COLUMN created_at 
+SET DEFAULT (CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Kolkata');
+
+
+ALTER TABLE user_studyplan_enrollment 
+ALTER COLUMN enrolled_at 
+SET DEFAULT (CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Kolkata');
+
+
+ALTER TABLE quiz 
+ALTER COLUMN created_at 
+SET DEFAULT (CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Kolkata');
+
+
+ALTER TABLE leaderboard 
+ALTER COLUMN participation_date 
+SET DEFAULT (CURRENT_TIMESTAMP AT TIME ZONE 'Asia/Kolkata');
+
+
+
+
+
+-- Optional: Convert Existing Timestamps to IST
+-- If you want to update existing timestamps to IST (assuming they were stored in GMT), you can run:
+
+-- For study_plan
+UPDATE study_plan 
+SET created_at = created_at AT TIME ZONE 'GMT' AT TIME ZONE 'Asia/Kolkata';
+
+-- For user_studyplan_enrollment
+UPDATE user_studyplan_enrollment 
+SET enrolled_at = enrolled_at AT TIME ZONE 'GMT' AT TIME ZONE 'Asia/Kolkata';
+
+-- For quiz
+UPDATE quiz 
+SET created_at = created_at AT TIME ZONE 'GMT' AT TIME ZONE 'Asia/Kolkata';
+
+-- For leaderboard
+UPDATE leaderboard 
+SET participation_date = participation_date AT TIME ZONE 'GMT' AT TIME ZONE 'Asia/Kolkata';

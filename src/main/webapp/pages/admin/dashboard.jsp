@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.quizkar.entities.Users" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%
     Users user = (Users) session.getAttribute("user");
     if (user == null || !"admin".equals(user.getRole())) {
@@ -129,7 +130,11 @@
                                                             <i class="bi bi-box-arrow-up-right"></i> View
                                                         </a>
                                                     </td>
-                                                    <td>${plan.createdAt}</td>
+                                                    <td>
+                                                    	<fmt:parseDate value="${plan.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" type="both"/>
+                                        				<fmt:formatDate value="${parsedDate}" pattern="MMM dd, hh:mm a"/>
+                                                    
+                                                    </td>
                                                     <td>
                                                         <div class="action-buttons">
                                                             <button id="editSPButton_${plan.studyPlanId}" onclick="editStudyPlan(${plan.studyPlanId})" 
@@ -201,7 +206,10 @@
                                                 <tr id="quizRow_${quiz.quizId}" class="admin-table-row">
                                                     <td class="fw-semibold">${quiz.title}</td>
                                                     <td>${quiz.timeLimit} mins</td>
-                                                    <td>${quiz.createdAt}</td>
+                                                    <td>
+                                                    	<fmt:parseDate value="${quiz.createdAt}" pattern="yyyy-MM-dd HH:mm:ss" var="parsedDate" type="both"/>
+                                        				<fmt:formatDate value="${parsedDate}" pattern="MMM dd, hh:mm a"/>
+                                                    </td>
                                                     <td>
                                                         <div class="action-buttons">
                                                             <button id="editQButton_${quiz.quizId}" onclick="editQuiz(${quiz.quizId})" 

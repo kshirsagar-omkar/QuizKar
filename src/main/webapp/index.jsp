@@ -100,12 +100,13 @@
                         <div class="quote-icon">
                             <i class="bi bi-quote"></i>
                         </div>
-                        <p>QuizKar transformed my study routine. The interactive quizzes make learning fun and effective!</p>
+                        <p>As a software developer, it's great to see a website like this—it will be very helpful for students in their studies. One of the best things is that all the materials are available in one place.
+</p>
                         <div class="user-info">
-                            <img src="${pageContext.request.contextPath}/images/user1.jpg" alt="User" class="user-avatar">
+                            <img src="${pageContext.request.contextPath}/images/user1.jpeg" alt="User" class="user-avatar">
                             <div>
-                                <h5>Sarah Johnson</h5>
-                                <p class="text-muted">Computer Science Student</p>
+                                <h5>Abhishek Jadhav</h5>
+                                <p class="text-muted">Product Engineer, Seclore Technology.</p>
                             </div>
                         </div>
                     </div>
@@ -115,12 +116,20 @@
                         <div class="quote-icon">
                             <i class="bi bi-quote"></i>
                         </div>
-                        <p>The study plans helped me organize my preparation and improved my grades significantly.</p>
+                        <p>I’m extremely proud of one of my student Omkar, who has successfully built a Quiz Application using a well-rounded tech stack including Java (Servlets), JSP, HTML, CSS, Bootstrap, and thoughtfully integrated modern AI tools like ChatGPT and DeepSeek to enhance development through smart prompting.
+
+This project is a reflection of his strong grasp of backend and frontend technologies, clean UI design, and an innovative approach to problem-solving. What impressed me the most was his curiosity to explore, willingness to learn, and consistency in execution.
+
+His ability to combine traditional development with cutting-edge AI tools shows not just technical skills, but also a forward-thinking mindset—which is exactly what the tech world needs today.
+
+Your dedication, hard work, and passion for technology truly stand out. Keep pushing boundaries, experimenting, and evolving, this is just the beginning of a bright journey ahead.
+
+Many congratulations once again and super proud of you ❣️🙌🏻</p>
                         <div class="user-info">
-                            <img src="${pageContext.request.contextPath}/images/user2.jpg" alt="User" class="user-avatar">
+                            <img src="${pageContext.request.contextPath}/images/user2.jpeg" alt="User" class="user-avatar">
                             <div>
-                                <h5>Michael Chen</h5>
-                                <p class="text-muted">Engineering Student</p>
+                                <h5>Sachin Sir</h5>
+                                <p class="text-muted">Founder & CEO @Techno Comp Academy</p>
                             </div>
                         </div>
                     </div>
@@ -181,7 +190,7 @@
                 <div class="col-md-3">
                     <h5>Contact</h5>
                     <p><i class="bi bi-envelope"></i> info@quizkar.com</p>
-                    <p><i class="bi bi-telephone"></i> +1 (555) 123-4567</p>
+                    <p><i class="bi bi-telephone"></i> +91 9309272458</p>
                 </div>
                 <div class="col-md-3">
                     <h5>Follow Us</h5>

@@ -41,7 +41,7 @@ QuizKar is a powerful, user-friendly platform designed for students and educator
 
 ## 📂 Project Structure
 
-
+```
 📦 QuizKar
 ├── 📂 .settings                   # IDE configurations
 ├── 📂 relatedMaterial             # Supplementary materials
@@ -167,7 +167,7 @@ QuizKar is a powerful, user-friendly platform designed for students and educator
 ├── 📜 pom.xml                     # Maven configuration
 └── 📜 CHANGELOG.md                # Version history
 
-
+```
 
 
 ## 🤝 Collaboration Opportunities

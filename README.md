@@ -206,6 +206,6 @@ Omkar Kshirsagar
 [MIT License] - Open for academic and commercial use with attribution
 
 ## 🔗 Additional Resources
-- [Database Schema](https://github.com/kshirsagar-omkar/QuizKar/blob/main/relatedMaterial/Database_Schema_Design.png?raw=true)
+- ![Database Schema Diagram](https://github.com/kshirsagar-omkar/QuizKar/blob/main/relatedMaterial/Database_Schema_Design.png?raw=true)
 - [API Documentation](#) (Coming Soon)
 - [Demo Video](#) (Coming Soon)

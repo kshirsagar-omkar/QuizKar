@@ -170,6 +170,11 @@ QuizKar is a powerful, user-friendly platform designed for students and educator
 ```
 
 
+## 🔗 Database Schema Diagram
+ ![Database Schema Diagram](https://github.com/kshirsagar-omkar/QuizKar/blob/main/relatedMaterial/Database_Schema_Design.png?raw=true)
+
+
+
 ## 🤝 Collaboration Opportunities
 
 We welcome contributions to enhance QuizKar! Potential collaboration areas include:
@@ -202,10 +207,6 @@ Omkar Kshirsagar
 4. Include detailed documentation
 5. Follow coding standards
 
-## 📜 License
-[MIT License] - Open for academic and commercial use with attribution
 
-## 🔗 Additional Resources
-- ![Database Schema Diagram](https://github.com/kshirsagar-omkar/QuizKar/blob/main/relatedMaterial/Database_Schema_Design.png?raw=true)
-- [API Documentation](#) (Coming Soon)
-- [Demo Video](#) (Coming Soon)
+
+

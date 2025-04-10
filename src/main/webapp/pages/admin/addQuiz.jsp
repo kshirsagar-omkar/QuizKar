@@ -12,10 +12,9 @@
 
 <html>
 <head>
-
-	<meta charset="UTF-8">	
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
+    <meta charset="UTF-8">    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <title>Create New Quiz - Admin</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -25,6 +24,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
     <!-- Quiz Form CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin-quiz-form.css?v2">
+    <style>
+        #submitBtnContainer {
+            display: block; /* Visible by default since we start with one question */
+        }
+    </style>
 </head>
 <body class="admin-quiz-page">
 
@@ -70,7 +74,7 @@
                                 <div class="question-block card mb-4">
                                     <div class="card-header bg-light d-flex justify-content-between align-items-center">
                                         <h4 class="h6 mb-0">Question</h4>
-                                        <button type="button" class="btn btn-sm btn-danger" onclick="removeQuestion(this)" disabled>
+                                        <button type="button" class="btn btn-sm btn-danger" onclick="removeQuestion(this)">
                                             <i class="bi bi-trash"></i>
                                         </button>
                                     </div>
@@ -116,8 +120,8 @@
                                 </button>
                             </div>
                             
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                                <button type="submit" class="btn btn-admin-primary btn-lg">
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4" id="submitBtnContainer">
+                                <button type="submit" class="btn btn-admin-primary btn-lg" id="submitBtn">
                                     <i class="bi bi-save me-2"></i>Create Quiz
                                 </button>
                             </div>
@@ -132,6 +136,63 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
+    // Function to check if at least one question exists
+    function checkQuestionCount() {
+        const questionCount = document.querySelectorAll('.question-block').length;
+        const submitBtnContainer = document.getElementById('submitBtnContainer');
+        
+        if (questionCount > 0) {
+            submitBtnContainer.style.display = 'flex'; // Show the button container
+        } else {
+            submitBtnContainer.style.display = 'none'; // Hide the button container
+        }
+    }
+    
+    // Function to validate all questions
+    function validateQuestions() {
+        const questions = document.querySelectorAll('.question-block');
+        if (questions.length === 0) {
+            return false;
+        }
+        
+        for (const question of questions) {
+            const textarea = question.querySelector('.questionText');
+            const optionA = question.querySelector('.optionA');
+            const optionB = question.querySelector('.optionB');
+            const optionC = question.querySelector('.optionC');
+            const optionD = question.querySelector('.optionD');
+            
+            if (!textarea.value.trim() || !optionA.value.trim() || !optionB.value.trim() || 
+                !optionC.value.trim() || !optionD.value.trim()) {
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    // Function to validate the entire form
+    function validateForm() {
+        const title = document.getElementById('quizTitle').value.trim();
+        const timeLimit = document.getElementById('timeLimit').value.trim();
+        
+        const hasValidQuestions = validateQuestions();
+        const hasQuestions = document.querySelectorAll('.question-block').length > 0;
+        
+        // Enable/disable submit button based on validation
+        document.getElementById('submitBtn').disabled = !(title && timeLimit && hasValidQuestions && hasQuestions);
+    }
+    
+    // Add event listeners to all inputs
+    function addValidationListeners() {
+        document.getElementById('quizTitle').addEventListener('input', validateForm);
+        document.getElementById('timeLimit').addEventListener('input', validateForm);
+        
+        document.querySelectorAll('.questionText, .optionA, .optionB, .optionC, .optionD').forEach(input => {
+            input.addEventListener('input', validateForm);
+        });
+    }
+    
     function addQuestion() {
         const container = document.getElementById("questions");
         const newQuestion = document.createElement("div");
@@ -180,15 +241,24 @@
         `;
         container.appendChild(newQuestion);
         
+        // Add validation listeners to new inputs
+        newQuestion.querySelector('.questionText').addEventListener('input', validateForm);
+        newQuestion.querySelectorAll('.optionA, .optionB, .optionC, .optionD').forEach(input => {
+            input.addEventListener('input', validateForm);
+        });
+        
+        // Update question count and validate form
+        checkQuestionCount();
+        validateForm();
+        
         // Scroll to the new question
         newQuestion.scrollIntoView({ behavior: 'smooth' });
     }
 
     function removeQuestion(button) {
-        const questionBlocks = document.querySelectorAll('.question-block');
-        if (questionBlocks.length > 1) {
-            button.closest('.question-block').remove();
-        }
+        button.closest('.question-block').remove();
+        checkQuestionCount();
+        validateForm();
     }
     
     function submitQuiz(event) {
@@ -235,7 +305,7 @@
         };
 
         // Show loading state
-        const submitBtn = document.querySelector('#quizForm button[type="submit"]');
+        const submitBtn = document.getElementById('submitBtn');
         const originalBtnContent = submitBtn.innerHTML;
         submitBtn.innerHTML = `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Creating Quiz...`;
         submitBtn.disabled = true;
@@ -260,9 +330,16 @@
         })
         .finally(() => {
             submitBtn.innerHTML = originalBtnContent;
-            submitBtn.disabled = false;
+            validateForm(); // Re-enable button if needed
         });
     }
+    
+    // Initialize validation listeners and check question count
+    document.addEventListener('DOMContentLoaded', function() {
+        addValidationListeners();
+        checkQuestionCount();
+        validateForm();
+    });
     </script>
     <jsp:include page="../../components/chatbot.jsp"/>
 </body>

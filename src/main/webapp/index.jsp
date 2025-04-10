@@ -160,16 +160,67 @@ One thing that stood out to me was the excellent UI/UX experience – everything
                         <div class="quote-icon">
                             <i class="bi bi-quote"></i>
                         </div>
+                        <p>QuizKar is a well-designed, intuitive web application that offers a seamless quiz and study planning experience. With a clean UI, smart AI integration, and smooth navigation, it’s an excellent platform for students to practice and track their progress effectively.</p>
+                        <div class="user-info">
+                            <img src="${pageContext.request.contextPath}/images/user6.enc" alt="User" class="user-avatar">
+                            <div>
+                                <h5>Vaibhav Kshirsagar</h5>
+                                <p class="text-muted">Software developer, Börm Bruckmeier.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="col-md-4 testimonial-card animate__animated animate__fadeIn" style="animation-delay: 0.4s">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="bi bi-quote"></i>
+                        </div>
                         <p>it’s nicely developed, very intuitive, and everything is working smoothly.</p>
                         <div class="user-info">
                             <img src="${pageContext.request.contextPath}/images/user3.enc" alt="User" class="user-avatar">
                             <div>
-                                <h5>Bhagyesh </h5>
+                                <h5>Bhagyesh Sonawane</h5>
                                 <p class="text-muted">FY MCA, Sri Balaji University, Pune</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                <div class="col-md-4 testimonial-card animate__animated animate__fadeIn" style="animation-delay: 0.4s">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="bi bi-quote"></i>
+                        </div>
+                        <p>QuizKar is a helpful platform for practicing quizzes and managing study plans. The random questions and timer make it engaging, and progress tracking keeps things organized. Simple and effective!</p>
+                        <div class="user-info">
+                            <img src="${pageContext.request.contextPath}/images/user5.jpeg" alt="User" class="user-avatar">
+                            <div>
+                                <h5>Dnyaneshwar Padule</h5>
+                                <p class="text-muted">Computer Engineering</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <div class="col-md-4 testimonial-card animate__animated animate__fadeIn" style="animation-delay: 0.4s">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="bi bi-quote"></i>
+                        </div>
+                        <p>This is an AI-enhanced quiz platform built with Java and modern web tech, offering engaging learning through smart quizzes and structured study plans. Its clean interface makes mastering concepts intuitive and effective.</p>
+                        <div class="user-info">
+                            <img src="${pageContext.request.contextPath}/images/user7.jpeg" alt="User" class="user-avatar">
+                            <div>
+                                <h5>Aniket Jumde</h5>
+                                <p class="text-muted">IT Engineering</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 
             </div>
         </div>

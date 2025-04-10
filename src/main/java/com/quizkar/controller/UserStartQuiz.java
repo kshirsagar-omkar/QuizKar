@@ -1,6 +1,7 @@
 package com.quizkar.controller;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 import com.quizkar.entities.Question;
@@ -40,7 +41,9 @@ public class UserStartQuiz extends HttpServlet {
 			
 			QuestionService questionService = new QuestionServiceImpl();
 			
-			List<Question> questions = questionService .getQuestions(quiz.getQuizId());
+			List<Question> questions = questionService.getQuestions(quiz.getQuizId());
+			
+			Collections.shuffle(questions);
 			
 			request.setAttribute("questions", questions);
 			request.setAttribute("quiz", quiz);

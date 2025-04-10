@@ -13,9 +13,9 @@
 
 <html>
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
     <title>${quiz.title} - QuizKar</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -116,29 +116,34 @@
         </div>
     </div>
 
-    <!-- JavaScript with enhanced timer visualization -->
+    <!-- JavaScript with auto-submit and user-friendly alerts -->
     <script>
         let totalTime, timeTakenSeconds = 0;
         let timerInterval;
         let initialTime;
+        let quizSubmitted = false;
+        let isSubmitting = false;
+        let hasAnsweredQuestions = false;
+
+        // Function to check if any answers have been selected
+        function checkAnsweredQuestions() {
+            return document.querySelectorAll("input[type=radio]:checked").length > 0;
+        }
 
         function startQuiz(quizTimeLimit) {
-            totalTime = quizTimeLimit * 60; // Convert minutes to seconds
+            totalTime = quizTimeLimit * 60;
             initialTime = totalTime;
 
             function updateTimer() {
                 let minutes = Math.floor(totalTime / 60);
                 let seconds = totalTime % 60;
 
-                // Update timer display
                 document.getElementById('timer').innerText = 
                     (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 
-                // Update progress bar
                 let progressPercent = (totalTime / initialTime) * 100;
                 document.getElementById('timeProgress').style.width = progressPercent + '%';
 
-                // Change color when time is running low
                 if (progressPercent < 20) {
                     document.getElementById('timeProgress').classList.add('bg-danger');
                     document.getElementById('timeProgress').classList.remove('bg-warning');
@@ -149,39 +154,93 @@
 
                 if (totalTime <= 0) {
                     clearInterval(timerInterval);            
-                    submitQuiz(); // Auto-submit on timeout
+                    showExitConfirmation(true);
                 } else {
                     totalTime--;
-                    timeTakenSeconds++; // Increment time taken in seconds
+                    timeTakenSeconds++;
                 }
             }
 
             timerInterval = setInterval(updateTimer, 1000);
-            updateTimer(); // Initial call
+            updateTimer();
+        }
+
+        function showExitConfirmation(isTimeout = false) {
+            if (quizSubmitted || isSubmitting) return;
+            
+            // Check if any answers have been selected
+            hasAnsweredQuestions = checkAnsweredQuestions();
+            
+            // Only show warning if answers have been selected or it's a timeout
+            if (!hasAnsweredQuestions && !isTimeout) {
+                return;
+            }
+            
+            const exitModal = new bootstrap.Modal(document.getElementById('exitConfirmationModal'));
+            exitModal.show();
+            
+            // Update modal content based on context
+            const modalTitle = document.getElementById('exitModalTitle');
+            const modalBody = document.getElementById('exitModalBody');
+            
+            if (isTimeout) {
+                modalTitle.innerHTML = '<i class="bi bi-clock-fill me-2"></i>Time Expired';
+                modalBody.innerHTML = 'Your time has expired. The quiz will be submitted with your current answers.';
+            } else {
+                modalTitle.innerHTML = '<i class="bi bi-exclamation-triangle-fill me-2"></i>Leave Quiz?';
+                modalBody.innerHTML = 'Are you sure you want to leave? Your quiz will be submitted with your current answers.';
+            }
+
+            // Auto-submit after 8 seconds if user doesn't respond
+            let countdown = 8;
+            const countdownElement = document.getElementById('exitCountdown');
+            countdownElement.textContent = countdown;
+            
+            const countdownInterval = setInterval(() => {
+                countdown--;
+                countdownElement.textContent = countdown;
+                
+                if (countdown <= 0) {
+                    clearInterval(countdownInterval);
+                    if (!quizSubmitted && !isSubmitting) {
+                        exitModal.hide();
+                        submitQuiz();
+                    }
+                }
+            }, 1000);
+
+            // Cleanup when modal is hidden
+            exitModal._element.addEventListener('hidden.bs.modal', () => {
+                clearInterval(countdownInterval);
+            });
         }
 
         function submitQuiz() {
-            clearInterval(timerInterval); // Stop the timer
+            if (quizSubmitted || isSubmitting) return;
+            isSubmitting = true;
+            
+            clearInterval(timerInterval);
 
             let userId = document.getElementById("userId").value;    
             let quizId = document.getElementById("quizId").value;
-            
-            // Convert seconds to whole minutes (round up)
             let timeTakenMinutes = Math.ceil(timeTakenSeconds / 60);
 
             let quizData = {
                 userId: userId,
                 quizId: quizId,
-                timeTaken: timeTakenMinutes, // Send rounded minutes
+                timeTaken: timeTakenMinutes,
                 answers: {}
             };
 
-            // Collect user-selected answers
+            // Collect answers (works even if none are selected)
             document.querySelectorAll("input[type=radio]:checked").forEach((radio) => {
-                quizData.answers[radio.name] = radio.value; // Store { questionId: answer }
+                quizData.answers[radio.name] = radio.value;
             });
 
-            // Send JSON to the servlet
+            // Block UI during submission
+            document.body.style.pointerEvents = 'none';
+            document.body.style.opacity = '0.7';
+            
             fetch("UserSubmitQuiz", {
                 method: "POST",
                 headers: {
@@ -189,35 +248,98 @@
                 },
                 body: JSON.stringify(quizData)
             })
-            .then(response => response.text())
+            .then(response => {
+                if (!response.ok) throw new Error("Network response was not ok");
+                return response.text();
+            })
             .then(data => {
+                quizSubmitted = true;
                 if (data.trim() === "success") {
-                    // Use Bootstrap modal for success message instead of alert
+                	
+                	bootstrap.Modal.getInstance(document.getElementById('exitConfirmationModal')).hide();
+                	
                     const successModal = new bootstrap.Modal(document.getElementById('submitSuccessModal'));
                     successModal.show();
                     
-                    // Redirect after modal is closed
                     document.getElementById('successModalClose').addEventListener('click', function() {
                         window.location.href = "UserDashboard";
                     });
                 } else {
-                    // Use Bootstrap toast for error message
-                    const errorToast = new bootstrap.Toast(document.getElementById('submitErrorToast'));
-                    errorToast.show();
+                    throw new Error("Server returned non-success status");
                 }
             })
             .catch(error => {
                 console.error("Error submitting quiz:", error);
+                isSubmitting = false;
                 const errorToast = new bootstrap.Toast(document.getElementById('submitErrorToast'));
                 errorToast.show();
+            })
+            .finally(() => {
+                document.body.style.pointerEvents = 'auto';
+                document.body.style.opacity = '1';
             });
         }
         
-        // Initialize timer
+        // Initialize quiz
         window.addEventListener('DOMContentLoaded', function() {
             startQuiz(document.getElementById("timeLimit").value);
+            
+            // Track radio button changes to detect answered questions
+            document.querySelectorAll('input[type=radio]').forEach(radio => {
+                radio.addEventListener('change', function() {
+                    hasAnsweredQuestions = checkAnsweredQuestions();
+                });
+            });
+            
+            // Enhanced beforeunload handler
+            window.addEventListener('beforeunload', function(e) {
+                if (!quizSubmitted && !isSubmitting && hasAnsweredQuestions) {
+                    e.preventDefault();
+                    showExitConfirmation();
+                    return "Your quiz will be submitted if you leave this page.";
+                }
+            });
+            
+            // Enhanced back button handling
+            history.pushState(null, null, location.href);
+            window.onpopstate = function(e) {
+                if (!quizSubmitted && !isSubmitting && hasAnsweredQuestions) {
+                    e.preventDefault();
+                    showExitConfirmation();
+                    history.pushState(null, null, location.href);
+                }
+            };
         });
     </script>
+
+    <!-- Exit Confirmation Modal -->
+    <div class="modal fade" id="exitConfirmationModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-white">
+                    <h5 class="modal-title" id="exitModalTitle">
+                        <i class="bi bi-exclamation-triangle-fill me-2"></i>Leave Quiz?
+                    </h5>
+                </div>
+                <div class="modal-body">
+                    <p id="exitModalBody">Are you sure you want to leave? Your quiz will be submitted with your current answers.</p>
+                    <p>Auto-submitting in <span id="exitCountdown" class="fw-bold">8</span> seconds...</p>
+                    <div class="progress mt-3">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-warning" 
+                             role="progressbar" style="width: 100%"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-arrow-left-circle-fill me-2"></i>Resume Quiz
+                    </button>
+                    <button type="button" class="btn btn-warning text-white" onclick="submitQuiz()">
+                        <i class="bi bi-send-fill me-2"></i>Submit Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Success Modal -->
     <div class="modal fade" id="submitSuccessModal" tabindex="-1" aria-hidden="true">
@@ -225,7 +347,6 @@
             <div class="modal-content">
                 <div class="modal-header bg-success text-white">
                     <h5 class="modal-title"><i class="bi bi-check-circle-fill me-2"></i>Quiz Submitted</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <p>Your quiz has been submitted successfully!</p>

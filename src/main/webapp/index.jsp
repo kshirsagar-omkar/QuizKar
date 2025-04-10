@@ -134,21 +134,43 @@ Many congratulations once again and super proud of you ❣️🙌🏻</p>
                         </div>
                     </div>
                 </div>
+                
+                
                 <div class="col-md-4 testimonial-card animate__animated animate__fadeIn" style="animation-delay: 0.4s">
                     <div class="testimonial-content">
                         <div class="quote-icon">
                             <i class="bi bi-quote"></i>
                         </div>
-                        <p>As an instructor, I find the platform incredibly useful for creating and managing quizzes.</p>
+                        <p>I recently visited QuizKar, a quiz-based website developed by Omkar, and I must say I'm genuinely impressed by the overall design and functionality. The UI is clean, modern, and user-friendly, making the whole experience smooth and enjoyable. The color scheme and layout are well-thought-out, which helps maintain focus while navigating through different sections of the site.
+
+One thing that stood out to me was the excellent UI/UX experience – everything feels intuitive, and the design flows naturally from one section to another. The redirection between pages is seamless, with quick load times and no unnecessary lag.</p>
                         <div class="user-info">
-                            <img src="${pageContext.request.contextPath}/images/user3.jpg" alt="User" class="user-avatar">
+                            <img src="${pageContext.request.contextPath}/images/user4.jpeg" alt="User" class="user-avatar">
                             <div>
-                                <h5>Dr. Emily Wilson</h5>
-                                <p class="text-muted">Professor</p>
+                                <h5>Aniket Belgaonkar</h5>
+                                <p class="text-muted">M.Sc Computer Application.</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                
+                
+                <div class="col-md-4 testimonial-card animate__animated animate__fadeIn" style="animation-delay: 0.4s">
+                    <div class="testimonial-content">
+                        <div class="quote-icon">
+                            <i class="bi bi-quote"></i>
+                        </div>
+                        <p>it’s nicely developed, very intuitive, and everything is working smoothly.</p>
+                        <div class="user-info">
+                            <img src="${pageContext.request.contextPath}/images/user3.enc" alt="User" class="user-avatar">
+                            <div>
+                                <h5>Bhagyesh </h5>
+                                <p class="text-muted">FY MCA, Sri Balaji University, Pune</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </section>

@@ -104,24 +104,29 @@ public class SessionUtil {
         HttpSession session = request.getSession(false);
         if (session != null) {
             session.invalidate();
-            
-            /*
-            try {
-            	Cookie[] cookies = request.getCookies();
-            	if (cookies != null) {
-                	for (Cookie cookie : cookies) {
-                    	if ("rememberEmail".equals(cookie.getName()) || "rememberPassword".equals(cookie.getName())) {
-                        	cookie.setMaxAge(0);
-                        	cookie.setPath("/"); // Very important
-                        	response.addCookie(cookie);
-                    	}
-                	}
-            	}
-            }catch(Exception e) {
-            	
-            }
-             */
         }
-        response.sendRedirect(request.getContextPath());
+
+        /*
+        // Delete cookies
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if ("rememberEmail".equals(cookie.getName()) || "rememberPassword".equals(cookie.getName())) {
+                    cookie.setMaxAge(0);
+                    cookie.setPath(request.getContextPath()); // Very important
+                    response.addCookie(cookie);
+                }
+            }
+        }
+		*/
+        
+        // Prevent caching
+        response.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        response.setHeader("Pragma", "no-cache");
+        response.setDateHeader("Expires", 0);
+
+        // Redirect safely
+        response.sendRedirect(request.getContextPath() + "/index.jsp");
     }
+
 }

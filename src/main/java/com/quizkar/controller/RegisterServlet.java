@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 import com.quizkar.entities.Users;
 import com.quizkar.service.UsersService;
-import com.quizkar.service.UsersServiceImpl;
+import com.quizkar.service.impl.UsersServiceImpl;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -45,7 +45,7 @@ public class RegisterServlet extends HttpServlet {
 				return;
 			}
 			
-			
+			//addUser(Users), internally makes the password, secured, it hashes the password 
 			Integer userId = usersService.addUser(user);
 			
 			if( userId != null ) {

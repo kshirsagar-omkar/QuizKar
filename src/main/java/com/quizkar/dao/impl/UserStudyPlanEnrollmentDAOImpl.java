@@ -1,10 +1,11 @@
-package com.quizkar.dao;
+package com.quizkar.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.quizkar.dao.UserStudyPlanEnrollmentDAO;
 import com.quizkar.entities.UserStudyPlanEnrollment;
 import com.quizkar.util.DBUtil;
 

@@ -1,14 +1,16 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.quizkar.entities.Users" %>
+<%@page import="com.quizkar.constants.Role"%>
+<%@page import="com.quizkar.util.SessionUtil"%>
 
 <%
-    // Prevent unauthorized access
-    Users user = (Users) session.getAttribute("user");
-    if (user == null || !"user".equals(user.getRole())) {
-        response.sendRedirect("login");
-        return;
-    }
+	//Prevent unauthorized access
+	Users user = SessionUtil.getUser(request);
+	if (user == null || ! user.getRole().equals(Role.USER)  ) {
+		response.sendRedirect( request.getContextPath() + "/LogoutServlet");
+		return;
+	}
 %>
 
 <html>

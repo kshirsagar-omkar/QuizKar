@@ -1,10 +1,11 @@
-package com.quizkar.service;
+package com.quizkar.service.impl;
 
 import java.sql.SQLException;
 
 import com.quizkar.dao.UserStudyPlanEnrollmentDAO;
-import com.quizkar.dao.UserStudyPlanEnrollmentDAOImpl;
+import com.quizkar.dao.impl.UserStudyPlanEnrollmentDAOImpl;
 import com.quizkar.entities.UserStudyPlanEnrollment;
+import com.quizkar.service.UserStudyPlanEnrollmentService;
 
 public class UserStudyPlanEnrollmentServiceImpl implements UserStudyPlanEnrollmentService {
 

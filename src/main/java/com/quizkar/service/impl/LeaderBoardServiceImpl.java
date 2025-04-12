@@ -1,12 +1,13 @@
-package com.quizkar.service;
+package com.quizkar.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;
 
 import com.quizkar.dao.LeaderBoardDAO;
-import com.quizkar.dao.LeaderBoardDAOImpl;
+import com.quizkar.dao.impl.LeaderBoardDAOImpl;
 import com.quizkar.dto.GlobalLeaderBoardDTO;
 import com.quizkar.entities.LeaderBoard;
+import com.quizkar.service.LeaderBoardService;
 
 public class LeaderBoardServiceImpl implements LeaderBoardService{
 

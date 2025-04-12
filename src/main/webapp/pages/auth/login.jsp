@@ -15,7 +15,7 @@
     <div class="container my-5">
         <div class="row justify-content-center">
             <div class="col-md-8 col-lg-6">
-                <div class="card auth-card">
+                <div class="card auth-card mt-5">
                     <div class="card-body p-5">
                         <h1 class="text-center mb-4">Login</h1>
                         
@@ -26,14 +26,6 @@
                         <% } %>
                         
                         <form action="login" method="post">
-                            <div class="mb-3">
-                                <label for="role" class="form-label">Role</label>
-                                <select name="role" id="role" class="form-select">
-                                    <option value="user">User</option>
-                                    <option value="admin">Admin</option>
-                                </select>
-                            </div>
-
                             <div class="mb-3">
                                 <label for="identifier" class="form-label">Username or Email</label>
                                 <input type="text" name="identifier" id="identifier" class="form-control" required>

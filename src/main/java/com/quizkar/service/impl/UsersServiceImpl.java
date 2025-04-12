@@ -1,10 +1,12 @@
-package com.quizkar.service;
+package com.quizkar.service.impl;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.quizkar.dao.UsersDAO;
-import com.quizkar.dao.UsersDAOImpl;
+import com.quizkar.dao.impl.UsersDAOImpl;
 import com.quizkar.entities.Users;
+import com.quizkar.service.UsersService;
 
 public class UsersServiceImpl implements UsersService {
 	
@@ -46,7 +48,6 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	
-	
 	//Return the total number of users registred in application
 	public Integer getTotalUsers() throws SQLException{
 		UsersDAO usersDAO = new UsersDAOImpl();
@@ -54,10 +55,23 @@ public class UsersServiceImpl implements UsersService {
 	}
 	
 	
-	
 	//Update userRegistration count for every registration returns row affected
 	public Integer updateTotalUser() throws SQLException{
 		UsersDAO usersDAO = new UsersDAOImpl();
 		return usersDAO.updateTotalUser();
+	}
+	
+	
+	//Gets the user by his user_id
+	public Users getUserById(int userId) throws SQLException{
+		UsersDAO usersDAO = new UsersDAOImpl();
+		return usersDAO.getUserById(userId);
+	}
+
+
+	@Override
+	public List<Users> getAllUsers() throws SQLException {
+		UsersDAO usersDAO = new UsersDAOImpl();
+		return usersDAO.getAllUsers();
 	}
 }

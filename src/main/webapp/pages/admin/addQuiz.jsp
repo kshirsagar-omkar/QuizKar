@@ -1,13 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.quizkar.entities.Users" %>
-
+<%@page import="com.quizkar.constants.Role"%>
+<%@page import="com.quizkar.util.SessionUtil"%>
 <%
-    // Prevent unauthorized access
-    Users user = (Users) session.getAttribute("user");
-    if (user == null || !"admin".equals(user.getRole())) {
-        response.sendRedirect("login");
-        return;
-    }
+	//Prevent unauthorized access
+	Users user = SessionUtil.getUser(request);
+	if (user == null || ! user.getRole().equals(Role.ADMIN)  ) {
+		response.sendRedirect( request.getContextPath() + "/LogoutServlet");
+		return;
+	}
 %>
 
 <html>

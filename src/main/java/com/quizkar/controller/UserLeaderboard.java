@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.quizkar.dto.GlobalLeaderBoardDTO;
 import com.quizkar.service.LeaderBoardService;
-import com.quizkar.service.LeaderBoardServiceImpl;
+import com.quizkar.service.impl.LeaderBoardServiceImpl;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;

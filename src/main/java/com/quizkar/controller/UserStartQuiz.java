@@ -6,8 +6,10 @@ import java.util.List;
 
 import com.quizkar.entities.Question;
 import com.quizkar.entities.Quiz;
+import com.quizkar.entities.Users;
 import com.quizkar.service.QuestionService;
-import com.quizkar.service.QuestionServiceImpl;
+import com.quizkar.service.impl.QuestionServiceImpl;
+import com.quizkar.util.SessionUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,42 +23,50 @@ public class UserStartQuiz extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		//Check if user is logged in 
+		Users user = SessionUtil.getUser(request);
+		if(user == null ) {
+			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
+			return;
+		}
+
 		response.sendRedirect("UserQuizzes");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+
+		//Check if user is logged in 
+		Users user = SessionUtil.getUser(request);
+		if(user == null ) {
+			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
+			return;
+		}
 		
 		try {
 			Integer quizId = Integer.parseInt( request.getParameter("quizId") );
 			String title = request.getParameter("quizTitle");
 			Integer timeLimit = Integer.parseInt(request.getParameter("quizTimeLimit"));
-			
+
 			Quiz quiz = new Quiz();
 			quiz.setQuizId(quizId);
 			quiz.setTitle(title);
 			quiz.setTimeLimit(timeLimit);
-			
-			
+
 			QuestionService questionService = new QuestionServiceImpl();
-			
 			List<Question> questions = questionService.getQuestions(quiz.getQuizId());
-			
 			Collections.shuffle(questions);
-			
+
 			request.setAttribute("questions", questions);
 			request.setAttribute("quiz", quiz);
-			
-			
-			
+
 		}
 		catch(Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		request.getRequestDispatcher("pages/user/quizQuestions.jsp").forward(request, response);
-		
+
 	}
 
 }

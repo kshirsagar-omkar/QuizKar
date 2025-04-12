@@ -1,4 +1,4 @@
-package com.quizkar.dao;
+package com.quizkar.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.quizkar.dao.QuestionDAO;
 import com.quizkar.entities.Question;
 import com.quizkar.util.DBUtil;
 

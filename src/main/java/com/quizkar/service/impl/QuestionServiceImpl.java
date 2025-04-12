@@ -1,12 +1,13 @@
-package com.quizkar.service;
+package com.quizkar.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
 import com.quizkar.dao.QuestionDAO;
-import com.quizkar.dao.QuestionDAOImpl;
+import com.quizkar.dao.impl.QuestionDAOImpl;
 import com.quizkar.entities.Question;
+import com.quizkar.service.QuestionService;
 
 public class QuestionServiceImpl implements QuestionService {	
 	

@@ -1,6 +1,7 @@
 package com.quizkar.dao;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import com.quizkar.entities.Users;
 
@@ -30,4 +31,10 @@ public interface UsersDAO {
 	
 	//Update userRegistration count for every registration returns row affected
 	public abstract Integer updateTotalUser() throws SQLException;
+
+	//Gets the user by his user_id
+	public abstract Users getUserById(int userId) throws SQLException;
+
+	//Gets all users
+	public abstract List<Users> getAllUsers() throws SQLException;
 }

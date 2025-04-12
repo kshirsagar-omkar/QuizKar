@@ -4,22 +4,23 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.quizkar.constants.Role;
 import com.quizkar.entities.Quiz;
 import com.quizkar.entities.StudyPlan;
 import com.quizkar.entities.Users;
 import com.quizkar.service.QuizService;
-import com.quizkar.service.QuizServiceImpl;
 import com.quizkar.service.StudyPlanService;
-import com.quizkar.service.StudyPlanServiceImpl;
 import com.quizkar.service.UsersService;
-import com.quizkar.service.UsersServiceImpl;
+import com.quizkar.service.impl.QuizServiceImpl;
+import com.quizkar.service.impl.StudyPlanServiceImpl;
+import com.quizkar.service.impl.UsersServiceImpl;
+import com.quizkar.util.SessionUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class AdminDashboard
@@ -40,13 +41,14 @@ public class AdminDashboard extends HttpServlet {
 			QuizService quizService = new QuizServiceImpl();
 			UsersService usersService = new UsersServiceImpl();
 			
-			HttpSession session = request.getSession();
-			if(session == null) {
-				response.sendRedirect("login");
-		        return;
+			Users user = SessionUtil.getUser(request);
+			
+			//If user is null or user is not admin, then logout them 
+			if(user == null || ! user.getRole().equals(Role.ADMIN)) {
+				response.sendRedirect( request.getContextPath() + "/LogoutServlet");
+				return;
 			}
 			
-			Users user = (Users) session.getAttribute("user");
 			if(user != null) {
 				
 				Integer userId = user.getUserId();

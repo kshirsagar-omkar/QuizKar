@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
+import com.quizkar.constants.Role;
 import com.quizkar.entities.Quiz;
+import com.quizkar.entities.Users;
 import com.quizkar.service.QuizService;
-import com.quizkar.service.QuizServiceImpl;
+import com.quizkar.service.impl.QuizServiceImpl;
+import com.quizkar.util.SessionUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -21,12 +24,15 @@ import jakarta.servlet.http.HttpServletResponse;
 public class AdminQuizServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
-	
-	
-	
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Users user = SessionUtil.getUser(request);
+
+		//Check if user is admin, and he is logged in 
+		if(user == null || ! user.getRole().equals(Role.ADMIN)) {
+			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
+			return;
+		}
 		
 		String actionStatus = "failed";
 		
@@ -44,9 +50,6 @@ public class AdminQuizServlet extends HttpServlet {
 				actionStatus = editQuiz(request, response);
 			}
 			
-			
-			
-			
 			out.println(actionStatus);
 			
 		}
@@ -60,9 +63,6 @@ public class AdminQuizServlet extends HttpServlet {
 		
 	}
 
-	
-	
-	
 	
 	private String deleteQuiz(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException, NumberFormatException {
 		QuizService quizService = new QuizServiceImpl();

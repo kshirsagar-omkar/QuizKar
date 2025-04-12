@@ -1,11 +1,12 @@
-package com.quizkar.service;
+package com.quizkar.service.impl;
 
 import java.sql.SQLException;
 import java.util.List;
 
 import com.quizkar.dao.StudyPlanDAO;
-import com.quizkar.dao.StudyPlanDAOImpl;
+import com.quizkar.dao.impl.StudyPlanDAOImpl;
 import com.quizkar.entities.StudyPlan;
+import com.quizkar.service.StudyPlanService;
 
 public class StudyPlanServiceImpl implements StudyPlanService{
 

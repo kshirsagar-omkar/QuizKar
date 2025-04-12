@@ -1,4 +1,4 @@
-package com.quizkar.dao;
+package com.quizkar.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.quizkar.dao.StudyPlanDAO;
 import com.quizkar.entities.StudyPlan;
 import com.quizkar.util.DBUtil;
 

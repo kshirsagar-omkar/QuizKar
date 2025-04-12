@@ -10,8 +10,6 @@ public class Users {
 		private String role;
 		
 		
-		
-		
 		public Integer getUserId() {
 			return userId;
 		}

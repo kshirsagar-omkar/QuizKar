@@ -3,13 +3,15 @@ package com.quizkar.controller;
 import java.io.IOException;
 import java.util.List;
 
+import com.quizkar.constants.Role;
 import com.quizkar.dto.GivenQuizesDTO;
 import com.quizkar.entities.StudyPlan;
 import com.quizkar.entities.Users;
 import com.quizkar.service.QuizService;
-import com.quizkar.service.QuizServiceImpl;
 import com.quizkar.service.StudyPlanService;
-import com.quizkar.service.StudyPlanServiceImpl;
+import com.quizkar.service.impl.QuizServiceImpl;
+import com.quizkar.service.impl.StudyPlanServiceImpl;
+import com.quizkar.util.SessionUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -30,17 +32,13 @@ public class UserDashboard extends HttpServlet {
 		List<StudyPlan> completedStudyPlans = null;
 		List<GivenQuizesDTO> completedQuizzes = null;
 		
-		
-		HttpSession session = request.getSession(false);
-		
-		if(session == null) {
-			response.sendRedirect("login");
-	        return;
+		Users user = SessionUtil.getUser(request);
+		//If there is no user session, logout them
+		if(user == null || ! user.getRole().equals(Role.USER)) {
+			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
+			return;
 		}
-		
-		Users user = (Users) session.getAttribute("user");
-		
-		
+	
 		try {
 			
 			StudyPlanService studyPlanService = new StudyPlanServiceImpl();

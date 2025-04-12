@@ -14,12 +14,15 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.quizkar.constants.Role;
 import com.quizkar.entities.Question;
 import com.quizkar.entities.Quiz;
+import com.quizkar.entities.Users;
 import com.quizkar.service.QuestionService;
-import com.quizkar.service.QuestionServiceImpl;
 import com.quizkar.service.QuizService;
-import com.quizkar.service.QuizServiceImpl;
+import com.quizkar.service.impl.QuestionServiceImpl;
+import com.quizkar.service.impl.QuizServiceImpl;
+import com.quizkar.util.SessionUtil;
 
 /**
  * Servlet implementation class AdminAddQuizServlet
@@ -30,12 +33,29 @@ public class AdminAddQuizServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Users user = SessionUtil.getUser(request);
+
+		//Check if user is admin, and he is logged in 
+		if(user == null || ! user.getRole().equals(Role.ADMIN)) {
+			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
+			return;
+		}
+		
 		request.getRequestDispatcher("pages/admin/addQuiz.jsp").forward(request, response);
 	}
 
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		Users user = SessionUtil.getUser(request);
+
+		//Check if user is admin, and he is logged in 
+		if(user == null || ! user.getRole().equals(Role.ADMIN)) {
+			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
+			return;
+		}
 		
 		String actionStatus = "failed";
 		response.setContentType("text/html");

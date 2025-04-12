@@ -5,14 +5,14 @@ import java.sql.SQLException;
 
 import com.quizkar.entities.Users;
 import com.quizkar.service.UsersService;
-import com.quizkar.service.UsersServiceImpl;
+import com.quizkar.service.impl.UsersServiceImpl;
+import com.quizkar.util.SessionUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 
 @WebServlet(name = "login", value = "/login")
@@ -25,13 +25,8 @@ public class LoginServlet extends HttpServlet {
 		request.getRequestDispatcher("pages/auth/login.jsp").forward(request, response);
 	}
 	
-	
-	
-	
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String role = request.getParameter("role");
 		//User can enter Username Or EmailId
 		String identifier = request.getParameter("identifier");
 		String password = request.getParameter("password");		
@@ -39,7 +34,6 @@ public class LoginServlet extends HttpServlet {
 		try{
 			
 			Users user = new Users();
-			user.setRole(role);
 			user.setEmail(identifier);
 			user.setUserName(identifier);
 			user.setPassword(password);
@@ -47,19 +41,15 @@ public class LoginServlet extends HttpServlet {
 			UsersService usersService = new UsersServiceImpl();
 			
 			// if user is present then it gets all user data excluding password
+			//validateUser checks plain password against, hashed password  
 			user = usersService.validateUser(user);
 			
 			if( user != null ) {
+				//Create user session
+				SessionUtil.setUser(request, user);
 				
-				HttpSession session = request.getSession();
-				session.setAttribute("user", user);
-				
-				if(user.getRole().equals("user")) {
-					response.sendRedirect("UserDashboard");
-				}
-				else if(user.getRole().equals("admin")) {
-					response.sendRedirect("admindashboard");
-				}
+				//And redirect to their dash-board
+				SessionUtil.redirectToDashboard(request, response);
 			}
 			else {
 				//set an error message in request object

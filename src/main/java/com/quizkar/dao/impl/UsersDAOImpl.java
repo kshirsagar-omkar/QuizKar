@@ -228,7 +228,7 @@ public class UsersDAOImpl implements UsersDAO{
 		
 		List<Users> users = new ArrayList<Users>();
 		String query = "SELECT * FROM users";
-		int i = 0;
+		//int i = 0;
 		
 		try(Connection connection = DBUtil.getConnection();
 				PreparedStatement preparedStatement = connection.prepareStatement(query))

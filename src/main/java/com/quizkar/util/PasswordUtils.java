@@ -4,14 +4,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Utility class for password hashing and verification
  */
 public class PasswordUtils {
-    private static final Logger LOGGER = Logger.getLogger(PasswordUtils.class.getName());
     
     // Constants for salt generation
     private static final int SALT_LENGTH = 16;
@@ -45,7 +42,6 @@ public class PasswordUtils {
             
             return Base64.getEncoder().encodeToString(hashedPassword);
         } catch (NoSuchAlgorithmException e) {
-            LOGGER.log(Level.SEVERE, "Error hashing password", e);
             throw new RuntimeException("Error hashing password", e);
         }
     }

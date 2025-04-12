@@ -66,37 +66,6 @@ public class SessionUtil {
         return getUser(request) != null;
     }
 
-    /**
-     * Checks if the current user has a specific role
-     * @param request The HTTP request
-     * @param role The role to check for
-     * @return true if user has the role, false otherwise
-     */
-    public static boolean hasRole(HttpServletRequest request, String role) {
-        Users user = getUser(request);
-        if (user != null) {
-        	user.getRole().equalsIgnoreCase(role);
-        }
-        return false;
-    }
-
-    /**
-     * Checks if the current user has any of the specified roles
-     * @param request The HTTP request
-     * @param roles Array of roles to check
-     * @return true if user has any of the roles, false otherwise
-     */
-    public static boolean hasAnyRole(HttpServletRequest request, String[] roles) {
-        Users user = getUser(request);
-        if (user != null) {
-            for (String role : roles) {
-                if (user.getRole().equalsIgnoreCase(role)) {
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
     /**
      * Redirects to the appropriate dashboard based on user role

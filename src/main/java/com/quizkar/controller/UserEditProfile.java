@@ -14,8 +14,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import jakarta.websocket.Session;
 
 
 @WebServlet(name="UserEditProfile", value="/UserEditProfile")
@@ -23,26 +21,12 @@ public class UserEditProfile extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//Check if user is logged in 
-		Users user = SessionUtil.getUser(request);
-		if(user == null ) {
-			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
-			return;
-		}
-				
+	
 		request.getRequestDispatcher("pages/user/editProfile.jsp").forward(request, response);
 	}
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//Check if user is logged in 
-		Users user = SessionUtil.getUser(request);
-		if(user == null ) {
-			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
-			return;
-		}
 		
 		String actionStatus = "failed";
 		PrintWriter out = response.getWriter();

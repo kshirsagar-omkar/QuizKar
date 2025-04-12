@@ -1,11 +1,5 @@
 package com.quizkar.controller;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,15 +8,18 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.quizkar.constants.Role;
 import com.quizkar.entities.Question;
 import com.quizkar.entities.Quiz;
-import com.quizkar.entities.Users;
 import com.quizkar.service.QuestionService;
 import com.quizkar.service.QuizService;
 import com.quizkar.service.impl.QuestionServiceImpl;
 import com.quizkar.service.impl.QuizServiceImpl;
-import com.quizkar.util.SessionUtil;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * Servlet implementation class AdminAddQuizServlet
@@ -33,29 +30,13 @@ public class AdminAddQuizServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Users user = SessionUtil.getUser(request);
-
-		//Check if user is admin, and he is logged in 
-		if(user == null || ! user.getRole().equals(Role.ADMIN)) {
-			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
-			return;
-		}
-		
+	
 		request.getRequestDispatcher("pages/admin/addQuiz.jsp").forward(request, response);
 	}
 
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Users user = SessionUtil.getUser(request);
-
-		//Check if user is admin, and he is logged in 
-		if(user == null || ! user.getRole().equals(Role.ADMIN)) {
-			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
-			return;
-		}
 		
 		String actionStatus = "failed";
 		response.setContentType("text/html");

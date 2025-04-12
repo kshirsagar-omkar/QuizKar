@@ -4,12 +4,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 
-import com.quizkar.constants.Role;
 import com.quizkar.entities.StudyPlan;
-import com.quizkar.entities.Users;
 import com.quizkar.service.StudyPlanService;
 import com.quizkar.service.impl.StudyPlanServiceImpl;
-import com.quizkar.util.SessionUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -27,28 +24,11 @@ public class AdminStudyPlanServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
 		
-		Users user = SessionUtil.getUser(request);
-
-		//Check if user is admin, and he is logged in 
-		if(user == null || ! user.getRole().equals(Role.ADMIN)) {
-			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
-			return;
-		}
-		
 		request.getRequestDispatcher("pages/admin/addStudyPlan.jsp").forward(request, response);
 	}
 	
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		Users user = SessionUtil.getUser(request);
-
-		//Check if user is admin, and he is logged in 
-		if(user == null || ! user.getRole().equals(Role.ADMIN)) {
-			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
-			return;
-		}
-		
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		

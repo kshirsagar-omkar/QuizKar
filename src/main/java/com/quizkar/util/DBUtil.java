@@ -12,13 +12,13 @@ public class DBUtil {
 //    private static final String DB_PASS = "root@123";
 
     
-    //private static final String DB_URL = "jdbc:postgresql://ep-small-glade-a1aqhfjk-pooler.ap-southeast-1.aws.neon.tech:5432/quizkar?sslmode=require";
-    //private static final String DB_USER = "root";
-    //private static final String DB_PASS = "npg_YKH3dG4SInNx";
+    private static final String DB_URL = "jdbc:postgresql://ep-small-glade-a1aqhfjk-pooler.ap-southeast-1.aws.neon.tech:5432/quizkar?sslmode=require";
+    private static final String DB_USER = "root";
+    private static final String DB_PASS = "npg_YKH3dG4SInNx";
 
-    private static final String DB_URL = "jdbc:postgresql://localhost/quizkar_db";
-    private static final String DB_USER = "dnyaneshwar";
-    private static final String DB_PASS = "root@3121";
+    //private static final String DB_URL = "jdbc:postgresql://localhost/quizkar_db";
+    //private static final String DB_USER = "dnyaneshwar";
+    //private static final String DB_PASS = "root@3121";
     
     
 //    private static final String DATABASE_URL[] = System.getenv("DATABASE_URL").split(",");

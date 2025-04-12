@@ -7,12 +7,10 @@ import java.util.List;
 
 import com.quizkar.entities.StudyPlan;
 import com.quizkar.entities.UserStudyPlanEnrollment;
-import com.quizkar.entities.Users;
 import com.quizkar.service.StudyPlanService;
 import com.quizkar.service.UserStudyPlanEnrollmentService;
 import com.quizkar.service.impl.StudyPlanServiceImpl;
 import com.quizkar.service.impl.UserStudyPlanEnrollmentServiceImpl;
-import com.quizkar.util.SessionUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -27,13 +25,6 @@ public class UserStudyPlanServlet extends HttpServlet {
        
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//Check if user is logged in 
-		Users user = SessionUtil.getUser(request);
-		if(user == null ) {
-			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
-			return;
-		}
 		
 		List<StudyPlan> studyPlans = null;
 		
@@ -53,14 +44,7 @@ public class UserStudyPlanServlet extends HttpServlet {
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//Check if user is logged in 
-		Users user = SessionUtil.getUser(request);
-		if(user == null ) {
-			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
-			return;
-		}
-		
+
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
 		

@@ -8,12 +8,10 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import com.quizkar.entities.LeaderBoard;
-import com.quizkar.entities.Users;
 import com.quizkar.service.LeaderBoardService;
 import com.quizkar.service.QuestionService;
 import com.quizkar.service.impl.LeaderBoardServiceImpl;
 import com.quizkar.service.impl.QuestionServiceImpl;
-import com.quizkar.util.SessionUtil;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -26,26 +24,12 @@ public class UserSubmitQuiz extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//Check if user is logged in 
-		Users user = SessionUtil.getUser(request);
-		if(user == null ) {
-			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
-			return;
-		}
-		
+
 		response.sendRedirect("UserQuizzes");
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		//Check if user is logged in 
-		Users user = SessionUtil.getUser(request);
-		if(user == null ) {
-			response.sendRedirect( request.getContextPath() + "/LogoutServlet");
-			return;
-		}
-		
+
 		PrintWriter out = response.getWriter();
 		String actionStatus = "failed";
 		

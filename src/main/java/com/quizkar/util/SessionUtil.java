@@ -122,6 +122,7 @@ public class SessionUtil {
             }
              */
         }
-        response.sendRedirect(request.getContextPath());
+//        response.sendRedirect(request.getContextPath());
+        response.sendRedirect(".");
     }
 }

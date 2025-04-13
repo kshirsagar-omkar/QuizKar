@@ -258,7 +258,14 @@
                 quizSubmitted = true;
                 if (data.trim() === "success") {
                 	
-                	bootstrap.Modal.getInstance(document.getElementById('exitConfirmationModal')).hide();
+                	// Replace this line:
+                	//bootstrap.Modal.getInstance(document.getElementById('exitConfirmationModal')).hide();
+
+                	// With this safer version:
+                	const exitModal = bootstrap.Modal.getInstance(document.getElementById('exitConfirmationModal'));
+                	if (exitModal) {
+                	    exitModal.hide();
+                	}
                 	
                     const successModal = new bootstrap.Modal(document.getElementById('submitSuccessModal'));
                     successModal.show();

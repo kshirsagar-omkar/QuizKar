@@ -14,4 +14,7 @@ public interface EmailService {
 	//Generate the otp and send to the user
 	public abstract Boolean sendOTPViaMail(OTPVerification otpVerification) throws MessagingException, SQLException;
 	
+	
+	public abstract Boolean validateOTPViaMail(OTPVerification otpVerification, String inputOTP) throws SQLException;
+	
 }

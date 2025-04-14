@@ -30,9 +30,10 @@ public class EmailServiceImpl implements EmailService{
 	// Sender Email Configuration
     public static final String HOST = "smtp.gmail.com";
     public static final String PORT = "587";
-    public static final String SENDER_EMAIL = "quizkar.mail@gmail.com"; 
-    private static final String SENDER_NAME = "QuizKar";
-    public static final String PASSWORD = "xqbr fnrb kbag iiqi"; //your app password
+    private static final String EMAIL_SERVICE_SENDER_NAME = "QuizKar";
+    
+    public static final String EMAIL_SERVICE_SENDER_EMAIL =  System.getenv("EMAIL_SERVICE_SENDER_EMAIL"); 				
+    public static final String EMAIL_SERVICE_SENDER_PASSWORD = System.getenv("EMAIL_SERVICE_SENDER_PASSWORD");     		 //your app password
 
     
     //Sends the mail
@@ -49,7 +50,7 @@ public class EmailServiceImpl implements EmailService{
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(SENDER_EMAIL, PASSWORD);
+                return new PasswordAuthentication(EMAIL_SERVICE_SENDER_EMAIL, EMAIL_SERVICE_SENDER_PASSWORD);
             }
         });
 
@@ -58,7 +59,7 @@ public class EmailServiceImpl implements EmailService{
             // Compose the mail
             Message message = new MimeMessage(session);
             // Set the "From" address with a display name
-            message.setFrom(new InternetAddress(SENDER_EMAIL, SENDER_NAME));
+            message.setFrom(new InternetAddress(EMAIL_SERVICE_SENDER_EMAIL, EMAIL_SERVICE_SENDER_NAME));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
             message.setSubject(subject);
 //            message.setText(body);

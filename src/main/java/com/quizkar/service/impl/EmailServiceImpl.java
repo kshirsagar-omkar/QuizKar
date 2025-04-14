@@ -79,7 +79,7 @@ public class EmailServiceImpl implements EmailService{
     
     
     //Generate the OTP and send to the user
-    public Boolean sendOTPViaMail(OTPVerification otpVerification) throws SQLException{
+    public Boolean sendOTPViaMail(OTPVerification otpVerification) throws SQLException, MessagingException{
     	
     	//1. Generate the OTP
         Integer otpLength = 6;
@@ -112,15 +112,36 @@ public class EmailServiceImpl implements EmailService{
 
         try{
             this.sendEmail(otpVerification.getUserEmail(), subject, body);
-            System.out.println("OTP sent to " + otpVerification.getUserEmail());
+//            System.out.println("OTP sent to " + otpVerification.getUserEmail());
             return true;
         }
-        catch(MessagingException e){
-            System.out.println("Failed to send OTP email.");
-            e.printStackTrace();
+        catch(Exception e){
+//            System.out.println("Failed to send OTP email.");
+//            e.printStackTrace();
+        	throw e;
         }
-        return false;
     }
+    
+    
+    
+    
+    
+    public Boolean validateOTPViaMail(OTPVerification otpVerification, String inputOTP) throws SQLException{
+    	
+    	OTPVerificationDAO otpVerificationDAO = new OTPVerificationViaMailDAOImpl();
+
+        
+        if(otpVerificationDAO.validateOTP(otpVerification.getUserEmail(), inputOTP)){
+//            System.out.println("OTP is Valid!");
+        	return true;
+        }
+        else {
+//            System.out.println("Invalid OTP or OTP has expired.");
+        	return false;
+        }
+    
+    }
+    
     
     
     

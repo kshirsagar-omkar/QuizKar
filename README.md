@@ -42,132 +42,127 @@ QuizKar is a powerful, user-friendly platform designed for students and educator
 ## 📂 Project Structure
 
 ```
-📦 QuizKar
-├── 📂 .settings                   # IDE configurations
-├── 📂 relatedMaterial             # Supplementary materials
-│   ├── 📜 DatabaseSchema.sql      # Database schema script
-│   └── 📄 Database_Schema_Design.png # ER diagram
-├── 📂 src
-│   └── 📂 main
-│       ├── 📂 java
-│       │   └── 📂 com/quizkar
-│       │       ├── 📂 config       # Configuration classes
-│       │       ├── 📂 controller   # Servlet controllers
-│       │       │   ├── 📜 AboutUs.java
-│       │       │   ├── 📜 AdminAddQuizServlet.java
-│       │       │   ├── 📜 AdminDashboard.java
-│       │       │   ├── 📜 AdminQuizServlet.java
-│       │       │   ├── 📜 AdminStudyPlanServlet.java
-│       │       │   ├── 📜 DeleteAccountServlet.java
-│       │       │   ├── 📜 LoginServlet.java
-│       │       │   ├── 📜 LogoutServlet.java
-│       │       │   ├── 📜 RegisterServlet.java
-│       │       │   ├── 📜 UserDashboard.java
-│       │       │   ├── 📜 UserEditProfile.java
-│       │       │   ├── 📜 UserLeaderboard.java
-│       │       │   ├── 📜 UserProfile.java
-│       │       │   ├── 📜 UserQuizzes.java
-│       │       │   ├── 📜 UserStartQuiz.java
-│       │       │   ├── 📜 UserStudyPlanServlet.java
-│       │       │   └── 📜 UserSubmitQuiz.java
-│       │       ├── 📂 dao          # Data Access Layer
-│       │       │   ├── 📜 LeaderBoardDAO.java
-│       │       │   ├── 📜 LeaderBoardDAOImpl.java
-│       │       │   ├── 📜 QuestionDAO.java
-│       │       │   ├── 📜 QuestionDAOImpl.java
-│       │       │   ├── 📜 QuizDAO.java
-│       │       │   ├── 📜 QuizDAOImpl.java
-│       │       │   ├── 📜 StudyPlanDAO.java
-│       │       │   ├── 📜 StudyPlanDAOImpl.java
-│       │       │   ├── 📜 UserStudyPlanEnrollmentDAO.java
-│       │       │   ├── 📜 UserStudyPlanEnrollmentDAOImpl.java
-│       │       │   ├── 📜 UsersDAO.java
-│       │       │   └── 📜 UsersDAOImpl.java
-│       │       ├── 📂 dto          # Data Transfer Objects
-│       │       │   ├── 📜 GivenQuizesDTO.java
-│       │       │   └── 📜 GlobalLeaderBoardDTO.java
-│       │       ├── 📂 entities     # Database entities
-│       │       │   ├── 📜 LeaderBoard.java
-│       │       │   ├── 📜 Question.java
-│       │       │   ├── 📜 Quiz.java
-│       │       │   ├── 📜 StudyPlan.java
-│       │       │   ├── 📜 UserStudyPlanEnrollment.java
-│       │       │   └── 📜 Users.java
-│       │       ├── 📂 service      # Business Logic Layer
-│       │       │   ├── 📜 LeaderBoardService.java
-│       │       │   ├── 📜 LeaderBoardServiceImpl.java
-│       │       │   ├── 📜 QuestionService.java
-│       │       │   ├── 📜 QuestionServiceImpl.java
-│       │       │   ├── 📜 QuizService.java
-│       │       │   ├── 📜 QuizServiceImpl.java
-│       │       │   ├── 📜 StudyPlanService.java
-│       │       │   ├── 📜 StudyPlanServiceImpl.java
-│       │       │   ├── 📜 UserStudyPlanEnrollmentService.java
-│       │       │   ├── 📜 UserStudyPlanEnrollmentServiceImpl.java
-│       │       │   ├── 📜 UsersService.java
-│       │       │   └── 📜 UsersServiceImpl.java
-│       │       └── 📂 util         # Utility classes
-│       │           └── 📜 DBUtil.java
-│       └── 📂 webapp
-│           ├── 📂 META-INF         # Deployment descriptors
-│           ├── 📂 components       # Reusable components
-│           │   ├── 📜 chatbot.jsp
-│           │   └── 📜 navbar.jsp
-│           ├── 📂 css              # Stylesheets
-│           │   ├── 📜 about.css
-│           │   ├── 📜 admin-dashboard.css
-│           │   ├── 📜 admin-quiz-form.css
-│           │   ├── 📜 auth.css
-│           │   ├── 📜 dashboard.css
-│           │   ├── 📜 home.css
-│           │   ├── 📜 leaderboard.css
-│           │   ├── 📜 profile-edit.css
-│           │   ├── 📜 profile.css
-│           │   ├── 📜 quiz.css
-│           │   ├── 📜 quizzes.css
-│           │   ├── 📜 settings.css
-│           │   ├── 📜 study-plans.css
-│           │   └── 📜 theme.css
-│           ├── 📂 images           # Static assets
-│           └── 📂 pages            # View templates
-│               ├── 📂 about
-│               │   └── 📜 about.jsp
-│               ├── 📂 admin
-│               │   ├── 📂 js
-│               │   │   ├── 📜 addQuiz.js
-│               │   │   ├── 📜 addStudyPlan.js
-│               │   │   └── 📜 dashboard.js
-│               │   ├── 📜 addQuiz.jsp
-│               │   ├── 📜 addStudyPlan.jsp
-│               │   └── 📜 dashboard.jsp
-│               ├── 📂 auth
-│               │   ├── 📜 login.jsp
-│               │   └── 📜 register.jsp
-│               ├── 📂 user
-│               │   ├── 📂 js
-│               │   │   ├── 📜 dashboard.js
-│               │   │   ├── 📜 editProfile.js
-│               │   │   └── 📜 studyPlans.js
-│               │   ├── 📜 dashboard.jsp
-│               │   ├── 📜 editProfile.jsp
-│               │   ├── 📜 leaderboard.jsp
-│               │   ├── 📜 profile.jsp
-│               │   ├── 📜 quizQuestions.jsp
-│               │   ├── 📜 quizzes.jsp
-│               │   ├── 📜 settings.jsp
-│               │   └── 📜 studyPlans.jsp
-│               └── 📜 index.jsp
-├── 📂 target                      # Build output
-├── 📜 .classpath                  # IDE classpath
-├── 📜 .dockerignore               # Docker ignore rules
-├── 📜 .gitignore                  # Version control ignore
-├── 📜 .project                    # IDE project
-├── 📜 Dockerfile                  # Container configuration
-├── 📜 README.md                   # Project documentation
-├── 📜 pom.xml                     # Maven configuration
-└── 📜 CHANGELOG.md                # Version history
+📦 QuizKar/
+├── 📄 DatabaseSchema.sql
+├── 📄 Database_Schema_Design.png
+├── 📁 src/
+│   ├── 📁 main/
+│   │   ├── 📁 java/com/quizkar/
+│   │   │   ├── 📁 constants/
+│   │   │   │   └── 🟢 Role.java
+│   │   │   ├── 📁 controller/
+│   │   │   │   ├── 🟢 AboutUs.java
+│   │   │   │   ├── 🟢 Admin*.java (6 files)
+│   │   │   │   ├── 🟢 User*.java (8 files)
+│   │   │   │   └── 🟢 *Servlet.java (5 files)
+│   │   │   ├── 📁 dao/impl/
+│   │   │   │   ├── 🟢 *DAO.java (7 files)
+│   │   │   ├── 📁 dto/
+│   │   │   │   ├── 🟢 GivenQuizesDTO.java
+│   │   │   │   └── 🟢 GlobalLeaderBoardDTO.java
+│   │   │   ├── 📁 entities/
+│   │   │   │   ├── 🟢 *.java (6 entity files)
+│   │   │   ├── 📁 service/impl/
+│   │   │   │   ├── 🟢 *ServiceImpl.java (7 files)
+│   │   │   │   └── 🟢 *Service.java (7 interfaces)
+│   │   │   └── 📁 util/
+│   │   │       ├── 🟢 DBUtil.java
+│   │   │       ├── 🟢 HashPasswordOfUsers.java
+│   │   │       ├── 🟢 OTPGenerator.java
+│   │   │       ├── 🟢 PasswordUtils.java
+│   │   │       └── 🟢 SessionUtil.java
+│   │   └── 📁 webapp/
+│   │       ├── 📁 META-INF/
+│   │       │   └── 📄 MANIFEST.MF
+│   │       ├── 📁 components/
+│   │       │   ├── 🎨 chatbot.jsp
+│   │       │   └── 🎨 navbar.jsp
+│   │       ├── 📁 css/
+│   │       │   ├── 🎨 *.css (11 theme files)
+│   │       ├── 📁 images/
+│   │       │   ├── 🖼️ *.png/jpg (8 image files)
+│   │       ├── 📁 pages/
+│   │       │   ├── 📁 admin/
+│   │       │   │   ├── 📁 js/
+│   │       │   │   │   ├── 📜 addQuiz.js
+│   │       │   │   │   ├── 📜 addStudyPlan.js
+│   │       │   │   │   └── 📜 dashboard.js
+│   │       │   │   └── 🎨 *.jsp (3 files)
+│   │       │   ├── 📁 auth/
+│   │       │   │   ├── 📁 js/
+│   │       │   │   │   ├── 📜 forgotPassword.js
+│   │       │   │   │   └── 📜 register.js
+│   │       │   │   └── 🎨 *.jsp (3 files)
+│   │       │   ├── 📁 user/
+│   │       │   │   ├── 📁 js/
+│   │       │   │   │   ├── 📜 dashboard.js
+│   │       │   │   │   ├── 📜 editProfile.js
+│   │       │   │   │   └── 📜 studyPlans.js
+│   │       │   │   └── 🎨 *.jsp (7 files)
+│   │       │   └── 🎨 index.jsp
+│   ├── 📁 target/
+├── 📄 .classpath
+├── 📄 .dockerignore
+├── 📄 .gitignore
+├── 📄 .project
+├── 🐳 Dockerfile
+└── 📄 pom.xml
 
 ```
+
+## 🌟 Key Components
+# 🏗️ Core Architecture
+```
+📦 com.quizkar
+├── 🛡️ Controllers (Servlet endpoints)
+├── 🗃️ DAO Layer (Data Access)
+├── 📦 DTOs (Data Transfer Objects)
+├── 🏛️ Entities (JPA Models)
+├── ⚙️ Services (Business Logic)
+└── 🧰 Utilities (Helpers)
+```
+
+# 🎨 Frontend Structure
+```
+📦 webapp
+├── 🧩 Components (Reusable JSPs)
+├── 🎨 CSS (11 Theme Files)
+├── 🖼️ Images (Assets)
+└── 📄 Pages (JSP Views)
+   ├── 👨‍💻 Admin Portal
+   ├── 🔐 Auth System
+   └️ 👤 User Dashboard
+```
+
+# 🛠️ Build & Deployment
+```
+📜 Dockerfile - Container configuration
+📜 pom.xml - Maven dependencies
+📜 *.sql - Database schema
+```
+
+
+## This visualization uses:
+
+* 📁 Folder icons for directories
+
+* 📄 Document icons for files
+
+* 🟢 Java icons for backend code
+
+* 🎨 Palette icons for frontend assets
+
+* 🛡️ Shield icon for controllers
+
+* 🗃️ File cabinet icon for DAO layer
+
+* ⚙️ Gear icon for services
+
+* 🧰 Toolbox icon for utilities
+
+* 🐳 Whale icon for Docker
+
+* 🌟 Star icon for key sections
 
 
 ## 🔗 Database Schema Diagram

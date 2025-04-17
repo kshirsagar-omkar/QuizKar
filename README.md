@@ -39,7 +39,7 @@ QuizKar is a powerful, user-friendly platform designed for students and educator
 - Service layer for business logic
 - Controller layer for request handling
 
-## 📂 Project Structure
+# 📂 Project Structure
 
 ```
 📦 QuizKar/
@@ -110,8 +110,8 @@ QuizKar is a powerful, user-friendly platform designed for students and educator
 
 ```
 
-## 🌟 Key Components
-# 🏗️ Core Architecture
+# 🌟 Key Components
+## 🏗️ Core Architecture
 ```
 📦 com.quizkar
 ├── 🛡️ Controllers (Servlet endpoints)
@@ -122,7 +122,7 @@ QuizKar is a powerful, user-friendly platform designed for students and educator
 └── 🧰 Utilities (Helpers)
 ```
 
-# 🎨 Frontend Structure
+## 🎨 Frontend Structure
 ```
 📦 webapp
 ├── 🧩 Components (Reusable JSPs)
@@ -134,7 +134,7 @@ QuizKar is a powerful, user-friendly platform designed for students and educator
    └️ 👤 User Dashboard
 ```
 
-# 🛠️ Build & Deployment
+## 🛠️ Build & Deployment
 ```
 📜 Dockerfile - Container configuration
 📜 pom.xml - Maven dependencies
@@ -142,7 +142,7 @@ QuizKar is a powerful, user-friendly platform designed for students and educator
 ```
 
 
-## This visualization uses:
+# This visualization uses:
 
 * 📁 Folder icons for directories
 

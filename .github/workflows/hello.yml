@@ -1,6 +1,7 @@
 name: Run PostgreSQL Command
 
 on:
+  workflow_dispatch: # Trigger manually from GitHub Actions interface
   schedule:
     - cron: '0 2 * * 0' # Runs every Sunday at 2:00 AM UTC
 

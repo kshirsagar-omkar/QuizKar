@@ -204,9 +204,13 @@ Omkar Kshirsagar
 
 ### 🌱 Create a Feature Branch
 - Clone your fork:
+```cmd
   git clone https://github.com/<your-username>/QuizKar.git
+```
 - Create a new branch:
+```cmd
   git checkout -b feature/your-feature-name
+```
 
 ### 🛠️ Make Your Changes
 - Write clean, modular code.
@@ -217,7 +221,9 @@ Omkar Kshirsagar
 
 ### 📜 Submit a Pull Request (PR)
 - Push your branch:
+```cmd
   git push origin feature/your-feature-name
+```
 - Open a pull request to the main repo.
 - Include a clear title and description.
 

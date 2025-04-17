@@ -1,0 +1,19 @@
+name: Neon Hello World Job
+
+on:
+  schedule:
+    - cron: '0 2 * * 0' # Every Sunday at 2 AM UTC
+
+jobs:
+  run-sql:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install PostgreSQL Client
+        run: |
+          sudo apt-get update
+          sudo apt-get install postgresql-client -y
+
+      - name: Run Hello World on Neon
+        run: |
+          echo "Connecting to Neon DB and running SQL..."
+          PGPASSWORD="${{ secrets.DB_PASSWORD }}" psql -h ${{ secrets.DB_HOST }} -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} -c "DO \$\$ BEGIN RAISE NOTICE 'Hello World from GitHub Actions!'; END \$\$;"

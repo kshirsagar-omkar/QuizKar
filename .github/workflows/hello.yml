@@ -19,4 +19,4 @@ jobs:
 
       - name: Run PostgreSQL Command
         run: |
-          psql -h $DB_HOST -U $DB_USER -d $DB_NAME -c "SELECT hello world;"
+            psql -h $DB_HOST -U $DB_USER -d $DB_NAME -c "SELECT 'hello world';"

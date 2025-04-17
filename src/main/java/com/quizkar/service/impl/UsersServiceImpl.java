@@ -74,4 +74,11 @@ public class UsersServiceImpl implements UsersService {
 		UsersDAO usersDAO = new UsersDAOImpl();
 		return usersDAO.getAllUsers();
 	}
+	
+	
+	//ReSet the password(update password) // returns row affected
+	public Integer updatePassword(Users user) throws SQLException{
+		UsersDAO usersDAO = new UsersDAOImpl();
+		return usersDAO.updatePassword(user);
+	}
 }

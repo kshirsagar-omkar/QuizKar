@@ -39,6 +39,10 @@
                             <button type="submit" class="btn btn-custom w-100 py-2">Login</button>
                             
                             <div class="text-center mt-3">
+                                <p class="text-muted">Forget Password? <a href="ForgetPasswordServlet" class="text-decoration-none">Reset here</a></p>
+                            </div>
+                            
+                            <div class="text-center mt-0">
                                 <p class="text-muted">New user? <a href="register" class="text-decoration-none">Register here</a></p>
                             </div>
                         </form>

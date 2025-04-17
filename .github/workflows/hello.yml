@@ -10,8 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Run PostgreSQL Command
-        env:
-          PGPASSWORD: secrets.DB_PASSWORD # Replace 'your_password' with the actual password
+      - name: Set up environment variables
         run: |
-          psql -h secrets.DB_HOST -U secrets.DB_USER -d secrets.DB_NAME -c "SELECT hello world;"
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> $GITHUB_ENV
+          echo "DB_USER=${{ secrets.DB_USER }}" >> $GITHUB_ENV
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> $GITHUB_ENV
+          echo "PGPASSWORD=${{ secrets.DB_PASSWORD }}" >> $GITHUB_ENV
+
+      - name: Run PostgreSQL Command
+        run: |
+          psql -h $DB_HOST -U $DB_USER -d $DB_NAME -c "SELECT hello world;"

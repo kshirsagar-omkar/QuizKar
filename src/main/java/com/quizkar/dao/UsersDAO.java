@@ -37,4 +37,8 @@ public interface UsersDAO {
 
 	//Gets all users
 	public abstract List<Users> getAllUsers() throws SQLException;
+	
+	
+	//ReSet the password(update password) // returns row affected
+	public abstract Integer updatePassword(Users user) throws SQLException;
 }

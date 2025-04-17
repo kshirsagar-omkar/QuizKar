@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/theme.css">
     <!-- Profile-specific CSS -->
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/profile-edit.css?v2">
+    <link rel="stylesheet" href="css/auth.css?v6">
 </head>
 <body class="bg-light">
     <%
@@ -100,6 +101,34 @@
                                     Please provide a valid email
                                 </div>
                             </div>
+                            
+                            
+                            
+                            <!-- Add this OTP section after the email input in the edit section -->
+							<div class="mb-3 otp-section" id="otpSection" style="display: none;">
+							    <div class="verification-badge">
+							        <span class="badge-text">Verification in progress</span>
+							    </div>
+							    <div class="otp-header mb-2">
+							        <span>We've sent a code to <span id="emailDisplay" class="fw-bold"></span></span>
+							    </div>
+							    <div class="otp-input-container mb-2">
+							        <label for="otpInput" class="form-label">Enter 6-digit verification code</label>
+							        <div class="input-group">
+							            <input type="text" class="form-control" id="otpInput" maxlength="6" pattern="\d{6}" placeholder="Enter code">
+							            <button class="btn btn-custom" type="button" id="verifyOtpBtn">Verify</button>
+							        </div>
+							    </div>
+							    <div class="d-flex justify-content-between mt-2">
+							        <small id="otpStatus" class="text-muted"></small>
+							        <small id="otpAttempts" class="text-muted"></small>
+							    </div>
+							</div>
+							
+							<!-- Add this hidden input to track email verification -->
+							<input type="hidden" id="emailVerified" value="false">
+                            
+                            
                             
                             <div class="mb-4">
                                 <label for="newPassword" class="form-label">New Password</label>

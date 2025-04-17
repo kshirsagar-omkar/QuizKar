@@ -285,7 +285,7 @@ One thing that stood out to me was the excellent UI/UX experience – everything
     <!-- Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
-    <script src="${pageContext.request.contextPath}/js/home.js"></script>
+    
     <jsp:include page="components/chatbot.jsp"/>
 </body>
 </html>

@@ -2,6 +2,7 @@ package com.quizkar.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 import com.quizkar.entities.Users;
 import com.quizkar.service.UsersService;
@@ -40,6 +41,9 @@ public class UserEditProfile extends HttpServlet {
 			}
 			else if(action.equals("edit")) {
 				actionStatus = editUser(request, response);
+			}
+			else if(action.equals("updatePassword")) {
+				actionStatus = updatePasswordUser(request, response);
 			}
 		
 			out.println(actionStatus);
@@ -127,6 +131,39 @@ public class UserEditProfile extends HttpServlet {
 		
 	}
 	
+	
+	
+	
+	private String updatePasswordUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		
+		try {
+			UsersService usersService = new UsersServiceImpl();	
+			
+			String email = request.getParameter("email");
+			String password = request.getParameter("password");
+			
+			//Hash the password, before the Updating
+			String securedPassword = PasswordUtils.generateSecurePassword(password);
+			
+			Users user = new Users();
+			user.setEmail(email);
+			user.setPassword(securedPassword);
+			
+			Integer rowsAffected = usersService.updatePassword(user);
+			
+			if( rowsAffected > 0 ) {
+				return "success";
+			}
+		}
+		catch(SQLException e) {
+			e.printStackTrace();
+			return "failed";
+		}
+		
+		return "failed";
+	}
+
 	
 
 }

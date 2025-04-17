@@ -279,7 +279,7 @@ public class UsersDAOImpl implements UsersDAO{
 	}
 	
 	/**
-	 * Maps Result set with the user object
+	 * Maps Result set with the user object //Helper method
 	 * 
 	 * @param resultSet
 	 * @return mapped result object or null on Exception
@@ -301,6 +301,42 @@ public class UsersDAOImpl implements UsersDAO{
 	}
 	
 	
+	
+	
+	//ReSet the password(update password) // returns row affected
+		public Integer updatePassword(Users user) throws SQLException{
+			
+			String query = "UPDATE users SET password = ? WHERE email = ?";
+			Integer affectedRows = 0;
+			
+			try(Connection connection  = DBUtil.getConnection()) {
+				
+				connection.setAutoCommit(false);
+				
+				try( PreparedStatement preparedStatement = connection.prepareStatement(query)){
+					
+					
+					preparedStatement.setString(2, user.getEmail());
+					preparedStatement.setString(1, user.getPassword());
+					
+					affectedRows = preparedStatement.executeUpdate();
+					connection.commit();
+				}
+				catch(SQLException e) {
+					e.printStackTrace();
+					if(connection != null) {
+						try {
+							connection.rollback();
+						}
+						catch(SQLException rollBackEX) {
+							rollBackEX.printStackTrace();
+						}
+					}
+					throw e;
+				}
+			}
+			return affectedRows;
+		}
 	
 	
 	

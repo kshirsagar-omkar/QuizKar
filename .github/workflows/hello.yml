@@ -1,26 +1,16 @@
-name: Neon Hello World Job
+name: Run PostgreSQL Command
 
 on:
-  workflow_dispatch:  # Trigger manually from GitHub Actions interface
   schedule:
-    - cron: '0 2 * * 0'  # Runs every Sunday at 2 AM UTC
+    - cron: '0 2 * * 0' # Runs every Sunday at 2:00 AM UTC
 
 jobs:
-  run-sql:
+  run-postgres-command:
     runs-on: ubuntu-latest
+
     steps:
-      # Step 1: Checkout the code
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      # Step 2: Install PostgreSQL Client
-      - name: Install PostgreSQL Client
+      - name: Run PostgreSQL Command
+        env:
+          PGPASSWORD: secrets.DB_PASSWORD # Replace 'your_password' with the actual password
         run: |
-          sudo apt-get update
-          sudo apt-get install postgresql-client -y
-
-      # Step 3: Run SQL on Neon DB
-      - name: Run SQL on Neon DB
-        run: |
-          echo "Running SQL on Neon..."
-          PGPASSWORD=$(echo ${{ secrets.DB_CONNECTION_STRING }} | sed -n 's/^postgres:\/\/[^:]*:\([^@]*\)@.*/\1/p') psql $(echo ${{ secrets.DB_CONNECTION_STRING }} | sed -n 's/^postgres:\/\/\([^:]*:[^@]*\)@.*/-h \1/p') -d $(echo ${{ secrets.DB_CONNECTION_STRING }} | sed -n 's/^postgres:\/\/[^:]*:[^@]*@[^:]*:\([0-9]*\)\/\([^ ]*\)/-d \2/p') -c "SELECT 1;"
+          psql -h secrets.DB_HOST -U secrets.DB_USER -d secrets.DB_NAME -c "SELECT hello world;"

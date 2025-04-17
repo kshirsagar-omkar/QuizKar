@@ -1,20 +1,26 @@
 name: Neon Hello World Job
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  # Trigger manually from GitHub Actions interface
   schedule:
-    - cron: '0 2 * * 0'
+    - cron: '0 2 * * 0'  # Runs every Sunday at 2 AM UTC
 
 jobs:
   run-sql:
     runs-on: ubuntu-latest
     steps:
+      # Step 1: Checkout the code
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      # Step 2: Install PostgreSQL Client
       - name: Install PostgreSQL Client
         run: |
           sudo apt-get update
           sudo apt-get install postgresql-client -y
 
+      # Step 3: Run SQL on Neon DB
       - name: Run SQL on Neon DB
         run: |
           echo "Running SQL on Neon..."
-          PGPASSWORD="${{ secrets.DB_PASSWORD }}" psql -h ${{ secrets.DB_HOST }} -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} -c "DO $$ BEGIN RAISE NOTICE 'Hello World!'; END $$;"
+          PGPASSWORD=$(echo ${{ secrets.DB_CONNECTION_STRING }} | sed -n 's/^postgres:\/\/[^:]*:\([^@]*\)@.*/\1/p') psql $(echo ${{ secrets.DB_CONNECTION_STRING }} | sed -n 's/^postgres:\/\/\([^:]*:[^@]*\)@.*/-h \1/p') -d $(echo ${{ secrets.DB_CONNECTION_STRING }} | sed -n 's/^postgres:\/\/[^:]*:[^@]*@[^:]*:\([0-9]*\)\/\([^ ]*\)/-d \2/p') -c "SELECT 1;"

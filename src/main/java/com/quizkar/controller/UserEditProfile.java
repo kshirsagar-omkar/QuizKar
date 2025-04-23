@@ -136,54 +136,50 @@ public class UserEditProfile extends HttpServlet {
 	
 	private String updatePasswordUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		
+
 		try {
 			UsersService usersService = new UsersServiceImpl();	
-			
+
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
 			String requestFrom = request.getParameter("requestFrom"); // "forgotPassword" 
-			boolean isEmailValid = true;
-			
+
+
 			//If the request is from the forgotPassword, then validate the email
 			if(requestFrom != null && requestFrom.equals("forgotPassword")) {
 				String verifiedEmail = SessionUtil.getVerifiedEmail(request);
-				
+
 				if(verifiedEmail == null || ! verifiedEmail.equals(email)) {
-					isEmailValid = false;
-				}
-			}
-			
-			if(isEmailValid) {
-				//Hash the password, before the Updating
-				String securedPassword = PasswordUtils.generateSecurePassword(password);
-				
-				Users user = new Users();
-				user.setEmail(email);
-				user.setPassword(securedPassword);
-				
-				Integer rowsAffected = usersService.updatePassword(user);
-				
-				if( rowsAffected > 0 ) {
 					//Clear verified email from session
 					SessionUtil.removeVerifiedEmail(request);
-					return "success";
-				}				
+					
+					//For proper error message
+					return "invalidEmail";
+				}
 			}
-			else {
+
+
+			//Hash the password, before the Updating
+			String securedPassword = PasswordUtils.generateSecurePassword(password);
+
+			Users user = new Users();
+			user.setEmail(email);
+			user.setPassword(securedPassword);
+
+			Integer rowsAffected = usersService.updatePassword(user);
+
+			if( rowsAffected > 0 ) {
 				//Clear verified email from session
 				SessionUtil.removeVerifiedEmail(request);
-				//For proper error message
-				return "invalidEmail";
-			}
-			
-			//Can remove verified email before if(isEmailVerifeid), but didn't do it in case of 'failed' 
+				return "success";
+			}				
+
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 			return "failed";
 		}
-		
+
 		return "failed";
 	}
 

@@ -142,19 +142,42 @@ public class UserEditProfile extends HttpServlet {
 			
 			String email = request.getParameter("email");
 			String password = request.getParameter("password");
+			String requestFrom = request.getParameter("requestFrom"); // "forgotPassword" 
+			boolean isEmailValid = true;
 			
-			//Hash the password, before the Updating
-			String securedPassword = PasswordUtils.generateSecurePassword(password);
-			
-			Users user = new Users();
-			user.setEmail(email);
-			user.setPassword(securedPassword);
-			
-			Integer rowsAffected = usersService.updatePassword(user);
-			
-			if( rowsAffected > 0 ) {
-				return "success";
+			//If the request is from the forgotPassword, then validate the email
+			if(requestFrom != null && requestFrom.equals("forgotPassword")) {
+				String verifiedEmail = SessionUtil.getVerifiedEmail(request);
+				
+				if(verifiedEmail == null || ! verifiedEmail.equals(email)) {
+					isEmailValid = false;
+				}
 			}
+			
+			if(isEmailValid) {
+				//Hash the password, before the Updating
+				String securedPassword = PasswordUtils.generateSecurePassword(password);
+				
+				Users user = new Users();
+				user.setEmail(email);
+				user.setPassword(securedPassword);
+				
+				Integer rowsAffected = usersService.updatePassword(user);
+				
+				if( rowsAffected > 0 ) {
+					//Clear verified email from session
+					SessionUtil.removeVerifiedEmail(request);
+					return "success";
+				}				
+			}
+			else {
+				//Clear verified email from session
+				SessionUtil.removeVerifiedEmail(request);
+				//For proper error message
+				return "invalidEmail";
+			}
+			
+			//Can remove verified email before if(isEmailVerifeid), but didn't do it in case of 'failed' 
 		}
 		catch(SQLException e) {
 			e.printStackTrace();

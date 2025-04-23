@@ -39,4 +39,8 @@ public interface UsersService {
 	
 	//ReSet the password(update password) // returns row affected
 	public abstract Integer updatePassword(Users user) throws SQLException;
+	
+	//Get user by email 
+	public abstract Users getUserByEmail(String email) throws SQLException;
+
 }

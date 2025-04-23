@@ -29,6 +29,11 @@ public class SessionUtil {
         
     }
     
+    /**
+     * When the user updates his details, then also update the session info
+     * @param request The HTTP request
+     * @param user The user to update session info
+     */
     public static void updateUser(HttpServletRequest request, Users user) {
         HttpSession session = request.getSession(false); // Retrieve existing session if it exists
         if (session != null) {
@@ -43,7 +48,47 @@ public class SessionUtil {
         }
     }
 
+    /**
+     * set verified email in session, use at the time of registration and forgot password 
+     * 
+     * @param request The HTTP request
+     * @param email The email id to set
+     */
+    public static void setVerifiedEmail(HttpServletRequest request, String email) {
+    	HttpSession session = request.getSession(false);
+    	if(session != null) {
+    		session.setAttribute("verifiedEmail", email);
+    	}else {
+    		session = request.getSession();
+    		session.setAttribute("verifiedEmail", email);
+    	}
+    }
+    
+    /**
+     * get the verified email 
+     * @param request
+     * @return
+     */
+    public static String getVerifiedEmail(HttpServletRequest request) {
+    	 HttpSession session = request.getSession(false);
+         if (session != null) {
+             return (String) session.getAttribute("verifiedEmail");
+         }
+         return null;
+    }
 
+    /**
+     * remove verified email from session. 
+     * when registration is complete or password is changed from forgot password page, then remove the email from session 
+     * @param request The HTTP request
+     */
+    public static void removeVerifiedEmail(HttpServletRequest request) {
+    	HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
+        }
+    }
+    
     /**
      * Gets the currently logged in user from session
      * @param request The HTTP request

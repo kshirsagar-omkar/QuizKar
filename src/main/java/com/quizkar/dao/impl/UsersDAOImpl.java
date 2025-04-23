@@ -339,7 +339,24 @@ public class UsersDAOImpl implements UsersDAO{
 		}
 	
 	
-	
+
+		@Override
+		public Users getUserByEmail(String email) throws SQLException {
+			String query = "SELECT * FROM users WHERE email = ? ";
+
+			try (Connection connection = DBUtil.getConnection();
+					PreparedStatement preparedStatement = connection.prepareStatement(query)){
+
+				preparedStatement.setString(1, email);
+
+				try(ResultSet resultSet = preparedStatement.executeQuery()){
+					if(resultSet.next()) {
+						return  mapResultSetToUsers(resultSet);
+					}
+				}
+			}
+			return null;
+		}
 	
 	
 	

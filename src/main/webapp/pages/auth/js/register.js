@@ -101,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         let params = new URLSearchParams({
             action: 'sendOTP',
+			requestFrom : "register",
             email: email
         });
         
@@ -125,7 +126,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 updateAttemptsCounter();
-            } else {
+            }
+			else if (data.trim() === "account_exists") {
+                sendOtpBtn.disabled = false;
+                sendOtpBtn.textContent = otpSection.style.display === 'block' ? 'Resend OTP' : 'Send OTP';
+                showAlert('Email already exists!', 'error');
+                canSendOtp = true;
+			}
+			else {
                 sendOtpBtn.disabled = false;
                 sendOtpBtn.textContent = otpSection.style.display === 'block' ? 'Resend OTP' : 'Send OTP';
                 showAlert('Failed to send verification code. Please try again.', 'error');

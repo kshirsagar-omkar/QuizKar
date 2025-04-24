@@ -81,4 +81,11 @@ public class UsersServiceImpl implements UsersService {
 		UsersDAO usersDAO = new UsersDAOImpl();
 		return usersDAO.updatePassword(user);
 	}
+
+
+	@Override
+	public Users getUserByEmail(String email) throws SQLException {
+		UsersDAO usersDAO = new UsersDAOImpl();
+		return usersDAO.getUserByEmail(email);
+	}
 }

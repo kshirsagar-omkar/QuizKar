@@ -59,6 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         let params = new URLSearchParams({
             action: 'updatePassword',
+			requestFrom : "forgotPassword",
             email: email,
             password: password
         });
@@ -74,7 +75,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                     window.location.href = 'login';
                 }, 3000);
-            } else {
+            }
+			else if (data.trim() === "invalidEmail"){
+				showAlert('Invalid action detected. Please restart the password reset process.', 'error');
+				emailVerifiedInput.value = 'false';
+				resetPasswordBtn.disabled = true;
+		        resetPasswordBtn.innerHTML = 'Reset Password';
+				otpSection.style.display = 'none';
+				newPasswordSection.style.display = 'none';
+				resetOtpState();
+			}
+			 else {
                 resetPasswordBtn.disabled = false;
                 resetPasswordBtn.textContent = 'Reset Password';
                 showAlert('Failed to reset password. Please try again.', 'error');
@@ -152,10 +163,11 @@ document.addEventListener('DOMContentLoaded', function() {
         sendOtpBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Sending...';
         canSendOtp = false;
         
-        let params = new URLSearchParams({
-            action: 'sendOTP',
-            email: email
-        });
+		let params = new URLSearchParams({
+		    action: 'sendOTP',
+		    requestFrom: 'forgotPassword',
+		    email: email
+		 });
         
         fetch("EmailServiceServlet", {
             method: "POST",
@@ -176,7 +188,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
                 
                 updateAttemptsCounter();
-            } else {
+            } 
+			else if(data.trim() === "no_account"){
+			    sendOtpBtn.disabled = false;
+			    sendOtpBtn.textContent = otpSection.style.display === 'block' ? 'Resend OTP' : 'Send OTP';
+			    showAlert('We couldn’t find an account associated with that email. Please check for any typos and try again.', 'error');
+			    canSendOtp = true;
+			}
+			else {
                 sendOtpBtn.disabled = false;
                 sendOtpBtn.textContent = otpSection.style.display === 'block' ? 'Resend OTP' : 'Send OTP';
                 showAlert('Failed to send verification code. Please try again.', 'error');

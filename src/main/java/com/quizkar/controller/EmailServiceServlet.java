@@ -3,6 +3,7 @@ package com.quizkar.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.concurrent.Future;
 
 import javax.mail.MessagingException;
 
@@ -85,12 +86,25 @@ public class EmailServiceServlet extends HttpServlet {
 	
 	public static String sendOTP(OTPVerification otpVerification) throws MessagingException, SQLException{
 		
-		EmailService emailService = new EmailServiceImpl();
+		// Sending OTP in a separate thread so that the main thread doesn't do the heavy work directly.
+		// We still wait for the result (using future.get()), but this way the app can handle many users better.
+		// This makes it easier to send emails for multiple users at the same time without slowing down everything.
+
 		
-    	if(emailService.sendOTPViaMail(otpVerification))
-    		return "success";
-    	else
-    		return "failed";
+		EmailService emailService = new EmailServiceImpl();
+		Future<Boolean> future = emailService.sendOTPViaMailAsync(otpVerification);
+
+		try {
+		    if (future.get()) {
+		        return "success";
+		    } else {
+		        return "failed";
+		    }
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    return "failed";
+		}
+
 	}
 	
 	
